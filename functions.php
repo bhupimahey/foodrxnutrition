@@ -668,3 +668,6 @@ function healthy_living_run_reinit_import_options($post_id, $key, $value) {
 
 add_action('import_post_meta', 'healthy_living_run_reinit_import_options', 10, 3);
 
+// Food Rx Nutrition custom pages and content.
+require_once get_template_directory() . '/inc/foodrx/bootstrap.php';
+

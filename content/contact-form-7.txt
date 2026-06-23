@@ -1,0 +1,49 @@
+Food Rx Contact Form
+====================
+
+Import in WordPress: Contact → Add New → switch to "Text" tab → paste below.
+
+Form markup:
+------------
+
+<label> First Name (required)
+    [text* first-name autocomplete:name] </label>
+
+<label> Last Name (required)
+    [text* last-name autocomplete:name] </label>
+
+<label> Email (required)
+    [email* your-email autocomplete:email] </label>
+
+<label> Message (required)
+    [textarea* your-message] </label>
+
+[acceptance acceptance-terms] I agree to the Terms and Conditions and Privacy Policy [/acceptance]
+
+[submit "Send Message"]
+
+Mail tab:
+---------
+To: your-email@example.com
+Subject: Food Rx — New contact form message
+
+From: [your-email]
+Reply-To: [your-email]
+
+Message body:
+From: [first-name] [last-name]
+Email: [your-email]
+
+Message:
+[your-message]
+
+---
+After creating the form:
+1. Note the form ID (shown in the shortcode, e.g. id="123")
+2. Optional: run in WP admin or add to wp-config:
+   update_option('foodrx_cf7_form_id', 123);
+3. Or assign the Food Rx — Contact page template — it auto-finds a form titled "Food Rx Contact"
+
+Messages tab:
+-------------
+Validation errors acceptance: Please agree to the Terms and Conditions and Privacy Policy before submitting.

@@ -1,0 +1,268 @@
+/**
+ * Food Rx custom page styles — complements Healthy Living theme.
+ */
+
+.foodrx-page {
+	max-width: 1140px;
+	margin: 0 auto;
+	padding: 20px 20px 60px;
+}
+
+.foodrx-hero {
+	text-align: center;
+	padding: 40px 20px 50px;
+	margin-bottom: 30px;
+	background: #f8f8f8;
+	border-radius: 8px;
+}
+
+.foodrx-hero__label {
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	margin-bottom: 12px;
+	color: #01b4bd;
+}
+
+.foodrx-hero__title {
+	font-size: 42px;
+	line-height: 1.2;
+	margin: 0 0 16px;
+	color: #333539;
+}
+
+.foodrx-hero__subtitle {
+	font-size: 18px;
+	line-height: 1.6;
+	max-width: 760px;
+	margin: 0 auto 20px;
+	color: #7b7b7b;
+}
+
+.foodrx-hero__cta {
+	margin-top: 24px;
+}
+
+.foodrx-button {
+	display: inline-block;
+	padding: 14px 28px;
+	background: #a7d433;
+	color: #fff !important;
+	border-radius: 4px;
+	font-weight: 700;
+	text-decoration: none;
+	transition: background 0.2s ease;
+}
+
+.foodrx-button:hover {
+	background: #01b4bd;
+	color: #fff !important;
+}
+
+.foodrx-section {
+	margin-bottom: 48px;
+}
+
+.foodrx-section__title {
+	font-size: 28px;
+	margin-bottom: 16px;
+	color: #333539;
+}
+
+.foodrx-section__intro {
+	font-size: 17px;
+	line-height: 1.6;
+	color: #7b7b7b;
+	margin-bottom: 24px;
+}
+
+.foodrx-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 24px;
+}
+
+.foodrx-card {
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	padding: 24px;
+}
+
+.foodrx-card__title {
+	font-size: 20px;
+	margin: 0 0 12px;
+	color: #01b4bd;
+}
+
+.foodrx-card__body p {
+	margin: 0 0 12px;
+	line-height: 1.6;
+	color: #555;
+}
+
+.foodrx-list {
+	margin: 0;
+	padding-left: 22px;
+}
+
+.foodrx-list li {
+	margin-bottom: 10px;
+	line-height: 1.5;
+}
+
+.foodrx-steps {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 24px;
+}
+
+.foodrx-step {
+	background: #fff;
+	border-left: 4px solid #a7d433;
+	padding: 20px 20px 20px 24px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.foodrx-step__num {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	border-radius: 50%;
+	background: #01b4bd;
+	color: #fff;
+	font-weight: 700;
+	margin-bottom: 12px;
+}
+
+.foodrx-step__title {
+	font-size: 18px;
+	margin: 0 0 10px;
+}
+
+.foodrx-step__body {
+	margin: 0;
+	line-height: 1.6;
+	color: #666;
+}
+
+.foodrx-services {
+	display: grid;
+	gap: 28px;
+}
+
+.foodrx-service {
+	border: 1px solid #eee;
+	border-radius: 8px;
+	padding: 28px;
+	background: #fff;
+}
+
+.foodrx-service__header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+
+.foodrx-service__title {
+	margin: 0;
+	font-size: 22px;
+	color: #333539;
+}
+
+.foodrx-service__price {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 700;
+	color: #a7d433;
+}
+
+.foodrx-service__summary {
+	line-height: 1.6;
+	color: #666;
+	margin-bottom: 16px;
+}
+
+.foodrx-service__details {
+	margin: 0;
+	padding-left: 22px;
+}
+
+.foodrx-service__details li {
+	margin-bottom: 8px;
+}
+
+.foodrx-prose {
+	line-height: 1.7;
+	color: #555;
+}
+
+.foodrx-prose--center {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.foodrx-contact-grid {
+	display: grid;
+	grid-template-columns: 1fr 1.2fr;
+	gap: 40px;
+	align-items: start;
+}
+
+.foodrx-contact-info h3 {
+	margin-top: 0;
+}
+
+.foodrx-post-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 24px;
+}
+
+.foodrx-post-card {
+	border: 1px solid #eee;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.foodrx-post-card__thumb img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.foodrx-post-card__title {
+	font-size: 18px;
+	margin: 16px 16px 8px;
+}
+
+.foodrx-post-card__excerpt {
+	margin: 0 16px 16px;
+	color: #666;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.foodrx-notice {
+	padding: 16px;
+	background: #fffbea;
+	border: 1px solid #f0e6a6;
+	border-radius: 6px;
+	color: #665c00;
+}
+
+@media (max-width: 768px) {
+	.foodrx-hero__title {
+		font-size: 32px;
+	}
+
+	.foodrx-contact-grid {
+		grid-template-columns: 1fr;
+	}
+}
