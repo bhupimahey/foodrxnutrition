@@ -1,0 +1,25 @@
+<!-- 
+cmsmasters_package: Healthy Living
+cmsmasters_version: 1.0.0
+-->
+<wpml-config>
+    <admin-texts>
+        <key name="cmsmasters_options_healthy-living_header">
+            <key name="healthy-living_header_top_line_short_info" />
+            <key name="healthy-living_header_top_line_donations_but_text" />
+            <key name="healthy-living_header_donations_but_text" />
+            <key name="healthy-living_header_add_cont_cust_html" />
+        </key>
+		<key name="cmsmasters_options_healthy-living_footer">
+            <key name="healthy-living_footer_html" />
+            <key name="healthy-living_footer_copyright" />
+        </key>
+		<key name="cmsmasters_options_healthy-living_single_project">
+            <key name="healthy-living_portfolio_project_details_title" />
+        </key>
+		<key name="cmsmasters_options_healthy-living_single_profile">
+            <key name="healthy-living_profile_post_details_title" />
+        </key>
+    </admin-texts>
+</wpml-config>
+

@@ -1,0 +1,240 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Healthy Living
+ * @version 	1.0.0
+ * 
+ * Events Schedule CSS Rules
+ * Created by CMSMasters
+ * 
+ */
+/*-------------------------------------------------------------------------
+
+	0.	LESS Variables + Functions
+	1. 	Global Styles for Events Schedule
+	2. 	Single Event Schedule
+	3. 	Shortcode Events Schedule
+	4.	CSS3 Animations
+
+-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+/* LESS Variables & Functions	*/
+/*-------------------------------------------------------------------------*/
+/***************** Variables ******************/
+/***************** Functions ******************/
+/*-------------------------------------------------------------------------*/
+/* Shortcode Events Schedule */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_events_schedule {
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule.cmsmasters_events_schedule_tabs {
+  outline: none;
+}
+.cmsmasters_events_schedule.cmsmasters_events_schedule_tabs .cmsmasters_events_schedule_tabs_items > div {
+  display: none;
+}
+.cmsmasters_events_schedule.cmsmasters_events_schedule_tabs .cmsmasters_events_schedule_tabs_items > div.active_tab {
+  display: block;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_date {
+  font-size: 0;
+  line-height: 0;
+  margin: 0;
+  padding: 20px 15px 10px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_date > li {
+  display: inline-block;
+  margin: 0 5px 10px;
+  padding: 0;
+  position: relative;
+  -webkit-border-radius: 23px;
+  border-radius: 23px;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_date > li:before {
+  content: none;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_date > li a {
+  display: block;
+  padding: 2px 40px;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall {
+  margin: 0;
+  padding: 21px 0 15px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall > li {
+  display: inline-block;
+  margin: 0 20px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall > li:before {
+  content: none;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall > li a {
+  display: block;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_date_tab.no_halls {
+  padding: 18px 20px;
+  text-align: center;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap_hall {
+  padding: 85px 13% 105px;
+  position: relative;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap {
+  padding: 0 0 0 70px;
+  position: relative;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap:last-child:not(.have_posts) {
+  padding: 25px 0 0;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule:last-child:after {
+  content: none;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule:after {
+  content: '';
+  width: 2px;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+  left: -59px;
+  top: 45px;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule .cmsmasters_event_schedule_cont:before {
+  content: '';
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  margin: auto !important;
+  position: absolute;
+  left: -70px;
+  right: auto;
+  top: 25px;
+  bottom: auto;
+  border-width: 2px;
+  border-style: solid;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.have_posts .cmsmasters_event_schedule {
+  padding-bottom: 50px;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.have_posts .cmsmasters_event_schedule:last-child {
+  padding-bottom: 0;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap:not(.have_posts) {
+  padding: 25px 0 0;
+}
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap:not(.have_posts) .cmsmasters_event_schedule_inner {
+  text-align: center;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule {
+  position: relative;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_cont {
+  position: relative;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_heading .cmsmasters_event_schedule_title {
+  margin: 0;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_date {
+  display: block;
+  padding: 0 0 3px;
+  position: relative;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_heading {
+  position: relative;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_content_wrap {
+  position: relative;
+  display: none;
+  overflow: hidden;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_speaker_wrap {
+  margin: 20px 0 0;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_content {
+  padding: 20px 0 0;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_content *:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_speaker_wrap {
+  margin: 20px 0 0;
+}
+.cmsmasters_events_schedule .cmsmasters_event_schedule_content + .cmsmasters_event_schedule_speaker_wrap {
+  margin: 14px 0 0;
+}
+/*-------------------------------------------------------------------------*/
+/* Single Event Schedule */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_open_event_schedule {
+  width: 100%;
+  max-width: 100%;
+}
+.cmsmasters_open_event_schedule .cmsmasters_img_wrap {
+  margin: 0 0 34px;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_time {
+  font-weight: 600;
+  margin: 0 0 4px;
+  position: relative;
+  overflow: hidden;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_title {
+  margin: 0 0 23px;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_content {
+  overflow: hidden;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_content > *:last-child {
+  padding: 0;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_content + .cmsmasters_event_schedule_speaker_wrap {
+  margin: 14px 0 0;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_footer {
+  margin: 25px 0 0;
+  padding: 26px 0 0;
+  overflow: hidden;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+.cmsmasters_open_event_schedule .cmsmasters_event_schedule_date {
+  margin: 0 20px 0 0;
+}
+/*-------------------------------------------------------------------------*/
+/* CSS3 Animations	*/
+/*-------------------------------------------------------------------------*/
+html.csstransitions .cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall > li a {
+  -webkit-transition: color .3s ease-in-out;
+  -moz-transition: color .3s ease-in-out;
+  -ms-transition: color .3s ease-in-out;
+  -o-transition: color .3s ease-in-out;
+  transition: color .3s ease-in-out;
+}
+html.csstransitions .cmsmasters_events_schedule .cmsmasters_events_schedule_list_date > li a,
+html.csstransitions .cmsmasters_events_schedule .cmsmasters_event_schedule .cmsmasters_event_schedule_cont:before {
+  -webkit-transition: background-color .3s ease-in-out;
+  -moz-transition: background-color .3s ease-in-out;
+  -ms-transition: background-color .3s ease-in-out;
+  -o-transition: background-color .3s ease-in-out;
+  transition: background-color .3s ease-in-out;
+}

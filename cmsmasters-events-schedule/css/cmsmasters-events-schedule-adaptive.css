@@ -1,0 +1,50 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Healthy Living
+ * @version		1.0.0
+ * 
+ * Events Schedule Responsive CSS Rules
+ * Created by CMSMasters
+ * 
+ */
+/*-------------------------------------------------------------------------
+
+	0.	LESS Variables + Functions
+	1.	Phone Monitor
+
+-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+/* LESS Variables & Functions
+/*-------------------------------------------------------------------------*/
+/***************** Variables ******************/
+/***************** Functions ******************/
+@media only screen {
+  /*-------------------------------------------------------------------------*/
+  /* Phone Monitor
+	/*-------------------------------------------------------------------------*/
+}
+@media only screen and (max-width: 540px) {
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap_hall {
+    padding: 60px 13% 85px;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap {
+    padding: 0;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule {
+    padding-top: 50px;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule:after {
+    content: none;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule .cmsmasters_event_schedule_cont:before {
+    left: 0;
+    right: 0;
+    top: -50px;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap .cmsmasters_event_schedule .cmsmasters_event_schedule_date {
+    min-height: auto;
+  }
+  #page .cmsmasters_events_schedule .cmsmasters_events_schedule_wrap .cmsmasters_event_schedule * {
+    text-align: center;
+  }
+}

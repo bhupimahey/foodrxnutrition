@@ -1,0 +1,26 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Healthy Living
+ * @version 	1.0.0
+ * 
+ * Events Schedule RTL Rules
+ * Created by CMSMasters
+ * 
+ */
+
+
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap {
+	padding-left: 0;
+	padding-right: 70px;
+}
+
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule:before {
+	left: auto;
+	right: -70px;
+}
+
+.cmsmasters_events_schedule .cmsmasters_events_schedule_wrap.active_tab .cmsmasters_event_schedule:after {
+	left: auto;
+	right: -59px;
+}
+

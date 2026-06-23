@@ -1,0 +1,469 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Healthy Living
+ * @version 	1.0.0
+ * 
+ * Events Schedule CSS Rules
+ * Created by CMSMasters
+ * 
+ */
+
+
+
+/*-------------------------------------------------------------------------
+
+	0.	LESS Variables + Functions
+	1. 	Global Styles for Events Schedule
+	2. 	Single Event Schedule
+	3. 	Shortcode Events Schedule
+	4.	CSS3 Animations
+
+-------------------------------------------------------------------------*/
+
+
+
+/*-------------------------------------------------------------------------*/
+/* LESS Variables & Functions	*/
+/*-------------------------------------------------------------------------*/
+
+/***************** Variables ******************/
+@input_pad: 10px;
+
+@line_height_pad: 20px;
+@blocks_hor_pad: 20px;
+@cont_vert_pad: 40px;
+
+@bdrs_width: 8px;
+
+@col_mar: 1.7%;
+
+@resp_blocks_pad: 58.14%;
+
+@preloader_blog_masonry_pad: 63.79%;
+
+@sidebar_width: 26%;
+@content_width: 100% - @sidebar_width;
+
+@cont_width_def: 980px;
+
+/***************** Functions ******************/
+.fl () {
+	float:left;
+}
+
+.fr () {
+	float:right;
+}
+
+.dn () {
+	display:none;
+}
+
+.tal () {
+	text-align:left;
+}
+
+.tac () {
+	text-align:center;
+}
+
+.tar () {
+	text-align:right;
+}
+
+.cl () {
+	clear:both;
+}
+
+.ovh () {
+	overflow:hidden;
+}
+
+.m0a () {
+	margin:0 auto;
+}
+
+.bd (@w:1px; @t:solid) {
+	border-width:@w;
+	border-style:@t;
+}
+
+.bdt (@w:1px; @t:solid) {
+	border-top-width:@w;
+	border-top-style:@t;
+}
+
+.bdb (@w:1px; @t:solid) {
+	border-bottom-width:@w;
+	border-bottom-style:@t;
+}
+
+.bdr (@w:1px; @t:solid) {
+	border-right-width:@w;
+	border-right-style:@t;
+}
+
+.bdl (@w:1px; @t:solid) {
+	border-left-width:@w;
+	border-left-style:@t;
+}
+
+.color_white_opacity (@op:.5) {
+	color:rgba(255, 255, 255, @op);
+}
+
+.bg_white_opacity (@op:.5) {
+	background-color:rgba(255, 255, 255, @op);
+}
+
+.fullwidth_in_block () {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.op (@op:.5) {
+	opacity:@op;
+}
+
+.cl_after () {
+	content:'.';
+	display:block;
+	clear:both;
+	height:0;
+	visibility:hidden;
+	overflow:hidden;
+}
+
+.valign_after () {
+	content:'';
+	display:inline-block;
+	vertical-align:middle;
+	height:100%;
+}
+
+.pos_abs (@w:1em; @h:1em; @l:0; @r:0; @t:0; @b:0) {
+	width:@w;
+	height:@h;
+	margin:auto !important;
+	position:absolute;
+	left:@l;
+	right:@r;
+	top:@t;
+	bottom:@b;
+}
+
+.bdbx () {
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.ctbx () {
+	-webkit-box-sizing:content-box;
+	-moz-box-sizing:content-box;
+	box-sizing:content-box;
+}
+
+.bdrs (@radius:@bdrs_width) {
+	-webkit-border-radius:@radius;
+	border-radius:@radius;
+}
+
+.bxsh (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
+	-webkit-box-shadow:@x @y @blur @spred rgba(0, 0, 0, @alpha);
+	box-shadow:@x @y @blur @spred rgba(0, 0, 0, @alpha);
+}
+
+.bxsh_white (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
+	-webkit-box-shadow:@x @y @blur @spred rgba(255, 255, 255, @alpha);
+	box-shadow:@x @y @blur @spred rgba(255, 255, 255, @alpha);
+}
+
+.bxshi (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
+	-webkit-box-shadow:inset @x @y @blur @spred rgba(0, 0, 0, @alpha);
+	box-shadow:inset @x @y @blur @spred rgba(0, 0, 0, @alpha);
+}
+
+.bxshi_white (@x:0; @y:0; @blur:5px; @spred:0; @alpha:.05) {
+	-webkit-box-shadow:inset @x @y @blur @spred rgba(255, 255, 255, @alpha);
+	box-shadow:inset @x @y @blur @spred rgba(255, 255, 255, @alpha);
+}
+
+.bxsh_none () {
+	-webkit-box-shadow:none;
+	box-shadow:none;
+}
+
+.trans(@trans:0) when not (@trans = 0) {
+    -webkit-transition:@trans;
+    -moz-transition:@trans;
+    -ms-transition:@trans;
+    -o-transition:@trans;
+    transition:@trans;
+}
+
+
+/*-------------------------------------------------------------------------*/
+/* Shortcode Events Schedule */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_events_schedule {
+	position:relative;
+	.bd;
+	.bdrs;
+	.ovh;
+	
+	&.cmsmasters_events_schedule_tabs {
+		outline:none;
+		
+		.cmsmasters_events_schedule_tabs_items > div {
+			.dn;
+			
+			&.active_tab {
+				display:block;
+			}
+		}
+	}
+	
+	.cmsmasters_events_schedule_list_date {
+		font-size:0;
+		line-height:0;
+		margin:0;
+		padding:20px 15px 10px;
+		position:relative;
+		.tac;
+		.ovh;
+		
+		> li {
+			display:inline-block;
+			margin:0 5px 10px;
+			padding:0;
+			position:relative;
+			.bdrs(23px);
+			.ovh;
+			
+			&:before {
+				content:none;
+			}
+			
+			a {
+				display:block;
+				padding:2px 40px;
+			}
+		}
+	}
+	
+	.cmsmasters_events_schedule_list_hall {
+		margin:0;
+		padding:21px 0 15px;
+		position:relative;
+		.tac;
+		.ovh;
+		
+		> li {
+			display:inline-block;
+			margin:0 20px;
+			padding:0;
+			position:relative;
+			.ovh;
+			
+			&:before {
+				content:none;
+			}
+			
+			a {
+				display:block;
+			}
+		}
+	}
+	
+	.cmsmasters_events_schedule_date_tab {
+		&.no_halls {
+			padding:18px 20px;
+			.tac;
+		}
+	}
+	
+	.cmsmasters_events_schedule_wrap_hall {
+		padding:85px 13% 105px;
+		position:relative;
+		.ovh;
+	}
+	
+	.cmsmasters_events_schedule_wrap {
+		padding:0 0 0 70px;
+		position:relative;
+		
+		&:last-child {
+			&:not(.have_posts) {
+				padding:25px 0 0;
+			}
+		}
+		
+		&.active_tab {
+			.cmsmasters_event_schedule {
+				&:last-child {
+					&:after {
+						content:none;
+					}
+				}
+				
+				&:after {
+					content:'';
+					width:2px;
+					height:100%;
+					z-index:1;
+					position:absolute;
+					left:-59px;
+					top:45px;
+				}
+				
+				.cmsmasters_event_schedule_cont {
+					&:before {
+						content:'';
+						z-index:2;
+						.pos_abs(24px, 24px, -70px, auto, 25px, auto);
+						.bd(2px);
+						.bdrs(50%);
+					}
+				}
+			}
+		}
+		
+		&.have_posts {
+			.cmsmasters_event_schedule {
+				padding-bottom:50px;
+				
+				&:last-child {
+					padding-bottom:0;
+				}
+			}
+		}
+		
+		&:not(.have_posts) {
+			padding:25px 0 0;
+			
+			.cmsmasters_event_schedule_inner {
+				.tac;
+			}
+		}
+	}
+	
+	.cmsmasters_event_schedule {
+		position:relative;
+	}
+	
+	.cmsmasters_event_schedule_cont {
+		position:relative;
+	}
+	
+	.cmsmasters_event_schedule_heading {
+		.cmsmasters_event_schedule_title {
+			margin:0;
+		}
+	}
+	
+	.cmsmasters_event_schedule_date {
+		display:block;
+		padding:0 0 3px;
+		position:relative;
+		.ovh
+	}
+	
+	.cmsmasters_event_schedule_heading {
+		position:relative;
+		.ovh
+	}
+	
+	.cmsmasters_event_schedule_content_wrap {
+		position:relative;
+		.dn;
+		.ovh
+	}
+	
+	.cmsmasters_event_schedule_speaker_wrap {
+		margin:20px 0 0;
+	}
+	
+	.cmsmasters_event_schedule_content {
+		padding:20px 0 0;
+		
+		*:last-child {
+			padding-bottom:0;
+			margin-bottom:0;
+		}
+	}
+	
+	.cmsmasters_event_schedule_speaker_wrap {
+		margin:20px 0 0;
+	}
+	
+	.cmsmasters_event_schedule_content + .cmsmasters_event_schedule_speaker_wrap {
+		margin:14px 0 0;
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/* Single Event Schedule */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_open_event_schedule {
+	width:100%;
+	max-width:100%;
+	
+	.cmsmasters_img_wrap {
+		margin:0 0 34px;
+	}
+	
+	.cmsmasters_event_schedule_time {
+		font-weight:600;
+		margin:0 0 4px;
+		position:relative;
+		.ovh;
+	}
+	
+	.cmsmasters_event_schedule_title {
+		margin:0 0 23px;
+	}
+	
+	.cmsmasters_event_schedule_content {
+		.ovh;
+		
+		> *:last-child {
+			padding:0;
+		}
+	}
+	
+	.cmsmasters_event_schedule_content + .cmsmasters_event_schedule_speaker_wrap {
+		margin:14px 0 0;
+	}
+	
+	.cmsmasters_event_schedule_footer {
+		margin:25px 0 0;
+		padding:26px 0 0;
+		overflow:hidden;
+		.bdt;
+	}
+	
+	.cmsmasters_event_schedule_date {
+		margin:0 20px 0 0;
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/* CSS3 Animations	*/
+/*-------------------------------------------------------------------------*/
+
+html.csstransitions {
+	.cmsmasters_events_schedule .cmsmasters_events_schedule_list_hall > li a {
+		.trans(~'color .3s ease-in-out');
+	}
+	
+	.cmsmasters_events_schedule .cmsmasters_events_schedule_list_date > li a,
+	.cmsmasters_events_schedule .cmsmasters_event_schedule .cmsmasters_event_schedule_cont:before {
+		.trans(~'background-color .3s ease-in-out');
+	}
+}

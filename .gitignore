@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# WordPress / theme build artifacts
+*.log
+error_log
+.sass-cache/
+dist/
+.cache/
+
+# Local pull/deploy overrides (optional secrets file for scripts)
+scripts/.env.local

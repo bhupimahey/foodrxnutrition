@@ -1,0 +1,337 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Healthy Living
+ * @version 	1.3.9
+ */
+ 
+-----------------------------------------------------------------------
+				CHANGELOG
+-----------------------------------------------------------------------
+Version 1.3.9:
+	
+	1. fixed LFI vulnerability
+	2. Updated plugins
+--------------------------------------
+Version 1.3.8:
+	
+	1. Updated demo content
+	2. Updated plugins
+--------------------------------------
+Version 1.3.7:
+	
+	1. Fixed warnings on PHP 8.3.x
+	2. Updated plugins
+--------------------------------------
+Version 1.3.6:
+	
+	1. Fixed Security Vulnerabilities
+	2. Fixed the events calendar month view
+	3. Updated WooCommerce templates
+	4. Updated plugins
+--------------------------------------
+Version 1.3.5:
+	
+	1. Applied a fix for the notice caused by the new WordPress version
+	2. Updated WooCommerce templates
+	3. Updated plugins
+--------------------------------------
+Version 1.3.4:
+	
+	1. Updated WooCommerce templates
+	2. Updated plugins
+--------------------------------------
+Version 1.3.3:
+	
+	1. Updated WooCommerce templates
+	2. Updated plugins
+--------------------------------------
+Version 1.3.2:
+	
+	1. Fixed Security Vulnerabilities: Implemented additional escaping functions to prevent XSS and script injection attacks
+	2. Enhanced Attribute Escaping: Improved attribute escaping with esc_attr(), esc_html(), and esc_js() in HTML, CSS, and JavaScript 
+	3. Updated WooCommerce templates
+	4. Improved import of demo content
+	5. Fixed social icons warning
+	6. Fixed Color Picker
+	7. Updated plugins
+--------------------------------------
+Version 1.3.1:
+	
+	1. Updated WooCommerce template
+	2. Updated plugins
+--------------------------------------
+Version 1.3.0:
+	
+	1. Updated WooCommerce templates
+	2. Fixed Posts Tabs widget checkboxes
+	3. Updated plugins
+--------------------------------------
+Version 1.2.9:
+	
+	1. Fixed fatal error in Masonry Blog when PHP 8 is used
+	2. Updated plugins
+--------------------------------------
+Version 1.2.8:
+	
+	1. Fixed header overlaps by default option
+	2. Fixed twitter
+	3. Fixed pagination in shortcodes
+	4. Updated plugins
+--------------------------------------
+Version 1.2.7:
+	
+	1. Fixed WooCommerce dynamic cart
+	2. Updated WooCommerce template
+	3. Updated plugins
+--------------------------------------
+Version 1.2.6:
+
+	1. The Events Calendar: Fixed tribe event series
+	2. Updated plugins
+--------------------------------------
+Version 1.2.5:
+
+	1. The Events Calendar V2: fixed deprecated function warning in single event.
+--------------------------------------
+Version 1.2.4:
+
+	1. Fix for webp format in jQuery iLightBox
+	2. Fixed custom fonts in gutenberg editor.
+	3. Fixed fatal error on PHP 8
+	4. Updated plugins
+	5. Updated translates
+--------------------------------------
+Version 1.2.3:
+
+	1. Added the ability to add new Google fonts.
+	2. Added the ability to add and use local fonts.
+	3. Updated WooCommerce templates
+	4. Updated plugins
+	5. Updated translates
+----------------------------------------
+Version 1.2.2:
+
+	1. Fixed twitter connection
+	2. Updated plugins
+	3. Updated translates
+	4. Fix for WooCommerce 6.9.0
+	5. Fixed hover slider script
+	6. Fixed behavior section setting for Posts Slider, Pricing Table and Gallery shortcodes
+----------------------------------------
+Version 1.2.1:
+
+	1. Fixed Content Composer (WP 6)
+	2. Update Plugins
+----------------------------------------
+Version 1.2.0:
+
+	1. Update Plugins
+	2. Small fixes for The Events Calendar updated design
+----------------------------------------
+Version 1.1.9:
+
+	1. Update Plugins
+	2. Update Translate
+	3. Fixed demo content
+	4. Fixed The Events Calendar updated design
+----------------------------------------
+Version 1.1.8:
+
+	1. Fixed events schedule (renamed directory).
+	2. Update Revolution Slider
+----------------------------------------
+Version 1.1.7:
+
+	1. Update isotope
+	2. Fixed comment form rating in single product reviews
+	3. Added function wp_body_open()
+	4. Fixed jQuery Migrate notices
+	5. Fixed Load More
+	6. Updated woo files
+	7. Layer and Rev sliders scripts in Gutenberg editor
+	8. Fixed Shop Sidebar
+	9. Fixed archive title for WP 5.5
+	10. Fixed breadcrumbs
+	11. Fix for short syntax in js <div />
+	12. Fix iLightbox
+	13. Fixed date in Blog Timelane
+	14. Update Plugins
+	15. Update Translate
+----------------------------------------
+Version 1.1.6:
+
+	1. WP 5.5 Color Picker fix
+	2. Removed Form Builder plugin
+----------------------------------------
+Version 1.1.5:
+
+	1. Woo Update
+	2. Rev Slider Update
+	3. Layer Slider Update
+----------------------------------------
+Version 1.1.4:
+
+	1. Fixed difference for "wp-block-freeform"
+	2. Fix for include gutenberg.php for yith_popup
+	3. Fix import meta for products.
+	4. Fix for settings upload images script
+	5. Fix for include gutenberg.php for "tribe_events" post type
+	6. Fix for include gutenberg.php for "shop_order|shop_coupon" post type
+	7. Add scrolling for cmsmasters_table
+	8. Fixed empty sidebar in gutenberg
+	9. Fix for update_post_meta. Value must be a string
+	10. Fix sending email with empty email
+	11. Fix for dublicate variable without image on lightbox
+	12. Fix for comment-form-cookies (show if checked 'Show comments cookies opt-in checkbox.')
+	13. Fix for Image Varible Product (notice)
+	14. Fix Woo duplicate titles
+	15. Fix for mptt import (attachment images)
+	16. Add checkbox for hide media
+	17. Add Text Block Width on responsive for Featured Block shortcode
+	18. Fixed project puzzle and recommended proportion project puzzle image
+	19. Fix for unused meta fields
+	20. Fix when activate plugin without "Save Changes"
+	21. Add into Theme Settings checkbox, which do cart icon hidden (even Woo active)
+	By default must be off (theme-settings-default.php)
+	23. Fix for checkbox and radio required (validation boxes)
+	24. Add Custom Text Block Paddings for Various Screens - Featured Block
+	25. Fixed  "Columns Custom Height Behavior"
+	26. Add Filter for large dimension for coloumn and row
+	27. Hid the size of the images that go to the background of the short code
+	28. Fixed Columns
+	29. Fix bug (WP 5.1<) when fullwidth page during the import are inserted into 'content-wrap'
+	30. Fix for inbox emails (change sender mail to server domain)
+	31. Add box shadow option for column
+	32. Add box shadow option for featured block
+	33. Add new repeat option "round"
+	34. Sanitize sender email
+	35. Fix fro Woo Stock quantity
+	36. Removed word Custom from setting General\Content & General\Footer
+	37. Custom meta box functions are allowed for design only. Removed 'Read More' from post options if CC inactive
+	38. Fix Gutenberg
+	39. Woo Update
+----------------------------------------
+Version 1.1.3:
+
+    1. Update for WP 5 ( Gutenberg )
+    2. Add One Click Demo Import Plugin
+    3. Update plugins
+    4. Update Woo 3.5.2
+    5. Fix for Envato Theme Check
+----------------------------------------
+Version 1.1.2:
+
+	1. Update for Gutenberg
+	2. Added MailPoet 3 in plugin activator
+	3. Remove envato market plugin zip archive from theme
+	4. Add external link to github repository for envato market plugin
+----------------------------------------
+Version 1.1.1:
+
+	1. Update Woo 3.4.0
+	2. Changed escaping function attributes esc_html__() to esc_attr__() in placeholder
+	3. Update FB widget for Privacy Policy
+	4. Update comments (add cookies checkbox)
+	5. Add privacy policy link to footer
+	6. Add Cookie Notice plugin to plugin activator
+----------------------------------------
+Version 1.1.0:
+
+	1. delete endline(middle_content)
+----------------------------------------
+Version 1.0.9:
+
+	1. update woo to 3.3.3
+	2. Revolition Slider to 5.4.7.1
+	3. LayerSlider to 6.7.1
+	4. cmsmasters-content-composer to 1.7.0
+----------------------------------------
+Version 1.0.8:
+
+	1. Update color-picker-alpha (for WP 4.9, also work in WP 4.8)
+	2. Integration Envato Market 1.0.0-RC2 (with custom "js/updates.js" file)
+----------------------------------------
+Version 1.0.7:
+	1. Update WOO 3.2.0
+	2. Fix for Header Overlaps Content translations
+	3. Change link to twitter docs
+	4. Fix Import demo content error
+	5. Blog Standard (likes) fix
+----------------------------------------
+Version 1.0.6:
+
+	1. Column fix in profiles
+	2. Fix for widget text (<p> tags in styles)
+	3. Fix for review translation
+	4. Fix empty message in dynamic cart
+	5. Fix for one page nav
+	6. Project link target fix
+----------------------------------------
+Version 1.0.5:
+
+	1. Fix for Woo product image
+	2. Project link target fix
+	3. Add escapes to events calendar
+	4. Update version files for update woo 3.0.2
+	5. Fix for related products in single products
+	6. Fix for fixed header
+	7. Fix fix colors && fonts for Woo
+	8. Fix for responsive Navigation Fix
+----------------------------------------
+Version 1.0.4:
+
+	1. Fix on translate in event nav
+	2. Fix for Fixed Header Function start
+	3. Fix in related projects
+	4. Fix "Preview Changes" button for projects with custom post formats
+	5. Change copyright
+	6. Change main wp_enqueue_style function
+	7. Fix for About Author Box
+	8. Replace base64_ to hex2bin in export settings
+	9. Fix for social icon title(no space)
+	10. Fix Comments Navigation
+	11. Fix Header on Small Size Tablet
+	12. Update Plugins4. Update Transition
+	13. Fix for Woo update 3.0.0
+	14. Add My account default styles
+	15. Fix styles for terms checkbox
+	16. Update iLightbox 2.2.1 (https fixed)
+	17. Fix for Event Calendar Pro Photo view
+	18. Fix orderby for popular items
+	19. Fix for headline on devices
+	20. Fix in single event links
+----------------------------------------
+Version 1.0.3:
+
+	1. Fix echo date in Events Calendar
+	2. Style on My Acount (Woo)
+	3. Fix on translate in Post Nav
+	4. Fix Default input type checkbox in Woo
+	5. Update Translate
+	6. Update Plugins
+	7. Update on WP 4.7
+	8. vasiliy_add_global_icons fix
+	9. Fix on Display flex
+	10. Added 5 new icons
+	11. Update on WP 4.7
+	12.Fix for events calednar pro meta in single organizer & venue
+	13. Fix post features (type standard)
+----------------------------------------
+Version 1.0.2:
+
+	1. Add filter to custom shortcodes
+	2. Move likes posttype to CC
+	3. Add prefix to pagination
+	4. Change function rowpdel
+	5. Fix for row no margin
+	6. Change colors and fonts styles load
+	7. Update Plugin CC
+	8. Update Translate
+	9. Update Plugins
+----------------------------------------
+Version 1.0.1:
+
+	1. Fix social icon edit variable in profile
+	2. Uncomment rowpdel
+----------------------------------------
+Version 1.0: Release!
