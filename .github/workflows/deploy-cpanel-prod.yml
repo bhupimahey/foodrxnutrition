@@ -24,20 +24,75 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.PROD_SSH_PORT }}" "${{ secrets.PROD_SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: Deploy theme to cPanel via rsync
+      - name: Deploy theme to cPanel
+        env:
+          SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          REMOTE_ROOT: ${{ secrets.PROD_REMOTE_ROOT }}
         run: |
-          rsync -avz --delete \
-            --exclude '.git/' \
-            --exclude '.github/' \
-            --exclude 'scripts/' \
-            --exclude 'node_modules/' \
-            --exclude 'content/' \
-            --exclude '.env' \
-            --exclude '.DS_Store' \
-            --exclude 'Thumbs.db' \
-            -e "ssh -p ${{ secrets.PROD_SSH_PORT }} -o StrictHostKeyChecking=no" \
-            ./ \
-            "${{ secrets.PROD_SSH_USER }}@${{ secrets.PROD_SSH_HOST }}:${{ secrets.PROD_REMOTE_ROOT }}/"
+          set -euo pipefail
+
+          SSH_KEY="$HOME/.ssh/id_rsa"
+          SSH_COMMON="-i ${SSH_KEY} -o StrictHostKeyChecking=no -o LogLevel=ERROR"
+          RSYNC_SSH="ssh -p ${SSH_PORT} ${SSH_COMMON} -T"
+          REMOTE="${SSH_USER}@${SSH_HOST}:${REMOTE_ROOT}/"
+
+          RSYNC_EXCLUDES=(
+            --exclude '.git/'
+            --exclude '.github/'
+            --exclude 'scripts/'
+            --exclude 'node_modules/'
+            --exclude 'content/'
+            --exclude '.env'
+            --exclude '.DS_Store'
+            --exclude 'Thumbs.db'
+          )
+
+          deploy_rsync() {
+            rsync -avz --delete "${RSYNC_EXCLUDES[@]}" \
+              -e "${RSYNC_SSH}" \
+              ./ "${REMOTE}"
+          }
+
+          deploy_tar() {
+            echo "Falling back to tar + scp deploy..."
+            TAR_FILE="foodrx-theme-deploy.tar.gz"
+            REMOTE_TAR="foodrx-theme-deploy.tar.gz"
+
+            tar czf "${TAR_FILE}" \
+              --exclude='.git' \
+              --exclude='.github' \
+              --exclude='scripts' \
+              --exclude='node_modules' \
+              --exclude='content' \
+              --exclude='.env' \
+              --exclude='.DS_Store' \
+              --exclude='Thumbs.db' \
+              --exclude="${TAR_FILE}" \
+              .
+
+            scp -P "${SSH_PORT}" ${SSH_COMMON} \
+              "${TAR_FILE}" "${SSH_USER}@${SSH_HOST}:~/${REMOTE_TAR}"
+
+            ssh -p "${SSH_PORT}" ${SSH_COMMON} -T "${SSH_USER}@${SSH_HOST}" \
+              "mkdir -p '${REMOTE_ROOT}' && cd '${REMOTE_ROOT}' && tar xzf ~/${REMOTE_TAR} && rm -f ~/${REMOTE_TAR}"
+
+            rm -f "${TAR_FILE}"
+            echo "Deployed via tar + scp (remote files not in repo are kept)."
+          }
+
+          set +e
+          deploy_rsync
+          RSYNC_EXIT=$?
+          set -e
+
+          if [ "${RSYNC_EXIT}" -eq 0 ]; then
+            echo "Deployed via rsync."
+          else
+            echo "rsync failed (exit ${RSYNC_EXIT})."
+            deploy_tar
+          fi
 
       - name: Cleanup SSH key
         if: always()
