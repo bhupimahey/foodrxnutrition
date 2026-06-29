@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('FOODRX_MENU_SETUP_VERSION', 3);
+define('FOODRX_MENU_SETUP_VERSION', 4);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -49,6 +49,28 @@ function foodrx_is_primary_menu_configured() {
 }
 
 /**
+ * @param int $page_id Page ID.
+ */
+function foodrx_apply_foodrx_page_meta($page_id) {
+	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
+	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
+	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'false');
+	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
+}
+
+/**
+ * @param int $page_id Homepage page ID.
+ */
+function foodrx_apply_demo_homepage_meta($page_id) {
+	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
+	update_post_meta($page_id, 'cmsmasters_heading', 'disabled');
+	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
+	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
+	update_post_meta($page_id, 'cmsmasters_composer_show', 'true');
+	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
+}
+
+/**
  * Create a Food Rx page only when it does not already exist.
  *
  * @param array{title: string, slug: string, template: string} $definition Page definition.
@@ -58,7 +80,13 @@ function foodrx_ensure_page($definition) {
 	$existing = get_page_by_path($definition['slug'], OBJECT, 'page');
 
 	if ($existing instanceof WP_Post) {
-		return (int) $existing->ID;
+		$page_id = (int) $existing->ID;
+
+		if (get_page_template_slug($page_id) === $definition['template']) {
+			foodrx_apply_foodrx_page_meta($page_id);
+		}
+
+		return $page_id;
 	}
 
 	$page_id = (int) wp_insert_post(array(
@@ -74,9 +102,7 @@ function foodrx_ensure_page($definition) {
 	}
 
 	update_post_meta($page_id, '_wp_page_template', $definition['template']);
-	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
-	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
-	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
+	foodrx_apply_foodrx_page_meta($page_id);
 
 	return $page_id;
 }
@@ -163,15 +189,15 @@ function foodrx_setup_primary_menu() {
 
 	foodrx_replace_menu_items($menu_id, array(
 		array(
-			'title' => 'Home',
+			'title' => 'HOME',
 			'url' => home_url('/'),
 		),
 		array(
-			'title' => 'Services',
+			'title' => 'SERVICES',
 			'page_id' => $page_ids['services'] ?? 0,
 		),
 		array(
-			'title' => 'Nutrition Hub',
+			'title' => 'NUTRITION HUB',
 			'page_id' => $page_ids['nutrition-hub'] ?? 0,
 		),
 		array(
@@ -179,7 +205,7 @@ function foodrx_setup_primary_menu() {
 			'page_id' => $page_ids['faq'] ?? 0,
 		),
 		array(
-			'title' => 'Contact',
+			'title' => 'CONTACT',
 			'page_id' => $page_ids['contact'] ?? 0,
 		),
 	));
@@ -249,13 +275,49 @@ function foodrx_restore_demo_homepage() {
 	));
 
 	update_post_meta($home->ID, '_wp_page_template', 'default');
-	update_post_meta($home->ID, 'cmsmasters_layout', 'fullwidth');
-	update_post_meta($home->ID, 'cmsmasters_heading', 'disabled');
-	update_post_meta($home->ID, 'cmsmasters_heading_block_disabled', 'false');
-	update_post_meta($home->ID, 'cmsmasters_composer_show', 'true');
-	update_post_meta($home->ID, 'cmsmasters_bottom_sidebar', 'false');
+	foodrx_apply_demo_homepage_meta((int) $home->ID);
 
 	return true;
+}
+
+/**
+ * @return int Homepage page ID or 0.
+ */
+function foodrx_get_homepage_id() {
+	$front_id = (int) get_option('page_on_front');
+
+	if ($front_id > 0) {
+		return $front_id;
+	}
+
+	$home = get_page_by_path('home', OBJECT, 'page');
+
+	if ($home instanceof WP_Post) {
+		return (int) $home->ID;
+	}
+
+	$home = get_page_by_title('Home', OBJECT, 'page');
+
+	return ($home instanceof WP_Post) ? (int) $home->ID : 0;
+}
+
+/**
+ * Ensure homepage uses demo overlap settings and inner pages use standard header layout.
+ */
+function foodrx_apply_site_page_meta() {
+	$home_id = foodrx_get_homepage_id();
+
+	if ($home_id > 0) {
+		foodrx_apply_demo_homepage_meta($home_id);
+	}
+
+	foreach (foodrx_get_menu_page_definitions() as $definition) {
+		$page = get_page_by_path($definition['slug'], OBJECT, 'page');
+
+		if ($page instanceof WP_Post && get_page_template_slug($page->ID) === $definition['template']) {
+			foodrx_apply_foodrx_page_meta((int) $page->ID);
+		}
+	}
 }
 
 /**
@@ -295,6 +357,7 @@ function foodrx_maybe_run_setup() {
 
 	if (!foodrx_is_primary_menu_configured()) {
 		foodrx_setup_primary_menu();
+		foodrx_apply_site_page_meta();
 	}
 
 	if (foodrx_homepage_needs_restore()) {
@@ -329,11 +392,13 @@ function foodrx_render_setup_admin_page() {
 
 	if (isset($_POST['foodrx_run_menu_setup']) && check_admin_referer('foodrx_run_menu_setup')) {
 		foodrx_setup_primary_menu();
-		echo '<div class="notice notice-success"><p>Primary menu links were updated.</p></div>';
+		foodrx_apply_site_page_meta();
+		echo '<div class="notice notice-success"><p>Primary menu links and page header settings were updated.</p></div>';
 	}
 
 	if (isset($_POST['foodrx_restore_homepage']) && check_admin_referer('foodrx_restore_homepage')) {
 		if (foodrx_restore_demo_homepage()) {
+			foodrx_apply_site_page_meta();
 			echo '<div class="notice notice-success"><p>Demo homepage layout was restored.</p></div>';
 		} else {
 			echo '<div class="notice notice-error"><p>Could not restore the demo homepage. Check that a page titled Home exists.</p></div>';

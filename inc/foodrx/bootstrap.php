@@ -14,6 +14,20 @@ require_once __DIR__ . '/render.php';
 require_once __DIR__ . '/setup.php';
 
 /**
+ * Site-wide Food Rx adjustments (navigation colors, etc.).
+ */
+function foodrx_enqueue_theme_assets() {
+	wp_enqueue_style(
+		'foodrx-theme',
+		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
+		array('theme-schemes-secondary'),
+		'1.0.0'
+	);
+}
+
+add_action('wp_enqueue_scripts', 'foodrx_enqueue_theme_assets', 20);
+
+/**
  * Enqueue Food Rx page styles on custom templates.
  */
 function foodrx_enqueue_assets() {
