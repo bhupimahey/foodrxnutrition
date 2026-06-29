@@ -239,6 +239,31 @@
 	margin-top: 30px;
 }
 
+.foodrx-contact-form .wpcf7 {
+	width: 100%;
+}
+
+.foodrx-cf7__row {
+	margin-bottom: 16px;
+}
+
+.foodrx-cf7__row--half {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.foodrx-cf7__acceptance .wpcf7-list-item {
+	margin: 0;
+}
+
+.foodrx-cf7__acceptance label {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	line-height: 1.5;
+}
+
 .foodrx-contact-grid {
 	display: grid;
 	grid-template-columns: 1fr 1.2fr;
@@ -292,6 +317,10 @@
 @media (max-width: 768px) {
 	.foodrx-hero__title {
 		font-size: 32px;
+	}
+
+	.foodrx-cf7__row--half {
+		grid-template-columns: 1fr;
 	}
 
 	.foodrx-contact-grid {

@@ -200,19 +200,28 @@ function foodrx_render_faq($items) {
  * Render Contact Form 7 if available, else fallback message.
  */
 function foodrx_render_contact_form() {
-	if (shortcode_exists('contact-form-7')) {
-		$form_id = (int) get_option('foodrx_cf7_form_id', 0);
-
-		if ($form_id > 0) {
-			echo do_shortcode('[contact-form-7 id="' . $form_id . '"]');
-			return;
-		}
-
-		echo do_shortcode('[contact-form-7 title="Food Rx Contact"]');
+	if (!shortcode_exists('contact-form-7')) {
+		echo '<p class="foodrx-notice">Install and activate Contact Form 7, then paste the form markup from <code>content/contact-form-7.txt</code> into your contact form in WP Admin.</p>' . "\n";
 		return;
 	}
 
-	echo '<p class="foodrx-notice">Install and activate Contact Form 7, import the form from <code>content/contact-form-7.txt</code>, then set the form ID in Settings or use the shortcode on this page.</p>' . "\n";
+	$form_id = get_option('foodrx_cf7_form_id', '');
+
+	if ($form_id !== '' && $form_id !== '0') {
+		echo do_shortcode('[contact-form-7 id="' . esc_attr($form_id) . '"]');
+		return;
+	}
+
+	foreach (array('Food Rx Contact', 'Contact form 1') as $form_title) {
+		$form = get_page_by_title($form_title, OBJECT, 'wpcf7_contact_form');
+
+		if ($form instanceof WP_Post) {
+			echo do_shortcode('[contact-form-7 id="' . esc_attr((string) $form->ID) . '"]');
+			return;
+		}
+	}
+
+	echo do_shortcode('[contact-form-7 title="Food Rx Contact"]');
 }
 
 /**

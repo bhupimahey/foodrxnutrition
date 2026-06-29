@@ -1,29 +1,44 @@
 Food Rx Contact Form
 ====================
 
-Import in WordPress: Contact → Add New → switch to "Text" tab → paste below.
+Use this in WordPress: Contact → open your form (e.g. "Contact form 1" / id 862f1b3) → Form tab → paste the markup below.
 
-Form markup:
-------------
+Recommended form title: Food Rx Contact
 
+================================================================================
+FORM TAB — paste this entire block
+================================================================================
+
+<div class="foodrx-cf7">
+<p class="foodrx-cf7__row foodrx-cf7__row--half">
 <label> First Name (required)
-    [text* first-name autocomplete:name] </label>
+    [text* first-name autocomplete:given-name] </label>
 
-<label> Last Name (required)
-    [text* last-name autocomplete:name] </label>
+<label> Last name (required)
+    [text* last-name autocomplete:family-name] </label>
+</p>
 
+<p class="foodrx-cf7__row">
 <label> Email (required)
     [email* your-email autocomplete:email] </label>
+</p>
 
+<p class="foodrx-cf7__row">
 <label> Message (required)
     [textarea* your-message] </label>
+</p>
 
-[acceptance acceptance-terms] I agree to the Terms and Conditions and Privacy Policy [/acceptance]
+<p class="foodrx-cf7__row foodrx-cf7__acceptance">
+[acceptance acceptance-terms] I agree to the <a href="/terms-and-conditions/" target="_blank" rel="noopener">Terms and Conditions</a> and <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> [/acceptance]
+</p>
 
-[submit "Send Message"]
+<p class="foodrx-cf7__row">[submit "Send Message"]</p>
+</div>
 
-Mail tab:
----------
+================================================================================
+MAIL TAB
+================================================================================
+
 To: your-email@example.com
 Subject: Food Rx — New contact form message
 
@@ -37,13 +52,30 @@ Email: [your-email]
 Message:
 [your-message]
 
----
-After creating the form:
-1. Note the form ID (shown in the shortcode, e.g. id="123")
-2. Optional: run in WP admin or add to wp-config:
-   update_option('foodrx_cf7_form_id', 123);
-3. Or assign the Food Rx — Contact page template — it auto-finds a form titled "Food Rx Contact"
+--
+This message was sent from the Food Rx Nutrition contact form.
 
-Messages tab:
--------------
-Validation errors acceptance: Please agree to the Terms and Conditions and Privacy Policy before submitting.
+================================================================================
+MESSAGES TAB (suggested)
+================================================================================
+
+Acceptance missing: Please agree to the Terms and Conditions and Privacy Policy before submitting.
+Validation errors occurred: Please check the highlighted fields and try again.
+Thank you for your message. It has been sent.
+There was an error trying to send your message. Please try again later.
+
+================================================================================
+AFTER SAVING THE FORM
+================================================================================
+
+1. Copy the form ID from the shortcode, e.g. id="862f1b3"
+2. In WP Admin → Tools → Food Rx Setup is not required; the Contact page auto-detects the form.
+3. Optional — store the ID in the database (WP CLI or a small snippet once):
+   update_option('foodrx_cf7_form_id', '862f1b3');
+
+The Contact page template looks for, in order:
+- option foodrx_cf7_form_id
+- form titled "Food Rx Contact"
+- form titled "Contact form 1"
+
+Replace your-email@example.com with Mariam's real inbox before going live.
