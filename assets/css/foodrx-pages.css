@@ -482,6 +482,81 @@
 	border-radius: 6px;
 }
 
+.foodrx-contact-map-wide {
+	margin-bottom: 28px;
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid #e8ebef;
+	background: #fff;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.foodrx-contact-map-wide iframe {
+	display: block;
+	width: 100%;
+	height: 340px;
+	border: 0;
+}
+
+.foodrx-contact-quickinfo {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 20px;
+	padding: 28px 20px;
+	margin-bottom: 28px;
+	border: 1px solid #e8ebef;
+	border-radius: 12px;
+	background: #fff;
+}
+
+.foodrx-contact-quickinfo__item {
+	text-align: center;
+	padding: 8px 14px;
+}
+
+.foodrx-contact-quickinfo__item::before {
+	display: block;
+	font-size: 30px;
+	line-height: 1;
+	margin-bottom: 12px;
+}
+
+.foodrx-contact-quickinfo__item:nth-child(1)::before {
+	content: "\260e";
+	color: #f39f3f;
+}
+
+.foodrx-contact-quickinfo__item:nth-child(2)::before {
+	content: "\25ce";
+	color: #a7d433;
+}
+
+.foodrx-contact-quickinfo__item:nth-child(3)::before {
+	content: "\2709";
+	color: #01b4bd;
+}
+
+.foodrx-contact-quickinfo__value {
+	margin: 0 0 8px;
+	font-size: 28px;
+	font-family: 'Cabin', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+	line-height: 1.3;
+	color: #333539;
+	word-break: break-word;
+}
+
+.foodrx-contact-quickinfo__label {
+	margin: 0;
+	font-size: 14px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #7b7b7b;
+}
+
+.foodrx-contact-form--full {
+	max-width: 100%;
+}
+
 .foodrx-post-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -551,5 +626,18 @@
 
 	.foodrx-contact-map iframe {
 		height: 240px;
+	}
+
+	.foodrx-contact-map-wide iframe {
+		height: 260px;
+	}
+
+	.foodrx-contact-quickinfo {
+		grid-template-columns: 1fr;
+		gap: 18px;
+	}
+
+	.foodrx-contact-quickinfo__value {
+		font-size: 24px;
 	}
 }
