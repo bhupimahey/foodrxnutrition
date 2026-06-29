@@ -1,8 +1,6 @@
 <?php
 /**
- * Food Rx Nutrition — one-time WordPress page, menu, and reading setup.
- *
- * Converts a demo/stock install to Food Rx templates without manual WP admin steps.
+ * Food Rx Nutrition — menu setup only (does not change theme layout).
  *
  * @package Healthy Living
  */
@@ -11,29 +9,15 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-/**
- * @return bool
- */
-function foodrx_is_site_configured() {
-	$front_id = (int) get_option('page_on_front');
-
-	if (!$front_id) {
-		return false;
-	}
-
-	return get_page_template_slug($front_id) === 'page-foodrx-home.php';
-}
+define('FOODRX_MENU_SETUP_VERSION', 3);
 
 /**
+ * Pages linked from the primary menu (Home uses the existing front page).
+ *
  * @return array<int, array{title: string, slug: string, template: string}>
  */
-function foodrx_get_page_definitions() {
+function foodrx_get_menu_page_definitions() {
 	return array(
-		array(
-			'title' => 'Home',
-			'slug' => 'home',
-			'template' => 'page-foodrx-home.php',
-		),
 		array(
 			'title' => 'Services',
 			'slug' => 'services',
@@ -54,45 +38,36 @@ function foodrx_get_page_definitions() {
 			'slug' => 'contact',
 			'template' => 'page-foodrx-contact.php',
 		),
-		array(
-			'title' => 'Terms & Conditions',
-			'slug' => 'terms-and-conditions',
-			'template' => 'page-foodrx-legal.php',
-		),
-		array(
-			'title' => 'Privacy Policy',
-			'slug' => 'privacy-policy',
-			'template' => 'page-foodrx-legal.php',
-		),
 	);
 }
 
 /**
- * @param array{title: string, slug: string, template: string} $definition Page definition.
- * @return int Page ID.
+ * @return bool
  */
-function foodrx_upsert_page($definition) {
+function foodrx_is_primary_menu_configured() {
+	return (int) get_option('foodrx_menu_setup_version', 0) >= FOODRX_MENU_SETUP_VERSION;
+}
+
+/**
+ * Create a Food Rx page only when it does not already exist.
+ *
+ * @param array{title: string, slug: string, template: string} $definition Page definition.
+ * @return int Page ID or 0.
+ */
+function foodrx_ensure_page($definition) {
 	$existing = get_page_by_path($definition['slug'], OBJECT, 'page');
 
 	if ($existing instanceof WP_Post) {
-		$page_id = (int) $existing->ID;
-
-		wp_update_post(array(
-			'ID' => $page_id,
-			'post_title' => $definition['title'],
-			'post_name' => $definition['slug'],
-			'post_content' => '',
-			'post_status' => 'publish',
-		));
-	} else {
-		$page_id = (int) wp_insert_post(array(
-			'post_title' => $definition['title'],
-			'post_name' => $definition['slug'],
-			'post_type' => 'page',
-			'post_status' => 'publish',
-			'post_content' => '',
-		));
+		return (int) $existing->ID;
 	}
+
+	$page_id = (int) wp_insert_post(array(
+		'post_title' => $definition['title'],
+		'post_name' => $definition['slug'],
+		'post_type' => 'page',
+		'post_status' => 'publish',
+		'post_content' => '',
+	));
 
 	if ($page_id <= 0) {
 		return 0;
@@ -107,130 +82,230 @@ function foodrx_upsert_page($definition) {
 }
 
 /**
- * @param string               $menu_name Menu name.
- * @param array<string, int>   $items     Menu label => page ID.
  * @return int Menu term ID.
  */
-function foodrx_create_menu($menu_name, $items) {
-	$menu = wp_get_nav_menu_object($menu_name);
+function foodrx_get_primary_menu_id() {
+	$locations = get_theme_mod('nav_menu_locations', array());
 
-	if ($menu) {
-		$menu_id = (int) $menu->term_id;
-		$existing_items = wp_get_nav_menu_items($menu_id);
+	if (!empty($locations['primary'])) {
+		return (int) $locations['primary'];
+	}
 
-		if ($existing_items) {
-			foreach ($existing_items as $item) {
-				wp_delete_post((int) $item->ID, true);
-			}
+	foreach (array('Primary Navigation', 'Food Rx Primary') as $menu_name) {
+		$menu = wp_get_nav_menu_object($menu_name);
+
+		if ($menu) {
+			return (int) $menu->term_id;
 		}
-	} else {
-		$menu_id = (int) wp_create_nav_menu($menu_name);
+	}
+
+	return (int) wp_create_nav_menu('Primary Navigation');
+}
+
+/**
+ * @param int   $menu_id Menu term ID.
+ * @param array<int, array{title: string, url?: string, page_id?: int}> $items Menu items.
+ */
+function foodrx_replace_menu_items($menu_id, $items) {
+	$existing_items = wp_get_nav_menu_items($menu_id);
+
+	if ($existing_items) {
+		foreach ($existing_items as $item) {
+			wp_delete_post((int) $item->ID, true);
+		}
 	}
 
 	$position = 1;
 
-	foreach ($items as $title => $page_id) {
-		if ($page_id <= 0) {
-			continue;
+	foreach ($items as $item) {
+		if (!empty($item['page_id'])) {
+			wp_update_nav_menu_item($menu_id, 0, array(
+				'menu-item-title' => $item['title'],
+				'menu-item-object' => 'page',
+				'menu-item-object-id' => (int) $item['page_id'],
+				'menu-item-type' => 'post_type',
+				'menu-item-status' => 'publish',
+				'menu-item-position' => $position,
+			));
+		} elseif (!empty($item['url'])) {
+			wp_update_nav_menu_item($menu_id, 0, array(
+				'menu-item-title' => $item['title'],
+				'menu-item-url' => $item['url'],
+				'menu-item-type' => 'custom',
+				'menu-item-status' => 'publish',
+				'menu-item-position' => $position,
+			));
 		}
-
-		wp_update_nav_menu_item($menu_id, 0, array(
-			'menu-item-title' => $title,
-			'menu-item-object' => 'page',
-			'menu-item-object-id' => $page_id,
-			'menu-item-type' => 'post_type',
-			'menu-item-status' => 'publish',
-			'menu-item-position' => $position,
-		));
 
 		$position++;
 	}
-
-	return $menu_id;
 }
 
 /**
- * Create Food Rx pages, set homepage, and assign navigation menus.
+ * Update the primary navigation menu only.
  */
-function foodrx_setup_site() {
+function foodrx_setup_primary_menu() {
 	if (!function_exists('wp_insert_post')) {
 		return;
 	}
 
-	foodrx_register_categories();
-
 	$page_ids = array();
 
-	foreach (foodrx_get_page_definitions() as $definition) {
-		$page_id = foodrx_upsert_page($definition);
+	foreach (foodrx_get_menu_page_definitions() as $definition) {
+		$page_id = foodrx_ensure_page($definition);
 
 		if ($page_id > 0) {
 			$page_ids[$definition['slug']] = $page_id;
 		}
 	}
 
-	if (empty($page_ids['home'])) {
-		return;
-	}
+	$menu_id = foodrx_get_primary_menu_id();
 
-	update_option('show_on_front', 'page');
-	update_option('page_on_front', $page_ids['home']);
-
-	if (!empty($page_ids['nutrition-hub'])) {
-		update_option('page_for_posts', $page_ids['nutrition-hub']);
-	}
-
-	if (!empty($page_ids['privacy-policy'])) {
-		update_option('wp_page_for_privacy_policy', $page_ids['privacy-policy']);
-	}
-
-	$primary_menu_id = foodrx_create_menu('Food Rx Primary', array(
-		'Home' => $page_ids['home'],
-		'Services' => $page_ids['services'] ?? 0,
-		'Nutrition Hub' => $page_ids['nutrition-hub'] ?? 0,
-		'FAQ' => $page_ids['faq'] ?? 0,
-		'Contact' => $page_ids['contact'] ?? 0,
-	));
-
-	$footer_menu_id = foodrx_create_menu('Food Rx Footer', array(
-		'Terms & Conditions' => $page_ids['terms-and-conditions'] ?? 0,
-		'Privacy Policy' => $page_ids['privacy-policy'] ?? 0,
+	foodrx_replace_menu_items($menu_id, array(
+		array(
+			'title' => 'Home',
+			'url' => home_url('/'),
+		),
+		array(
+			'title' => 'Services',
+			'page_id' => $page_ids['services'] ?? 0,
+		),
+		array(
+			'title' => 'Nutrition Hub',
+			'page_id' => $page_ids['nutrition-hub'] ?? 0,
+		),
+		array(
+			'title' => 'FAQ',
+			'page_id' => $page_ids['faq'] ?? 0,
+		),
+		array(
+			'title' => 'Contact',
+			'page_id' => $page_ids['contact'] ?? 0,
+		),
 	));
 
 	$locations = get_theme_mod('nav_menu_locations', array());
-
-	if ($primary_menu_id > 0) {
-		$locations['primary'] = $primary_menu_id;
-	}
-
-	if ($footer_menu_id > 0) {
-		$locations['footer'] = $footer_menu_id;
-	}
-
+	$locations['primary'] = $menu_id;
 	set_theme_mod('nav_menu_locations', $locations);
 
-	update_option('foodrx_site_setup_version', 2);
+	update_option('foodrx_menu_setup_version', FOODRX_MENU_SETUP_VERSION);
 }
 
 /**
- * Run setup automatically until the homepage uses the Food Rx template.
+ * Load the demo homepage builder content shipped with the theme.
+ *
+ * @return string
  */
-function foodrx_maybe_setup_site() {
+function foodrx_load_demo_home_content_from_xml() {
+	$path = get_template_directory() . '/framework/admin/inc/demo-content/main/content.xml';
+
+	if (!is_readable($path)) {
+		return '';
+	}
+
+	$xml = file_get_contents($path);
+
+	if ($xml === false) {
+		return '';
+	}
+
+	if (preg_match(
+		'#<item>\s*<title><!\[CDATA\[Home\]\]></title>\s*<link>https://healthy-living\.cmsmasters\.studio/demo/</link>.*?<content:encoded><!\[CDATA\[(.*?)\]\]></content:encoded>#s',
+		$xml,
+		$matches
+	)) {
+		return $matches[1];
+	}
+
+	return '';
+}
+
+/**
+ * Restore the original CMSMasters demo homepage layout/content.
+ *
+ * @return bool
+ */
+function foodrx_restore_demo_homepage() {
+	$content = foodrx_load_demo_home_content_from_xml();
+
+	if ($content === '') {
+		return false;
+	}
+
+	$home = get_page_by_path('home', OBJECT, 'page');
+
+	if (!$home instanceof WP_Post) {
+		$home = get_page_by_title('Home', OBJECT, 'page');
+	}
+
+	if (!$home instanceof WP_Post) {
+		return false;
+	}
+
+	wp_update_post(array(
+		'ID' => $home->ID,
+		'post_content' => $content,
+		'post_status' => 'publish',
+	));
+
+	update_post_meta($home->ID, '_wp_page_template', 'default');
+	update_post_meta($home->ID, 'cmsmasters_layout', 'fullwidth');
+	update_post_meta($home->ID, 'cmsmasters_heading', 'disabled');
+	update_post_meta($home->ID, 'cmsmasters_heading_block_disabled', 'false');
+	update_post_meta($home->ID, 'cmsmasters_composer_show', 'true');
+	update_post_meta($home->ID, 'cmsmasters_bottom_sidebar', 'false');
+
+	return true;
+}
+
+/**
+ * @return bool
+ */
+function foodrx_homepage_needs_restore() {
+	$candidates = array();
+
+	$front_id = (int) get_option('page_on_front');
+
+	if ($front_id > 0) {
+		$candidates[] = $front_id;
+	}
+
+	$home = get_page_by_path('home', OBJECT, 'page');
+
+	if ($home instanceof WP_Post) {
+		$candidates[] = (int) $home->ID;
+	}
+
+	foreach (array_unique($candidates) as $page_id) {
+		if (get_page_template_slug($page_id) === 'page-foodrx-home.php') {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Run menu setup once, and restore the demo homepage if a prior setup changed it.
+ */
+function foodrx_maybe_run_setup() {
 	if (is_admin() && isset($_GET['page']) && $_GET['page'] === 'foodrx-setup') {
 		return;
 	}
 
-	if (foodrx_is_site_configured()) {
-		return;
+	if (!foodrx_is_primary_menu_configured()) {
+		foodrx_setup_primary_menu();
 	}
 
-	foodrx_setup_site();
+	if (foodrx_homepage_needs_restore()) {
+		foodrx_restore_demo_homepage();
+	}
 }
 
-add_action('init', 'foodrx_maybe_setup_site', 20);
+add_action('init', 'foodrx_maybe_run_setup', 20);
 
 /**
- * Tools → Food Rx Setup (manual re-run).
+ * Tools → Food Rx Setup.
  */
 function foodrx_register_setup_admin_page() {
 	add_management_page(
@@ -252,26 +327,39 @@ function foodrx_render_setup_admin_page() {
 		return;
 	}
 
-	if (isset($_POST['foodrx_run_setup']) && check_admin_referer('foodrx_run_setup')) {
-		foodrx_setup_site();
-		echo '<div class="notice notice-success"><p>Food Rx pages, homepage, and menus were configured.</p></div>';
+	if (isset($_POST['foodrx_run_menu_setup']) && check_admin_referer('foodrx_run_menu_setup')) {
+		foodrx_setup_primary_menu();
+		echo '<div class="notice notice-success"><p>Primary menu links were updated.</p></div>';
 	}
 
-	$configured = foodrx_is_site_configured();
+	if (isset($_POST['foodrx_restore_homepage']) && check_admin_referer('foodrx_restore_homepage')) {
+		if (foodrx_restore_demo_homepage()) {
+			echo '<div class="notice notice-success"><p>Demo homepage layout was restored.</p></div>';
+		} else {
+			echo '<div class="notice notice-error"><p>Could not restore the demo homepage. Check that a page titled Home exists.</p></div>';
+		}
+	}
+
 	$front_id = (int) get_option('page_on_front');
 	$front_template = $front_id ? get_page_template_slug($front_id) : '';
 
 	echo '<div class="wrap">';
 	echo '<h1>Food Rx Setup</h1>';
-	echo '<p>Status: ' . ($configured ? '<strong>Configured</strong>' : '<strong>Not configured</strong>') . '</p>';
+	echo '<p>This tool updates navigation links only. It does not replace the CMSMasters homepage layout.</p>';
+	echo '<p>Menu status: ' . (foodrx_is_primary_menu_configured() ? '<strong>Configured</strong>' : '<strong>Not configured</strong>') . '</p>';
 
 	if ($front_id) {
-		echo '<p>Front page ID: ' . esc_html((string) $front_id) . ' · Template: <code>' . esc_html($front_template ?: '(default)') . '</code></p>';
+		echo '<p>Front page template: <code>' . esc_html($front_template ?: 'default') . '</code></p>';
 	}
 
+	echo '<form method="post" style="margin-bottom: 16px;">';
+	wp_nonce_field('foodrx_run_menu_setup');
+	echo '<p><input type="submit" name="foodrx_run_menu_setup" class="button button-primary" value="Update Primary Menu Links"></p>';
+	echo '</form>';
+
 	echo '<form method="post">';
-	wp_nonce_field('foodrx_run_setup');
-	echo '<p><input type="submit" name="foodrx_run_setup" class="button button-primary" value="Run Food Rx Setup Now"></p>';
+	wp_nonce_field('foodrx_restore_homepage');
+	echo '<p><input type="submit" name="foodrx_restore_homepage" class="button" value="Restore Demo Homepage Layout"></p>';
 	echo '</form>';
 	echo '</div>';
 }

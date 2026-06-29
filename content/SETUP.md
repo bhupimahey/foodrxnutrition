@@ -22,13 +22,19 @@ Complete the client website on WordPress using the theme templates and content a
 
 Or pull latest theme files to production via your usual method.
 
-## Step 2 — Create WordPress pages
+On the first visit after deploy, the theme automatically updates the **primary menu links** only. It does **not** replace the CMSMasters homepage layout.
+
+To run manually: **WP Admin → Tools → Food Rx Setup**.
+
+## Step 2 — Create WordPress pages (optional)
+
+Food Rx pages for Services, FAQ, Contact, and Nutrition Hub are created automatically when the menu is set up. You only need manual steps if you prefer to configure pages yourself:
 
 In **Pages → Add New**, create each page with the exact slug and template:
 
 | Page title | Slug | Template |
 |------------|------|----------|
-| Home | `home` or leave as front page | **Food Rx — Home** |
+| Home | keep existing CMSMasters homepage | *(default — do not switch to Food Rx — Home)* |
 | Services | `services` | **Food Rx — Services** |
 | Nutrition Hub | `nutrition-hub` | **Food Rx — Nutrition Hub** |
 | FAQ | `faq` | **Food Rx — FAQ** |
@@ -42,14 +48,16 @@ In **Pages → Add New**, create each page with the exact slug and template:
 
 ## Step 3 — Set homepage and reading settings
 
+Keep the existing CMSMasters homepage as the static front page.
+
 **Settings → Reading:**
 - **Your homepage displays:** A static page
-- **Homepage:** Home
-- **Posts page:** Nutrition Hub (optional — or keep posts on Nutrition Hub template only)
+- **Homepage:** your existing Home page (CMSMasters demo layout)
+- **Posts page:** Nutrition Hub (optional)
 
 ## Step 4 — Create navigation menu
 
-**Appearance → Menus → Create menu "Primary":**
+The deploy auto-setup assigns **Primary Navigation** to:
 
 - Home → `/`
 - Services → `/services/`
@@ -57,9 +65,9 @@ In **Pages → Add New**, create each page with the exact slug and template:
 - FAQ → `/faq/`
 - Contact → `/contact/`
 
-Assign to **Primary Navigation**.
+To change links manually: **Appearance → Menus**.
 
-**Footer menu:**
+**Footer menu** (optional):
 - Terms & Conditions
 - Privacy Policy
 
