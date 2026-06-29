@@ -34,7 +34,7 @@ foodrx_render_list(array(
 echo '<p class="foodrx-prose">Incorporating workplace wellness is a strategic move that benefits both your employees and your organization. <a href="' . esc_url(home_url('/contact/')) . '">Contact us</a> to discuss a custom session.</p>';
 foodrx_section_close();
 
-foodrx_section_open('Cooking Classes & Grocery Tours — Specializations');
+foodrx_section_open('Cooking Classes & Grocery Tours — Specializations', 'At cooking classes and grocery tours, we specialize in supporting clients with:');
 foodrx_render_list(array(
 	'General healthy eating',
 	'Pre-diabetes and diabetes',
@@ -42,6 +42,7 @@ foodrx_render_list(array(
 	'Hypertension (high blood pressure)',
 	'Hyperlipidemia',
 ));
+echo '<p class="foodrx-prose">These classes and tours are suitable for all ages and levels of nutrition knowledge, making them accessible to everyone looking to improve their diet and health.</p>';
 foodrx_section_close();
 
 foodrx_close_content();

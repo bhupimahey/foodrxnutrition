@@ -33,14 +33,20 @@ foodrx_section_open('About Mariam', 'Your partner in nutrition and long-term wel
 echo '<div class="foodrx-prose">' . wpautop(esc_html(foodrx_get_about_text())) . '</div>';
 foodrx_section_close();
 
-foodrx_section_open('My Approach', 'Each client is unique. I start by understanding lifestyle, eating habits, and existing food knowledge, then provide personalized nutrition plans with a holistic focus.');
+foodrx_section_open('My Approach');
+echo '<div class="foodrx-prose">' . wpautop(esc_html(foodrx_get_approach_text())) . '</div>';
 foodrx_section_close();
 
-foodrx_section_open('Areas of Expertise');
+foodrx_section_open('Areas of Expertise', 'I provide nutrition counselling and education to clients with:');
 foodrx_render_list(foodrx_get_specialties());
 foodrx_section_close();
 
-foodrx_section_open('Your Nutrition Journey');
+foodrx_section_open('Favourite Quotes');
+foodrx_render_quotes(foodrx_get_favourite_quotes());
+echo '<div class="foodrx-prose">' . wpautop(esc_html(foodrx_get_about_closing_text())) . '</div>';
+foodrx_section_close();
+
+foodrx_section_open('Your Nutrition Journey', foodrx_get_journey_intro());
 foodrx_render_steps(foodrx_get_journey_steps());
 echo '<p class="foodrx-hero__cta"><a class="foodrx-button" href="' . esc_url(home_url('/services/')) . '">View Services &amp; Pricing</a></p>';
 foodrx_section_close();

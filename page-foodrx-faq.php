@@ -21,7 +21,7 @@ foodrx_section_open('Frequently Asked Questions');
 foodrx_render_faq(foodrx_get_faq_items());
 foodrx_section_close();
 
-echo '<p class="foodrx-prose foodrx-prose--center">Still have questions? <a href="' . esc_url(home_url('/contact/')) . '">Get in touch with us</a>.</p>';
+echo '<p class="foodrx-prose foodrx-prose--center">Still have questions? <a href="' . esc_url(home_url('/contact/')) . '">Contact us</a>.</p>';
 
 foodrx_close_content();
 

@@ -53,7 +53,7 @@ function foodrx_get_core_values() {
 		),
 		array(
 			'title' => 'Empowerment, Access, and Continuous Growth',
-			'body' => 'We empower clients to take ownership of their health through education, support, and practical tools. Through flexible scheduling, virtual access, and continuous professional growth, we remain dedicated to meeting clients where they are.',
+			'body' => 'We empower clients to take ownership of their health through education, support, and practical tools. Through flexible scheduling, virtual access, and continuous professional growth, we remain dedicated to meeting clients where they are and evolving to better serve them.',
 		),
 	);
 }
@@ -62,13 +62,52 @@ function foodrx_get_core_values() {
  * @return string
  */
 function foodrx_get_about_text() {
-	return 'Hello, I am Mariam, your dedicated and passionate registered dietitian based in London, Ontario, Canada. I am a proud member of Dietitians of Canada and the College of Dietitians of Ontario, and the founder and director of Food Rx Nutrition Consulting Services.
+	return 'Hello, I am Mariam, your dedicated and passionate registered dietitian based in London, Ontario, Canada. I am a proud member of Dietitians of Canada and the College of Dietitians of Ontario. I am also the founder and director of Food Rx Nutrition Consulting Services.
 
-My driving force is to help individuals understand how their daily food choices impact long-term health. I take great joy in educating and empowering individuals to make positive lifestyle changes that lead to improved well-being.
+My driving force is to help individuals understand how their daily food choices impact long-term health. There\'s nothing more rewarding than witnessing my clients achieve their health goals through carefully tailored nutrition plans. I take great joy in educating and empowering individuals to make positive lifestyle changes that lead to improved well-being. Seeing the tangible impact of my work drives me to stay current with the latest research in nutrition science and to continually work harder.
 
-I believe that good nutrition is the foundation of a healthy life and that small, consistent changes can lead to long-term results. I have experience in Long-Term Care, Primary Care, Nutrition Management, and Public Health.
+I believe that good nutrition is the foundation of a healthy life and that small, consistent changes can lead to long-term results. I have experience in several sectors including Long-Term Care, Primary Care, Nutrition Management, and Public Health. I am committed to being a lifelong learner and look forward to expanding my knowledge and skill-set.
 
-I am committed to using an evidence-based approach to nutrition counselling and strive to deliver personalized nutrition care tailored to individual needs, preferences, and cultural considerations.';
+I firmly believe that everyone\'s health matters, and I am here to equip you with the knowledge and guidance to make healthy eating a seamless part of your life. I am committed to using an evidence-based approach to nutrition counselling and strive to deliver personalized nutrition care to meet my clients\' needs. I believe in a client-centered approach, tailoring nutrition plans to meet individual needs, preferences, and cultural considerations.';
+}
+
+/**
+ * @return string
+ */
+function foodrx_get_approach_text() {
+	return 'Each of my clients is unique. I start by understanding lifestyle, eating habits, and existing food knowledge. Then I provide well-researched, personalized, and comprehensive nutrition plans. I believe that a holistic approach to health is essential, and I enjoy working with clients to optimise their overall well-being.';
+}
+
+/**
+ * @return array<int, array{quote: string, author: string}>
+ */
+function foodrx_get_favourite_quotes() {
+	return array(
+		array(
+			'quote' => 'Let food be thy medicine and medicine be thy food',
+			'author' => 'Hippocrates',
+		),
+		array(
+			'quote' => 'To eat is a necessity, but to eat intelligently is an art',
+			'author' => 'François de La Rochefoucauld',
+		),
+	);
+}
+
+/**
+ * @return string
+ */
+function foodrx_get_about_closing_text() {
+	return 'When I\'m not working with clients, you can find me experimenting with tasty, yet healthy recipes, and partaking in family adventures.
+
+I\'m your partner in this journey, offering tips, tricks, and personalised guidance to make nutritious eating an easy and enjoyable part of your life. Let\'s embark on this path to better health together.';
+}
+
+/**
+ * @return string
+ */
+function foodrx_get_journey_intro() {
+	return 'At Food Rx Nutrition Consulting Services, we are not just experts — we are your partners in health!';
 }
 
 /**
@@ -77,9 +116,9 @@ I am committed to using an evidence-based approach to nutrition counselling and 
 function foodrx_get_specialties() {
 	return array(
 		'Weight management (loss or gain)',
-		'Chronic disease management (high blood pressure, hyperlipidemia)',
-		'Digestive and gut health (IBS, GERD, constipation, bloating)',
-		'Prediabetes or type 2 diabetes mellitus',
+		'Chronic diseases management (high blood pressure, hyperlipidemia)',
+		'Digestive and gut health (IBS, GERD, constipation, diarrhea, bloating, gas)',
+		'Prediabetes or type 2 diabetes mellitus (not type 1 or complicated type 2 diabetes mellitus cases)',
 		'Fatty liver',
 		'Eating on a budget',
 		'Emotional eating and cravings',
@@ -100,7 +139,14 @@ function foodrx_get_journey_steps() {
 		array(
 			'step' => '1',
 			'title' => 'Free Discovery Video Call (30 Minutes)',
-			'body' => 'Discuss your health goals, review current challenges, ask questions about the nutrition process, and determine if we are a good fit. No obligation — just a supportive space to explore your next steps.',
+			'body' => 'This complimentary 30-minute video call is an opportunity to:
+
+• Discuss your health goals
+• Review your current challenges
+• Ask questions about the nutrition process
+• Determine if we are a good fit to work together
+
+There is no obligation — just a supportive space to explore your next steps.',
 		),
 		array(
 			'step' => '2',
@@ -123,66 +169,90 @@ function foodrx_get_services() {
 		array(
 			'title' => 'Food Rx Signature Program',
 			'price' => '$200',
-			'summary' => '4-week live program — 2 hours per week via video conferencing. Synchronous sessions with no replay.',
+			'summary' => 'The program is delivered through video conferencing for 4 weeks, 2 hours each week. The program is synchronous live sessions. There is no replay.
+
+Over the course of 4 weeks, you will focus on foundational practices that support your overall health and well-being — no extreme changes, no deprivation, just practical strategies you can actually stick with. The aim of this in-depth program is to build sustainable habits.',
 			'details' => array(
-				'Simplify meal planning and prepping',
-				'Revamp favourite recipes or discover healthier ones',
-				'Healthier choices when grocery shopping, dining out, or ordering take-out',
-				'Evening routines for better sleep',
-				'Stress management and nervous system reset strategies',
-				'Hydration and daily movement habits',
-				'Strategies for coping with cravings',
+				'Simplify meal planning and prepping so healthy eating feels effortless',
+				'Revamp your favourite recipes and/or discover new, healthier ones',
+				'Acquire strategies for making healthier food selections when grocery shopping, at restaurants, or when ordering take-out food',
+				'Wind down for better reset — improve sleep with evening routines',
+				'Breathe Easy, Stress Less — reset your nervous system in under 2 minutes',
+				'Start your day with simple hydration strategies',
+				'Build a daily movement habit that fits your life',
+				'Discover strategies for coping with cravings',
+				'Healthy eating tips and strategies',
+				'And more',
 			),
+			'outro' => 'Each week includes clear guidance, actionable strategies, and simple tips to make new habits stick. This program gives you the tools to succeed.
+
+Who this is for: Anyone ready to prioritize their health with simple, realistic changes. No experience needed — just a willingness to show up for yourself for 4 weeks.',
 		),
 		array(
 			'title' => 'Corporate / Workplace Wellness',
-			'price' => '$100 / 2 hours',
-			'summary' => 'Evidence-based nutrition education for workplaces. Virtual sessions across Canada. Price is all-inclusive.',
+			'price' => '$100 / 2 hours (all-inclusive, no tax)',
+			'summary' => 'Evidence-based nutrition education and practical solutions to cultivate a healthy and thriving workplace. Our corporate wellness programs engage your employees to take wellbeing to the next level in your workplace. Services are offered virtually across Canada.
+
+I lead engaging, evidence-based nutrition sessions designed to create and promote a culture of wellness. Each session is tailored to your audience\'s needs and delivered in a way that is clear, interactive, and easy to apply in daily life.
+
+Our programs are designed to both educate and empower employees with the knowledge and confidence to make sustainable, long-term healthy lifestyle changes. Ultimately, we believe that focusing on employee wellness results in increased energy, productivity, and engagement from employees.
+
+Combines lecture-like and interactive formats with slideshow support, interesting facts, trivia, and Q&A.',
 			'details' => array(
 				'Healthy eating during shift work',
 				'Grocery shopping the healthy way',
 				'Mediterranean diet',
 				'Building healthy habits',
-				'Meal planning for busy schedules',
+				'Meal planning and prepping for busy schedules',
 				'Heart Health 101',
 				'Nutrition and stress',
 				'Gut Health 101',
 				'Plant-based nutrition',
-				'Custom topics welcome',
+				'Nutrition and immunity',
+				'Custom topic ideas welcome',
 			),
+			'outro' => 'Incorporating workplace wellness is not just a perk — it is a strategic move that benefits both your employees and your organization. Are you ready to take your workplace wellness to the next level? Contact us today.',
 		),
 		array(
 			'title' => 'Cooking Classes',
 			'price' => '$50 / 60 minutes',
-			'summary' => 'Virtual or in-person hands-on cooking experiences — private or group cook-along sessions with a dietitian.',
+			'summary' => 'At Food Rx Nutrition Consulting Services, we offer virtual/online and in-person hands-on cooking experiences where you learn to prepare healthy and delicious recipes from the comfort of your own kitchen. Cooking classes can be offered as private or group tailored cook-along sessions with a dietitian. In both formats, you will take home helpful nutrition resources including recipes, a nutrition summary for your specific condition, a list of healthy ingredient swaps, and more.',
 			'details' => array(
-				'Prepare nutritious dishes for your condition and preferences',
-				'Healthy ingredient swaps in each recipe',
-				'Meal planning strategies',
-				'Take-home recipes and nutrition resources',
+				'Prepare nutritious dishes that support your condition and consider your food preferences',
+				'Review healthy ingredient swaps made in each recipe',
+				'Discuss meal planning strategies',
+				'Enjoy delicious leftovers',
+				'And more',
 			),
 		),
 		array(
 			'title' => 'Grocery Tours',
 			'price' => 'Private $100 / 120 min · Group $50',
-			'summary' => 'Virtual or in-person tours (group limited to 6). Learn label reading and smarter shopping.',
+			'summary' => 'At Food Rx Nutrition Consulting Services, we offer virtual or in-person grocery tours where you learn how to read and understand nutrition labels and ingredient lists, and tips and tricks to make healthier food choices. Tailored grocery tours can be offered as private or group sessions limited to 6 participants. In both formats, you will take home helpful nutrition resources including a shopping guide, a nutrition summary for your specific conditions, a sample meal plan, label reading tips, and more.',
 			'details' => array(
-				'Read and understand nutrition labels and ingredient lists',
-				'Create a shopping list and menu plan for your lifestyle',
-				'Foods to include and manage chronic conditions',
-				'Navigate aisles, stay on budget, and make smart choices',
+				'Learn to read and understand nutrition labels and ingredient lists',
+				'Learn how to create a shopping list and menu plan that fits your lifestyle needs',
+				'Review foods to include and foods to manage your chronic condition with specific dietary guidelines',
+				'Discuss balanced meals and snack choices and meet dietary requirements',
+				'Learn how to navigate grocery store aisles, stay on budget, and make smart shopping choices in different sections of the store',
+				'Get answers to your nutrition questions',
+				'And more',
 			),
 		),
 		array(
 			'title' => 'Media & Professional Nutrition Writing',
 			'price' => 'Custom',
-			'summary' => 'Evidence-based freelance nutrition content — blog posts, articles, and educational resources tailored to your audience.',
+			'summary' => 'As a registered dietitian, I can bring credibility, clarity, and confidence to your health and wellness content. I create clear, evidence-based freelance nutrition content that is engaging, culturally relevant, and tailored to your target audience. From blog posts and articles to educational resources, I translate complex nutrition science into practical, trustworthy content that connects. With a focus on inclusivity and accessibility, I specialize in making nutrition simple, relevant, and engaging — while upholding the science behind it.',
 			'details' => array(),
 		),
 		array(
 			'title' => 'For Health Professionals',
 			'price' => 'Custom',
-			'summary' => 'Simple, patient-centered nutrition messaging and resources for doctors, nurse practitioners, and pharmacists.',
+			'summary' => 'As a health provider, nutrition topics come up daily, but you might not be entirely sure what to tell patients to empower them to make healthy changes. You might not have gotten a lot of hands-on training to support patients with healthy eating, you\'re a busy provider with many other patient care concerns, or the constant influx of nutrition studies and guidelines leaves your head spinning — where do you even begin?
+
+With all the demands on your time as a health provider, it can be hard to sort out the latest nutrition research. Plus, even when those healthy eating messages are clear, you might not feel sure about how to help your patients create lasting changes to their diets.
+
+As a Registered Dietitian, I help connect health care professionals like doctors, nurse practitioners, and pharmacists with simple, clear nutrition messages for their patients. I help health care professionals find the simple, bite-sized, actionable nutrition messages that are truly patient-centered. I connect you with the tools and resources, tailored to your needs, that help you efficiently and effectively support your patients in eating well to manage their health conditions. Reach out today to learn more about how we can work together.',
 			'details' => array(),
 		),
 	);
@@ -195,39 +265,45 @@ function foodrx_get_faq_items() {
 	return array(
 		array(
 			'question' => 'What is a Registered Dietitian?',
-			'answer' => 'Registered Dietitian is a protected title under provincial legislation. In Ontario, dietitians are regulated by the College of Dietitians of Ontario. Only practitioners who possess the necessary educational qualifications and have met national standards are authorized to use this title.',
+			'answer' => 'Registered Dietitian is a protected title under provincial legislation. In Ontario, dietitians are regulated by the College of Dietitians of Ontario. Only practitioners who possess the necessary educational qualifications and have met national standards are authorized to use this title. This ensures that individuals seeking nutrition advice receive guidance from qualified professionals.',
 		),
 		array(
 			'question' => 'What is the difference between a Registered Dietitian and a Nutritionist?',
-			'answer' => 'Registered Dietitians (RDs) in Ontario are uniquely trained food and nutrition experts authorized to translate scientific, medical, and nutrition information into practical individualized therapeutic diets and healthy meal plans. The term "Nutritionist" is not protected by law in Ontario, so people with different levels of training can call themselves a nutritionist.',
+			'answer' => 'Registered Dietitians (RDs) in Ontario are uniquely trained food and nutrition experts. They are authorized experts in translating scientific, medical, and nutrition information into practical individualized therapeutic diets, healthy meal plans for people, and building the capacity of individuals and communities to access nutrition for health and well-being.
+
+The term "Nutritionist" is not protected by law in Ontario, so people with different levels of knowledge and training can call themselves a "Nutritionist".',
 		),
 		array(
 			'question' => 'Why should I see a Registered Dietitian?',
-			'answer' => 'A Registered Dietitian offers expert guidance and creates practical, realistic nutrition plans tailored to your needs, ensuring long-term success.',
+			'answer' => 'Seeing a Registered Dietitian can be a great step towards improving your health and well-being. They offer expert guidance and create practical and realistic nutrition plans tailored to your needs, ensuring long-term success.',
 		),
 		array(
 			'question' => 'Do I need a referral to see a Registered Dietitian?',
-			'answer' => 'No. You can book an appointment on your own and start your journey towards a healthier you today.',
+			'answer' => 'You do not need a referral from your doctor to see a Registered Dietitian. You can book an appointment on your own and start your journey towards a healthier you today.',
 		),
 		array(
 			'question' => 'Are Registered Dietitian services covered by OHIP?',
-			'answer' => 'Private Registered Dietitian services are not covered by OHIP. Your extended health insurance may provide full or partial coverage — check with your insurer before your first appointment. In Ontario, Registered Dietitians are classified as an "Authorized Medical Practitioner," and receipts may qualify for a non-refundable tax credit when filing taxes.',
+			'answer' => 'At this time, private Registered Dietitian services are not covered by OHIP. However, your extended health insurance benefits may provide full or partial coverage. We recommend that you check with your insurance company to find out the details of your coverage before your first appointment.
+
+In Ontario, Registered Dietitians are classified as an "Authorized Medical Practitioner." Even if your extended health insurance plan does not cover Registered Dietitian services, keep your receipt and provide it to your accountant to receive a non-refundable tax credit from the government.',
 		),
 		array(
 			'question' => 'How do you accept payment?',
-			'answer' => 'We are primarily a private-pay practice and provide a detailed receipt after each session for insurance reimbursement. We accept major credit cards (Visa, Mastercard via Square) and e-transfer. If insurance does not cover dietitian services, save your receipts — you may be eligible to claim them as medical expenses when filing taxes.',
+			'answer' => 'We are primarily a private-pay practice. We will provide a detailed receipt of payment after each session that can be submitted to your insurance company for reimbursement.
+
+If your insurance does not cover dietitian services, we suggest you save your receipts as you may be eligible to claim them under medical expenses when filing your taxes. We accept all major credit cards (Visa, Mastercard via Square) and e-transfer.',
 		),
 		array(
 			'question' => 'What is your cancellation policy?',
-			'answer' => 'Please provide 24-hour notice when cancelling your appointment. Otherwise a $50 late cancellation fee may apply.',
+			'answer' => 'Out of consideration for other clients who could book in your appointment slot, please provide 24-hour notice when cancelling your appointment. Otherwise a $50 late cancellation fee may apply.',
 		),
 		array(
 			'question' => 'Do I need follow-up sessions?',
-			'answer' => 'This depends on your goals. After a single session, you can decide whether follow-up sessions would be helpful and purchase them as needed.',
+			'answer' => 'This largely depends on the reason why you\'re seeking nutritional counselling. After you complete the single session, you can decide later whether you need a follow-up. You can purchase follow-up sessions if you feel you need them.',
 		),
 		array(
 			'question' => 'Can I do follow-up sessions without completing the first session?',
-			'answer' => 'No. Our practitioners follow a structured protocol that requires background information, intake, and an educational foundation that cannot be completed in a single follow-up visit.',
+			'answer' => 'No, you cannot jump directly into follow-up sessions without completing the first step. Our practitioners follow a protocol and require background information, intake form, the educational component, and so on — and this cannot be achieved in a single follow-up session.',
 		),
 		array(
 			'question' => 'Do you sell supplements?',
@@ -235,15 +311,22 @@ function foodrx_get_faq_items() {
 		),
 		array(
 			'question' => 'Is this a weight-loss clinic?',
-			'answer' => 'Food Rx Nutrition Consulting Services focuses on health optimization and sustainable habit change. Weight loss may be a goal, but we prioritize metabolic health, long-term behaviour change, improved lab markers, energy, and overall wellness. We do not promote crash dieting or extreme restriction.',
+			'answer' => 'Food Rx Nutrition Consulting Services focuses on health optimization and sustainable habit change. Weight loss may be a goal, but we prioritize:
+
+• Metabolic health
+• Long-term behavior change
+• Improved lab markers
+• Energy and overall wellness
+
+We do not promote crash dieting or extreme restriction.',
 		),
 		array(
 			'question' => 'How quickly will I see results?',
-			'answer' => 'Results vary depending on your starting point, consistency, and goals. Long-term transformation is built gradually and sustainably.',
+			'answer' => 'Results vary depending on your starting point, consistency, and goals. Long-term transformation is built gradually — and sustainably.',
 		),
 		array(
 			'question' => 'How many sessions will I need?',
-			'answer' => 'It depends on your goals. Most clients see the best results with ongoing coaching rather than a single visit.',
+			'answer' => 'It depends on your goals. Sustainable change requires consistency. Most clients see the best results with ongoing coaching rather than one visit.',
 		),
 	);
 }

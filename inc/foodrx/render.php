@@ -42,7 +42,10 @@ function foodrx_close_content() {
  */
 function foodrx_section_open($title, $intro = '') {
 	echo '<section class="foodrx-section">' . "\n";
-	echo '<h2 class="foodrx-section__title">' . esc_html($title) . '</h2>' . "\n";
+
+	if ($title !== '') {
+		echo '<h2 class="foodrx-section__title">' . esc_html($title) . '</h2>' . "\n";
+	}
 
 	if ($intro !== '') {
 		echo '<p class="foodrx-section__intro">' . esc_html($intro) . '</p>' . "\n";
@@ -112,7 +115,7 @@ function foodrx_render_steps($steps) {
 		echo '<article class="foodrx-step">' . "\n";
 		echo '<span class="foodrx-step__num">' . esc_html($step['step']) . '</span>' . "\n";
 		echo '<h3 class="foodrx-step__title">' . esc_html($step['title']) . '</h3>' . "\n";
-		echo '<p class="foodrx-step__body">' . esc_html($step['body']) . '</p>' . "\n";
+		echo '<div class="foodrx-step__body">' . wpautop(esc_html($step['body'])) . '</div>' . "\n";
 		echo '</article>' . "\n";
 	}
 
@@ -131,7 +134,7 @@ function foodrx_render_services($services) {
 		echo '<h3 class="foodrx-service__title">' . esc_html($service['title']) . '</h3>' . "\n";
 		echo '<p class="foodrx-service__price">' . esc_html($service['price']) . '</p>' . "\n";
 		echo '</header>' . "\n";
-		echo '<p class="foodrx-service__summary">' . esc_html($service['summary']) . '</p>' . "\n";
+		echo '<div class="foodrx-service__summary">' . wpautop(esc_html($service['summary'])) . '</div>' . "\n";
 
 		if (!empty($service['details'])) {
 			echo '<ul class="foodrx-service__details">' . "\n";
@@ -143,6 +146,10 @@ function foodrx_render_services($services) {
 			echo '</ul>' . "\n";
 		}
 
+		if (!empty($service['outro'])) {
+			echo '<div class="foodrx-service__outro">' . wpautop(esc_html($service['outro'])) . '</div>' . "\n";
+		}
+
 		echo '</article>' . "\n";
 	}
 
@@ -150,7 +157,22 @@ function foodrx_render_services($services) {
 }
 
 /**
- * FAQ accordion using theme toggle styles.
+ * @param array<int, array{quote: string, author: string}> $quotes Quote items.
+ */
+function foodrx_render_quotes($quotes) {
+	echo '<div class="foodrx-quotes">' . "\n";
+
+	foreach ($quotes as $item) {
+		echo '<blockquote class="foodrx-quote">' . "\n";
+		echo '<p class="foodrx-quote__text">&ldquo;' . esc_html($item['quote']) . '&rdquo;</p>' . "\n";
+		echo '<cite class="foodrx-quote__author">' . esc_html($item['author']) . '</cite>' . "\n";
+		echo '</blockquote>' . "\n";
+	}
+
+	echo '</div>' . "\n";
+}
+
+/**
  *
  * @param array<int, array{question: string, answer: string}> $items FAQ items.
  */
