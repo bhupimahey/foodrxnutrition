@@ -47,3 +47,9 @@
 .cmsmasters_heading_under_header #header .navigation .cmsmasters_resp_nav_toggle {
 	color: #ffffff !important;
 }
+
+/* Hide CookieYes floating revisit-consent icon. */
+.cky-btn-revisit-wrapper,
+[data-cky-tag="revisit-consent"] {
+	display: none !important;
+}
