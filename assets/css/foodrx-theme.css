@@ -19,7 +19,17 @@
 }
 
 .cmsmasters_heading_after_header #header .header_mid {
+	transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cmsmasters_heading_after_header #header .header_mid:not(.header_mid_scroll) {
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll {
 	background-color: #ffffff !important;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .cmsmasters_heading_after_header #header .navigation .cmsmasters_resp_nav_toggle {
