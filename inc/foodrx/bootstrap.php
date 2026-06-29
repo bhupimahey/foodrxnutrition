@@ -23,6 +23,14 @@ function foodrx_enqueue_theme_assets() {
 		array('theme-schemes-secondary'),
 		'1.0.0'
 	);
+
+	wp_enqueue_script(
+		'foodrx-cookie-consent',
+		get_template_directory_uri() . '/assets/js/foodrx-cookie-consent.js',
+		array(),
+		'1.0.0',
+		true
+	);
 }
 
 add_action('wp_enqueue_scripts', 'foodrx_enqueue_theme_assets', 20);
@@ -42,7 +50,7 @@ function foodrx_enqueue_assets() {
 			'foodrx-pages',
 			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
 			array(),
-			'1.0.3'
+			'1.0.4'
 		);
 	}
 }
