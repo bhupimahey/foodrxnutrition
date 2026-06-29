@@ -10,13 +10,13 @@ FORM TAB — paste this entire block
 ================================================================================
 
 <div class="foodrx-cf7">
-<p class="foodrx-cf7__row foodrx-cf7__row--half">
-<label> First Name (required)
-    [text* first-name autocomplete:given-name] </label>
+<div class="foodrx-cf7__row foodrx-cf7__row--half">
+<p><label> First Name (required)
+    [text* first-name autocomplete:given-name] </label></p>
 
-<label> Last name (required)
-    [text* last-name autocomplete:family-name] </label>
-</p>
+<p><label> Last Name (required)
+    [text* last-name autocomplete:family-name] </label></p>
+</div>
 
 <p class="foodrx-cf7__row">
 <label> Email (required)
@@ -32,7 +32,7 @@ FORM TAB — paste this entire block
 [acceptance acceptance-terms] I agree to the <a href="/terms-and-conditions/" target="_blank" rel="noopener">Terms and Conditions</a> and <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> [/acceptance]
 </p>
 
-<p class="foodrx-cf7__row">[submit "Send Message"]</p>
+<p class="foodrx-cf7__row foodrx-cf7__submit">[submit "Send Message"]</p>
 </div>
 
 ================================================================================

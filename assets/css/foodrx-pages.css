@@ -239,40 +239,163 @@
 	margin-top: 30px;
 }
 
-.foodrx-contact-form .wpcf7 {
-	width: 100%;
-}
-
-.foodrx-cf7__row {
-	margin-bottom: 16px;
-}
-
-.foodrx-cf7__row--half {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 16px;
-}
-
-.foodrx-cf7__acceptance .wpcf7-list-item {
-	margin: 0;
-}
-
-.foodrx-cf7__acceptance label {
-	display: flex;
-	align-items: flex-start;
-	gap: 8px;
-	line-height: 1.5;
-}
-
 .foodrx-contact-grid {
 	display: grid;
-	grid-template-columns: 1fr 1.2fr;
-	gap: 40px;
+	grid-template-columns: 1fr 1fr;
+	gap: 48px 56px;
 	align-items: start;
 }
 
 .foodrx-contact-info h3 {
 	margin-top: 0;
+}
+
+.foodrx-contact-form {
+	background: #fafafa;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	padding: 28px 32px;
+}
+
+.foodrx-contact-form .wpcf7 {
+	width: 100%;
+}
+
+.foodrx-contact-form .foodrx-cf7 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px 20px;
+	align-items: start;
+}
+
+.foodrx-contact-form .foodrx-cf7 > p,
+.foodrx-contact-form .foodrx-cf7 > .foodrx-cf7__row {
+	grid-column: 1 / -1;
+	margin: 0;
+	padding: 0;
+}
+
+.foodrx-contact-form .foodrx-cf7__row--half:not(p) {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px 20px;
+}
+
+.foodrx-contact-form .foodrx-cf7__row--half > p {
+	margin: 0;
+	padding: 0;
+}
+
+/* CF7 sometimes splits name fields into separate paragraphs */
+.foodrx-contact-form .foodrx-cf7 > p.foodrx-cf7__row--half {
+	grid-column: 1;
+}
+
+.foodrx-contact-form .foodrx-cf7 > p.foodrx-cf7__row--half + p:not([class]) {
+	grid-column: 2;
+}
+
+.foodrx-contact-form .wpcf7-form p {
+	margin: 0;
+	padding: 0;
+	color: #333539;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: normal;
+	text-transform: none;
+	line-height: 1.4;
+}
+
+.foodrx-contact-form .wpcf7-form p > br {
+	display: none;
+}
+
+.foodrx-contact-form .wpcf7-form label {
+	display: block;
+	color: #333539;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: normal;
+	text-transform: none;
+	line-height: 1.4;
+}
+
+.foodrx-contact-form .wpcf7-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+.foodrx-contact-form .wpcf7-form textarea {
+	display: block;
+	width: 100%;
+	min-width: 0;
+	margin: 8px 0 0;
+	padding: 12px 14px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	color: #333539;
+	font-size: 15px;
+	line-height: 1.4;
+	box-sizing: border-box;
+	transition: border-color 0.2s ease;
+}
+
+.foodrx-contact-form .wpcf7-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):focus,
+.foodrx-contact-form .wpcf7-form textarea:focus {
+	border-color: #01b4bd;
+	outline: none;
+}
+
+.foodrx-contact-form .wpcf7-form textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.foodrx-contact-form .foodrx-cf7__acceptance .wpcf7-list-item {
+	margin: 0;
+}
+
+.foodrx-contact-form .foodrx-cf7__acceptance .wpcf7-list-item label {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	font-weight: normal;
+	color: #555;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.foodrx-contact-form .foodrx-cf7__acceptance .wpcf7-list-item-label a {
+	color: #01b4bd;
+}
+
+.foodrx-contact-form .foodrx-cf7__submit input[type="submit"] {
+	width: auto;
+	min-width: 160px;
+	margin: 8px 0 0;
+	padding: 14px 32px;
+	background: #a7d433;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-weight: 700;
+	font-size: 15px;
+	cursor: pointer;
+	letter-spacing: normal;
+	text-transform: none;
+	transition: background 0.2s ease;
+}
+
+.foodrx-contact-form .foodrx-cf7__submit input[type="submit"]:hover {
+	background: #01b4bd;
+}
+
+.foodrx-contact-form .wpcf7-not-valid-tip {
+	font-size: 13px;
+	margin-top: 6px;
+}
+
+.foodrx-contact-form .wpcf7-response-output {
+	margin: 16px 0 0;
+	padding: 12px 14px;
+	border-radius: 6px;
 }
 
 .foodrx-post-grid {
@@ -319,11 +442,25 @@
 		font-size: 32px;
 	}
 
-	.foodrx-cf7__row--half {
+	.foodrx-contact-form .foodrx-cf7 {
 		grid-template-columns: 1fr;
+	}
+
+	.foodrx-contact-form .foodrx-cf7__row--half:not(p) {
+		grid-template-columns: 1fr;
+	}
+
+	.foodrx-contact-form .foodrx-cf7 > p.foodrx-cf7__row--half,
+	.foodrx-contact-form .foodrx-cf7 > p.foodrx-cf7__row--half + p:not([class]) {
+		grid-column: 1 / -1;
 	}
 
 	.foodrx-contact-grid {
 		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+
+	.foodrx-contact-form {
+		padding: 20px;
 	}
 }
