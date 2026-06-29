@@ -241,20 +241,104 @@
 
 .foodrx-contact-grid {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr);
 	gap: 48px 56px;
 	align-items: start;
 }
 
+.foodrx-contact-sidebar {
+	display: grid;
+	gap: 24px;
+}
+
+.foodrx-contact-info {
+	background: linear-gradient(135deg, #0f6d73 0%, #01b4bd 100%);
+	color: #fff;
+	border-radius: 12px;
+	padding: 30px;
+	box-shadow: 0 14px 30px rgba(1, 180, 189, 0.22);
+}
+
 .foodrx-contact-info h3 {
 	margin-top: 0;
+	margin-bottom: 12px;
+	color: #fff;
+}
+
+.foodrx-contact-info__lead {
+	margin: 0 0 18px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.95);
+}
+
+.foodrx-contact-list {
+	list-style: none;
+	margin: 0 0 18px;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+.foodrx-contact-list li {
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.15);
+	line-height: 1.5;
+}
+
+.foodrx-contact-list a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.foodrx-contact-info__note {
+	margin: 0 0 20px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.95);
+}
+
+.foodrx-contact-info .foodrx-button {
+	background: #fff;
+	color: #0f6d73 !important;
+}
+
+.foodrx-contact-info .foodrx-button:hover {
+	background: #a7d433;
+	color: #ffffff !important;
+}
+
+.foodrx-contact-map {
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid #e8ebef;
+	background: #fff;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+.foodrx-contact-map iframe {
+	display: block;
+	width: 100%;
+	height: 280px;
+	border: 0;
 }
 
 .foodrx-contact-form {
-	background: #fafafa;
-	border: 1px solid #eee;
-	border-radius: 8px;
-	padding: 28px 32px;
+	background: #fff;
+	border: 1px solid #e8ebef;
+	border-radius: 12px;
+	padding: 30px 34px;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.foodrx-contact-form h3 {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.foodrx-contact-form__intro {
+	margin: 0 0 20px;
+	color: #6f7580;
+	line-height: 1.6;
 }
 
 .foodrx-contact-form .wpcf7 {
@@ -460,7 +544,12 @@
 		gap: 32px;
 	}
 
+	.foodrx-contact-info,
 	.foodrx-contact-form {
 		padding: 20px;
+	}
+
+	.foodrx-contact-map iframe {
+		height: 240px;
 	}
 }
