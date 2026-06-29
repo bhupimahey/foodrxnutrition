@@ -43,13 +43,7 @@ get_sidebar('bottom');
 		healthy_living_get_footer_social_icons($cmsmasters_option);
 	?>
 		<span class="footer_copyright copyright">
-			<?php 
-			if (function_exists('the_privacy_policy_link')) {
-				the_privacy_policy_link('', ' / ');
-			}
-			
-			echo esc_html(stripslashes($cmsmasters_option['healthy-living' . '_footer_copyright']));
-			?>
+			<?php echo esc_html(stripslashes($cmsmasters_option['healthy-living' . '_footer_copyright'])); ?>
 		</span>
 	</div>
 </footer>
