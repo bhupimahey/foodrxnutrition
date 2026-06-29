@@ -28,12 +28,28 @@
 }
 
 .cmsmasters_heading_after_header #header .header_mid.header_mid_scroll {
-	background-color: #ffffff !important;
+	background-color: rgba(52, 56, 65, 0.9) !important;
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li > a,
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li > a .nav_title,
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li > a .nav_subtitle {
+	color: #ffffff !important;
+}
+
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li > a:hover .nav_title,
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li.current-menu-item > a .nav_title,
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation > li.current-menu-ancestor > a .nav_title {
+	color: #a7d433 !important;
 }
 
 .cmsmasters_heading_after_header #header .navigation .cmsmasters_resp_nav_toggle {
 	color: #343841 !important;
+}
+
+.cmsmasters_heading_after_header #header .header_mid.header_mid_scroll .navigation .cmsmasters_resp_nav_toggle {
+	color: #ffffff !important;
 }
 
 /* Homepage hero overlap — keep white navigation over the slider. */
