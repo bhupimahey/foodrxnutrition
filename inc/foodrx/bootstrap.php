@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 
 require_once __DIR__ . '/content.php';
 require_once __DIR__ . '/render.php';
+require_once __DIR__ . '/setup.php';
 
 /**
  * Enqueue Food Rx page styles on custom templates.
@@ -27,7 +28,7 @@ function foodrx_enqueue_assets() {
 			'foodrx-pages',
 			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
 			array(),
-			'1.0.0'
+			'1.0.1'
 		);
 	}
 }

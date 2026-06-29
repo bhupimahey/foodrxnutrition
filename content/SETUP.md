@@ -18,8 +18,7 @@ Complete the client website on WordPress using the theme templates and content a
 
 ## Step 1 — Deploy theme to cPanel
 
-1. GitHub → **Actions** → **Deploy to cPanel Production**
-2. Type `deploy` and run the workflow
+1. GitHub → **Actions** → **Deploy to cPanel Production** → **Run workflow**
 
 Or pull latest theme files to production via your usual method.
 

@@ -2,15 +2,9 @@ name: Deploy to cPanel Production
 
 on:
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'Type "deploy" to confirm production deployment'
-        required: true
-        type: string
 
 jobs:
   deploy:
-    if: github.event.inputs.confirm == 'deploy'
     runs-on: ubuntu-latest
 
     steps:
