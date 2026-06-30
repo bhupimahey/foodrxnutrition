@@ -21,7 +21,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.0.5'
+		'1.0.6'
 	);
 
 	wp_enqueue_script(

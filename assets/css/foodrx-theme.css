@@ -80,9 +80,9 @@
 	display: none !important;
 }
 
-/* Contact page — transparent header over map with full primary menu visible. */
+/* Contact page — match demo screenshot dark top bar for visible logo/menu. */
 body.foodrx-contact-page #header .header_mid:not(.header_mid_scroll) {
-	background-color: transparent !important;
+	background-color: #2e3f59 !important;
 	box-shadow: none !important;
 }
 
@@ -101,7 +101,7 @@ body.foodrx-contact-page #header .header_mid .navigation > li.current-menu-ances
 }
 
 body.foodrx-contact-page #header .header_mid.header_mid_scroll {
-	background-color: rgba(52, 56, 65, 0.92) !important;
+	background-color: #2e3f59 !important;
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
