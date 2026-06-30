@@ -55,22 +55,73 @@ function foodrx_is_primary_menu_configured() {
  * @param int    $page_id  Page ID.
  * @param string $page_key Background key from foodrx_get_page_bg_definitions().
  */
-function foodrx_apply_heading_banner_meta($page_id, $page_key) {
-	$bg_url = foodrx_get_page_bg_url($page_key);
-
+/**
+ * Heading/banner structure for inner pages (does not touch background image).
+ *
+ * @param int $page_id Page ID.
+ */
+function foodrx_apply_banner_page_structure_meta($page_id) {
 	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
 	update_post_meta($page_id, 'cmsmasters_heading', 'default');
 	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
 	update_post_meta($page_id, 'cmsmasters_heading_alignment', 'center');
 	update_post_meta($page_id, 'cmsmasters_heading_scheme', 'default');
+	update_post_meta($page_id, 'cmsmasters_breadcrumbs', 'true');
+
+	if (get_post_meta($page_id, 'cmsmasters_heading_height', true) === '') {
+		update_post_meta($page_id, 'cmsmasters_heading_height', '360');
+	}
+
+	if (get_post_meta($page_id, 'cmsmasters_heading_bg_color', true) === '') {
+		update_post_meta($page_id, 'cmsmasters_heading_bg_color', 'rgba(37,37,37,0.55)');
+	}
+}
+
+function foodrx_apply_heading_banner_meta($page_id, $page_key) {
+	foodrx_apply_banner_page_structure_meta($page_id);
+
+	if (foodrx_page_has_custom_heading_bg($page_id)) {
+		return;
+	}
+
+	$bg_url = foodrx_get_page_bg_url($page_key);
+
 	update_post_meta($page_id, 'cmsmasters_heading_bg_img_enable', 'true');
 	update_post_meta($page_id, 'cmsmasters_heading_bg_img', foodrx_format_heading_bg_meta($bg_url));
 	update_post_meta($page_id, 'cmsmasters_heading_bg_rep', 'no-repeat');
 	update_post_meta($page_id, 'cmsmasters_heading_bg_att', 'scroll');
 	update_post_meta($page_id, 'cmsmasters_heading_bg_size', 'cover');
-	update_post_meta($page_id, 'cmsmasters_heading_height', '360');
-	update_post_meta($page_id, 'cmsmasters_heading_bg_color', 'rgba(37,37,37,0.55)');
-	update_post_meta($page_id, 'cmsmasters_breadcrumbs', 'true');
+}
+
+/**
+ * Sync layout/header structure on each request without overwriting admin banner images.
+ *
+ * @param int    $page_id Page ID.
+ * @param string $slug    Page slug.
+ */
+function foodrx_sync_foodrx_page_layout_meta($page_id, $slug = '') {
+	if ($slug === '') {
+		$page = get_post($page_id);
+		$slug = ($page instanceof WP_Post) ? $page->post_name : '';
+	}
+
+	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
+	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
+
+	switch ($slug) {
+		case 'contact':
+			update_post_meta($page_id, 'cmsmasters_heading', 'disabled');
+			update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
+			update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
+			update_post_meta($page_id, 'cmsmasters_content_under_header', 'false');
+			break;
+
+		case 'nutrition-hub':
+		case 'faq':
+		case 'services':
+			foodrx_apply_banner_page_structure_meta($page_id);
+			break;
+	}
 }
 
 /**
@@ -96,7 +147,6 @@ function foodrx_apply_foodrx_page_meta($page_id, $slug = '') {
 			break;
 
 		case 'nutrition-hub':
-			update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
 			foodrx_apply_heading_banner_meta($page_id, 'nutrition-hub');
 			break;
 

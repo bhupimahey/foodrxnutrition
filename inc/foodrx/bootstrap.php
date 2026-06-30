@@ -76,16 +76,14 @@ function foodrx_register_categories() {
 add_action('after_switch_theme', 'foodrx_register_categories');
 
 /**
- * Keep Food Rx page header settings in sync on every request.
+ * Keep Food Rx page layout/header structure in sync without overwriting banner
+ * images chosen in WP Admin (CMSMasters Page Options → Heading).
  */
 function foodrx_sync_current_page_meta() {
 	if (!is_page()) {
 		return;
 	}
 
-	// get_queried_object_id() is reliable at template_redirect time; avoid
-	// get_page_template_slug() with no argument because $GLOBALS['post'] is
-	// not yet populated before the loop runs.
 	$page_id = (int) get_queried_object_id();
 
 	if ($page_id <= 0) {
@@ -96,7 +94,7 @@ function foodrx_sync_current_page_meta() {
 
 	foreach (foodrx_get_menu_page_definitions() as $definition) {
 		if ($template === $definition['template']) {
-			foodrx_apply_foodrx_page_meta($page_id, $definition['slug']);
+			foodrx_sync_foodrx_page_layout_meta($page_id, $definition['slug']);
 			return;
 		}
 	}
@@ -147,45 +145,6 @@ function foodrx_get_current_banner_bg_key() {
 
 	return $map[$template] ?? '';
 }
-
-/**
- * Output full-width page banner background styles for Food Rx inner pages.
- *
- * Injected after theme defaults so the demo photo always shows even if stale
- * post meta or attachment IDs are stored in the database.
- */
-function foodrx_print_page_heading_styles() {
-	$bg_key = foodrx_get_current_banner_bg_key();
-
-	if ($bg_key === '') {
-		return;
-	}
-
-	$bg_url = esc_url(foodrx_get_page_bg_url($bg_key));
-
-	if ($bg_url === '') {
-		return;
-	}
-
-	echo '<style id="foodrx-page-heading">' . "\n";
-	echo '.headline_outer {' . "\n";
-	echo 'background-image:url(' . $bg_url . ') !important;' . "\n";
-	echo 'background-repeat:no-repeat !important;' . "\n";
-	echo 'background-attachment:scroll !important;' . "\n";
-	echo 'background-size:cover !important;' . "\n";
-	echo 'background-position:center center !important;' . "\n";
-	echo '}' . "\n";
-	echo '.headline_color {' . "\n";
-	echo 'background-color:rgba(37,37,37,0.55) !important;' . "\n";
-	echo '}' . "\n";
-	echo '.headline_aligner,' . "\n";
-	echo '.cmsmasters_breadcrumbs_aligner {' . "\n";
-	echo 'min-height:360px !important;' . "\n";
-	echo '}' . "\n";
-	echo '</style>' . "\n";
-}
-
-add_action('wp_head', 'foodrx_print_page_heading_styles', 99);
 
 /**
  * Body classes for Food Rx banner pages (FAQ, Services, Nutrition Hub).

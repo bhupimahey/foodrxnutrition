@@ -416,6 +416,23 @@ function foodrx_format_heading_bg_meta($url) {
 }
 
 /**
+ * Whether the page already has a CMSMasters heading background configured in admin.
+ *
+ * @param int $page_id Page ID.
+ * @return bool
+ */
+function foodrx_page_has_custom_heading_bg($page_id) {
+	$enabled = get_post_meta($page_id, 'cmsmasters_heading_bg_img_enable', true);
+	$bg_img = get_post_meta($page_id, 'cmsmasters_heading_bg_img', true);
+
+	if ($bg_img === '' || $bg_img === false) {
+		return false;
+	}
+
+	return in_array($enabled, array('true', '1', 1, true), true);
+}
+
+/**
  * Decorative divider image used in demo section headings.
  *
  * @return string
