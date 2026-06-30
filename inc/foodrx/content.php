@@ -534,6 +534,15 @@ function foodrx_get_divider_image_url() {
 }
 
 /**
+ * Decorative divider used in the Nutrilon blog split hero.
+ *
+ * @return string
+ */
+function foodrx_get_hub_divider_image_url() {
+	return foodrx_resolve_image_url('2016/06/miniv3.png', 'miniv3.png');
+}
+
+/**
  * Hero background image URL when demo media is available.
  *
  * @return string
@@ -549,10 +558,10 @@ function foodrx_get_hero_bg_url() {
  */
 function foodrx_get_nutrition_hub_featured() {
 	return array(
-		'label' => 'Nutrition Hub',
-		'title' => 'Evidence-Based Tips & Recipes',
-		'body' => 'Practical nutrition articles and simple recipes from Food Rx Nutrition Consulting Services to support your everyday health goals.',
-		'cta_label' => 'Browse Articles',
+		'label' => 'Health Coath',
+		'title' => 'Blueberry-basil muffins',
+		'body' => 'Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim posuere',
+		'cta_label' => 'Learn About',
 		'cta_url' => '#foodrx-blog-posts',
 	);
 }

@@ -13,8 +13,9 @@ if (!defined('ABSPATH')) {
  * Open standard page content wrapper (matches theme layout).
  *
  * @param string $layout cmsmasters layout slug.
+ * @param string $page_class Optional extra classes on .foodrx-page.
  */
-function foodrx_open_content($layout) {
+function foodrx_open_content($layout, $page_class = '') {
 	echo '<!-- Start Content -->' . "\n";
 
 	if ($layout === 'r_sidebar') {
@@ -25,7 +26,8 @@ function foodrx_open_content($layout) {
 		echo '<div class="middle_content entry">';
 	}
 
-	echo '<div class="foodrx-page">' . "\n";
+	$class_attr = trim('foodrx-page ' . $page_class);
+	echo '<div class="' . esc_attr($class_attr) . '">' . "\n";
 }
 
 /**
@@ -369,19 +371,32 @@ function foodrx_render_form_panel($label, $title, $intro, $bg_url = '') {
 function foodrx_render_nutrition_hub_hero() {
 	$featured = foodrx_get_nutrition_hub_featured();
 	$bg_url = foodrx_get_page_bg_url('nutrition-hub-hero');
+	$divider_url = foodrx_get_hub_divider_image_url();
 
 	echo '<div class="foodrx-hub-hero">' . "\n";
 	echo '<div class="foodrx-hub-hero__left cmsmasters_featured_block">' . "\n";
 	echo '<div class="featured_block_inner">' . "\n";
 	echo '<p class="foodrx-hub-hero__label">' . esc_html($featured['label']) . '</p>' . "\n";
 	echo '<h2 class="foodrx-hub-hero__title">' . esc_html($featured['title']) . '</h2>' . "\n";
-	echo '<div class="foodrx-hub-hero__divider" aria-hidden="true"></div>' . "\n";
+	echo '<img class="foodrx-hub-hero__divider-img" src="' . esc_url($divider_url) . '" alt="" width="100" height="14" loading="lazy" />' . "\n";
 	echo '<p class="foodrx-hub-hero__body">' . esc_html($featured['body']) . '</p>' . "\n";
-	echo '<a class="foodrx-button foodrx-button--outline cmsmasters_button" href="' . esc_url($featured['cta_url']) . '">' . esc_html($featured['cta_label']) . '</a>' . "\n";
+	echo '<a class="foodrx-button foodrx-button--outline cmsmasters_button" href="' . esc_url($featured['cta_url']) . '"><span>' . esc_html(strtoupper($featured['cta_label'])) . '</span></a>' . "\n";
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";
 	echo '<div class="foodrx-hub-hero__right cmsmasters_featured_block" style="background-image:url(' . esc_url($bg_url) . ');"></div>' . "\n";
 	echo '</div>' . "\n";
+}
+
+/**
+ * Standard blog feed matching the demo Nutrilon blog page.
+ */
+function foodrx_render_nutrition_hub_blog() {
+	if (shortcode_exists('cmsmasters_blog')) {
+		echo do_shortcode('[cmsmasters_blog orderby="date" order="DESC" count="6" layout="standard" metadata="date,categories,author,comments,more" pagination="more"]');
+		return;
+	}
+
+	foodrx_render_blog_posts('');
 }
 
 /**
