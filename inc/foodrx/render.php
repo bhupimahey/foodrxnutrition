@@ -210,7 +210,14 @@ function foodrx_render_process_steps($steps) {
 		echo '<div class="featured_block_inner">' . "\n";
 		echo '<p class="foodrx-process-step__number">' . esc_html($step['number']) . '</p>' . "\n";
 		echo '<h3 class="foodrx-process-step__title">' . esc_html($step['title']) . '</h3>' . "\n";
-		echo '<p class="foodrx-process-step__body">' . esc_html($step['body']) . '</p>' . "\n";
+
+		if (!empty($step['lines']) && is_array($step['lines'])) {
+			foreach ($step['lines'] as $line) {
+				echo '<h3 class="foodrx-process-step__line">' . esc_html($line) . '</h3>' . "\n";
+			}
+		} elseif (!empty($step['body'])) {
+			echo '<p class="foodrx-process-step__body">' . esc_html($step['body']) . '</p>' . "\n";
+		}
 		echo '</div>' . "\n";
 		echo '</article>' . "\n";
 	}
@@ -235,7 +242,7 @@ function foodrx_render_contact_details($items) {
 			echo '<h3 class="foodrx-contact-detail__value">' . esc_html($item['value']) . '</h3>' . "\n";
 		}
 
-		echo '<p class="foodrx-contact-detail__label">' . esc_html($item['label']) . '</p>' . "\n";
+		echo '<h6 class="foodrx-contact-detail__label">' . esc_html($item['label']) . '</h6>' . "\n";
 		echo '</div>' . "\n";
 		echo '</article>' . "\n";
 	}
@@ -244,9 +251,77 @@ function foodrx_render_contact_details($items) {
 }
 
 /**
+ * Full-width map image matching the demo Contacts page.
+ */
+function foodrx_render_contact_map() {
+	$map_url = foodrx_get_page_bg_url('contact-map');
+
+	echo '<div class="foodrx-contact-map-wide">' . "\n";
+	echo '<img src="' . esc_url($map_url) . '" alt="Map location" width="1920" height="760" loading="lazy" />' . "\n";
+	echo '</div>' . "\n";
+}
+
+/**
+ * Demo Contacts page form section (background image, heading, gray form card).
+ *
+ * @param string $bg_url Background image URL.
+ */
+function foodrx_render_demo_contact_form_panel($bg_url) {
+	$classes = 'foodrx-form-panel foodrx-form-panel--demo foodrx-form-panel--has-bg';
+	$style = ' style="background-image:url(' . esc_url($bg_url) . ');"';
+
+	echo '<section class="' . esc_attr($classes) . '"' . $style . '>' . "\n";
+	echo '<div class="foodrx-form-panel__inner">' . "\n";
+	echo '<p class="foodrx-demo-form__label">Contact With Us</p>' . "\n";
+	echo '<h2 class="foodrx-demo-form__title">Change Your Life In One Click</h2>' . "\n";
+	echo '<hr class="foodrx-demo-divider" />' . "\n";
+	echo '<img class="foodrx-section-divider-img" src="' . esc_url(foodrx_get_divider_image_url()) . '" alt="" width="120" height="auto" />' . "\n";
+	echo '<hr class="foodrx-demo-divider foodrx-demo-divider--after" />' . "\n";
+	echo '<div class="cmsmasters_featured_block foodrx-form-panel__card">' . "\n";
+	echo '<div class="featured_block_inner">' . "\n";
+	echo '<div id="foodrx-contact-form" class="foodrx-contact-form foodrx-contact-form--full">' . "\n";
+	foodrx_render_contact_form();
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</section>' . "\n";
+}
+
+/**
+ * Demo Contacts page subscribe band.
+ */
+function foodrx_render_subscribe_band() {
+	echo '<section class="foodrx-subscribe-band">' . "\n";
+	echo '<div class="foodrx-subscribe-band__inner">' . "\n";
+	echo '<div class="foodrx-subscribe-band__title-col">' . "\n";
+	echo '<h2 class="foodrx-subscribe-band__title">Subscribe to stay informed</h2>' . "\n";
+	echo '</div>' . "\n";
+	echo '<div class="foodrx-subscribe-band__form-col">' . "\n";
+
+	if (is_active_sidebar('mail-poet')) {
+		dynamic_sidebar('mail-poet');
+	} else {
+		echo '<form class="foodrx-subscribe-form mailpoet_form" action="#" method="post">' . "\n";
+		echo '<p class="foodrx-subscribe-form__field mailpoet_paragraph">' . "\n";
+		echo '<input type="email" name="email" class="mailpoet_text" placeholder="Your Email" aria-label="Your Email" required />' . "\n";
+		echo '</p>' . "\n";
+		echo '<p class="foodrx-subscribe-form__submit mailpoet_paragraph">' . "\n";
+		echo '<input type="submit" class="mailpoet_submit" value="Subscribe" />' . "\n";
+		echo '</p>' . "\n";
+		echo '</form>' . "\n";
+	}
+
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</section>' . "\n";
+}
+
+/**
  * @param string $label Small label.
  * @param string $title Form section title.
  * @param string $intro Form intro text.
+ * @param string $bg_url Optional background image URL.
  */
 function foodrx_render_form_panel($label, $title, $intro, $bg_url = '') {
 	$classes = 'foodrx-form-panel';

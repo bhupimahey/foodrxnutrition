@@ -355,8 +355,12 @@ function foodrx_get_page_bg_definitions() {
 			'bundled' => '2016-08-02.jpg',
 		),
 		'contact-form' => array(
-			'upload' => '2016/08/01.jpg',
-			'bundled' => '2016-08-01.jpg',
+			'upload' => '2016/08/06.jpg',
+			'bundled' => '2016-08-06.jpg',
+		),
+		'contact-map' => array(
+			'upload' => '2025/10/google-map-placeholder-wide.webp',
+			'bundled' => 'google-map-placeholder-wide.webp',
 		),
 	);
 }
@@ -520,14 +524,15 @@ function foodrx_get_corporate_benefit_boxes() {
 function foodrx_get_contact_details() {
 	$site = foodrx_get_site_content();
 	$email = !empty($site['contact_email']) ? $site['contact_email'] : 'hello@foodrxnutrition.com';
+	$phone = !empty($site['contact_phone']) ? $site['contact_phone'] : 'Book Online';
 
 	return array(
 		array(
 			'icon' => 'cmsmasters-icon-phone-4',
 			'color' => '#fe8543',
-			'value' => 'Book Online',
-			'label' => 'Discovery Call',
-			'href' => home_url('/contact/'),
+			'value' => $phone,
+			'label' => 'Phone',
+			'href' => home_url('/contact/#foodrx-contact-form'),
 		),
 		array(
 			'icon' => 'cmsmasters-icon-location-3',
@@ -547,32 +552,46 @@ function foodrx_get_contact_details() {
 }
 
 /**
- * @return array<int, array{number: string, title: string, body: string, color: string}>
+ * Demo-style process steps for the Contacts page layout.
+ *
+ * @return array<int, array{number: string, title: string, lines: array<int, string>, color: string}>
  */
 function foodrx_get_contact_steps() {
 	return array(
 		array(
 			'number' => '01.',
-			'title' => 'Reach Out',
-			'body' => 'Send a message or book your free discovery call.',
+			'title' => 'Contact Us!',
+			'lines' => array(
+				'Lorem ipsum dolor sit amet,',
+				'consectetur cing elit.',
+			),
 			'color' => '#ffa544',
 		),
 		array(
 			'number' => '02.',
-			'title' => 'Choose Your Program',
-			'body' => 'Select the service that fits your goals and lifestyle.',
+			'title' => 'Fit Body Form',
+			'lines' => array(
+				'Lorem ipsum dolor sit amet,',
+				'consectetur cing elit.',
+			),
 			'color' => '#fe8543',
 		),
 		array(
 			'number' => '03.',
-			'title' => 'Personalized Care',
-			'body' => 'Receive evidence-based guidance tailored to you.',
+			'title' => 'Excess Weight',
+			'lines' => array(
+				'Lorem ipsum dolor sit amet,',
+				'consectetur cing elit.',
+			),
 			'color' => '#a7d433',
 		),
 		array(
 			'number' => '04.',
-			'title' => 'Sustainable Results',
-			'body' => 'Build habits that support long-term health and confidence.',
+			'title' => 'Your Life Awesome',
+			'lines' => array(
+				'Lorem ipsum dolor sit amet,',
+				'consectetur cing elit.',
+			),
 			'color' => '#01b4bd',
 		),
 	);
