@@ -422,14 +422,106 @@ function foodrx_format_heading_bg_meta($url) {
  * @return bool
  */
 function foodrx_page_has_custom_heading_bg($page_id) {
-	$enabled = get_post_meta($page_id, 'cmsmasters_heading_bg_img_enable', true);
+	$bg_img = get_post_meta($page_id, 'cmsmasters_heading_bg_img', true);
+
+	return ($bg_img !== '' && $bg_img !== false);
+}
+
+/**
+ * Resolve the heading banner image URL from CMSMasters page meta.
+ *
+ * @param int $page_id Page ID.
+ * @return string
+ */
+function foodrx_resolve_cmsmasters_heading_bg_url($page_id) {
 	$bg_img = get_post_meta($page_id, 'cmsmasters_heading_bg_img', true);
 
 	if ($bg_img === '' || $bg_img === false) {
-		return false;
+		return '';
 	}
 
-	return in_array($enabled, array('true', '1', 1, true), true);
+	$enabled = get_post_meta($page_id, 'cmsmasters_heading_bg_img_enable', true);
+
+	if (in_array($enabled, array('false', '0', 0), true)) {
+		return '';
+	}
+
+	$options_img = explode('|', $bg_img);
+	$attachment_src = null;
+
+	if (!empty($options_img[0]) && is_numeric($options_img[0]) && (int) $options_img[0] > 0) {
+		$attachment_src = wp_get_attachment_image_src((int) $options_img[0], 'full');
+	}
+
+	if (!empty($attachment_src[0])) {
+		return $attachment_src[0];
+	}
+
+	if (!empty($options_img[1])) {
+		return $options_img[1];
+	}
+
+	return '';
+}
+
+/**
+ * Build inline CSS for the page heading banner from post meta (admin) or demo fallback.
+ *
+ * @param int    $page_id         Page ID.
+ * @param string $fallback_bg_key Demo background key when meta has no image URL.
+ * @return string CSS rules or empty string.
+ */
+function foodrx_get_page_heading_banner_styles($page_id, $fallback_bg_key = '') {
+	$bg_url = foodrx_resolve_cmsmasters_heading_bg_url($page_id);
+
+	if ($bg_url === '' && $fallback_bg_key !== '') {
+		$bg_url = foodrx_get_page_bg_url($fallback_bg_key);
+	}
+
+	if ($bg_url === '') {
+		return '';
+	}
+
+	$rep = get_post_meta($page_id, 'cmsmasters_heading_bg_rep', true);
+	$att = get_post_meta($page_id, 'cmsmasters_heading_bg_att', true);
+	$size = get_post_meta($page_id, 'cmsmasters_heading_bg_size', true);
+	$color = get_post_meta($page_id, 'cmsmasters_heading_bg_color', true);
+	$height = get_post_meta($page_id, 'cmsmasters_heading_height', true);
+
+	if ($rep === '') {
+		$rep = 'no-repeat';
+	}
+	if ($att === '') {
+		$att = 'scroll';
+	}
+	if ($size === '') {
+		$size = 'cover';
+	}
+	if ($color === '') {
+		$color = 'rgba(37,37,37,0.55)';
+	}
+	if ($height === '') {
+		$height = '360';
+	}
+
+	$bg_url = esc_url($bg_url);
+
+	$css = ".headline_outer {\n";
+	$css .= "\tbackground-image:url({$bg_url}) !important;\n";
+	$css .= "\tbackground-repeat:{$rep} !important;\n";
+	$css .= "\tbackground-attachment:{$att} !important;\n";
+	$css .= "\tbackground-size:{$size} !important;\n";
+	$css .= "\tbackground-position:center center !important;\n";
+	$css .= "}\n";
+	$css .= ".headline_color {\n";
+	$css .= "\tbackground-color:{$color} !important;\n";
+	$css .= "}\n";
+	$css .= ".headline_aligner,\n";
+	$css .= ".cmsmasters_breadcrumbs_aligner {\n";
+	$css .= "\tmin-height:{$height}px !important;\n";
+	$css .= "}\n";
+
+	return $css;
 }
 
 /**

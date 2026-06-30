@@ -147,6 +147,35 @@ function foodrx_get_current_banner_bg_key() {
 }
 
 /**
+ * Output page heading banner CSS from WP Admin meta (reliable on Food Rx pages).
+ *
+ * The parent theme resolves heading styles with get_the_ID() during wp_head before
+ * the loop runs, which can miss page meta and fall back to the gray default texture.
+ */
+function foodrx_print_page_heading_styles() {
+	if (!is_page()) {
+		return;
+	}
+
+	$page_id = (int) get_queried_object_id();
+	$bg_key = foodrx_get_current_banner_bg_key();
+
+	if ($page_id <= 0 || $bg_key === '') {
+		return;
+	}
+
+	$css = foodrx_get_page_heading_banner_styles($page_id, $bg_key);
+
+	if ($css === '') {
+		return;
+	}
+
+	echo '<style id="foodrx-page-heading">' . "\n" . $css . '</style>' . "\n";
+}
+
+add_action('wp_head', 'foodrx_print_page_heading_styles', 99);
+
+/**
  * Body classes for Food Rx banner pages (FAQ, Services, Nutrition Hub).
  *
  * @param array<int, string> $classes Body classes.
