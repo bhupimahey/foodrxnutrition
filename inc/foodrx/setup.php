@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
-define('FOODRX_PAGE_META_VERSION', 4);
+define('FOODRX_PAGE_META_VERSION', 5);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -58,6 +58,7 @@ function foodrx_is_primary_menu_configured() {
 function foodrx_apply_heading_banner_meta($page_id, $page_key) {
 	$bg_url = foodrx_get_page_bg_url($page_key);
 
+	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
 	update_post_meta($page_id, 'cmsmasters_heading', 'default');
 	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
 	update_post_meta($page_id, 'cmsmasters_heading_alignment', 'center');
