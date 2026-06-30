@@ -650,19 +650,15 @@
 	background: transparent;
 }
 
-.foodrx-page--nutrition-hub {
-	max-width: none;
-	padding-top: 0;
-	padding-bottom: 90px;
-}
-
+/* Hero renders directly in .middle_inner (full viewport width — no wrapper) */
 .foodrx-hub-hero {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	min-height: 420px;
+	width: 100%;
 	overflow: hidden;
-	border-radius: 3px;
-	margin-bottom: 0;
+	margin: 0;
+	border-radius: 0;
 }
 
 .foodrx-hub-hero__left {
@@ -715,7 +711,7 @@
 }
 
 .foodrx-hub-blog {
-	padding-top: 90px;
+	padding: 90px 0 0;
 }
 
 .foodrx-breakout--info-band {

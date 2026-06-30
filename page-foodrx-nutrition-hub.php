@@ -2,36 +2,39 @@
 /**
  * Template Name: Food Rx — Nutrition Hub
  *
- * Matches the Healthy Living demo Nutrilon blog page layout:
- * heading banner, split hero row, standard blog feed with right sidebar.
+ * Mirrors demo Nutrilon blog: heading banner → full-width split hero →
+ * standard blog feed + right sidebar.
+ *
+ * header.php opens: #middle → .middle_inner → .content_wrap.r_sidebar
+ * We close content_wrap immediately so the hero renders at middle_inner
+ * width (full viewport), then rebuild the r_sidebar layout for the blog.
+ * footer.php closes the final content_wrap we reopen before get_footer().
  *
  * @package Healthy Living
  */
 
 get_header();
+// Close the content_wrap opened by header.php — renders hero at full width.
+echo '</div>' . "\n";
 
-list($cmsmasters_layout) = healthy_living_theme_page_layout_scheme();
-
-foodrx_open_content($cmsmasters_layout, 'foodrx-page foodrx-page--nutrition-hub');
-
-foodrx_breakout_open('foodrx-breakout--hub-hero');
 foodrx_render_nutrition_hub_hero();
-foodrx_breakout_close();
 
+// Blog + right sidebar inside their own r_sidebar content_wrap.
+echo '<div class="content_wrap r_sidebar">' . "\n";
+
+echo '<div class="content entry">' . "\n";
 echo '<div id="foodrx-blog-posts" class="foodrx-hub-blog">' . "\n";
 foodrx_render_nutrition_hub_blog();
 echo '</div>' . "\n";
+echo '</div>' . "\n"; // .content.entry
 
-foodrx_close_content();
+echo '<div class="sidebar">' . "\n";
+get_sidebar();
+echo '</div>' . "\n";
 
-if ($cmsmasters_layout === 'r_sidebar') {
-	echo '<div class="sidebar">' . "\n";
-	get_sidebar();
-	echo '</div>' . "\n";
-} elseif ($cmsmasters_layout === 'l_sidebar') {
-	echo '<div class="sidebar fl">' . "\n";
-	get_sidebar();
-	echo '</div>' . "\n";
-}
+echo '</div>' . "\n"; // .content_wrap.r_sidebar (blog section)
+
+// Reopen an empty content_wrap for footer.php to close cleanly.
+echo '<div class="content_wrap fullwidth">' . "\n";
 
 get_footer();
