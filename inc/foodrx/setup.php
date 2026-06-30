@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
-define('FOODRX_PAGE_META_VERSION', 2);
+define('FOODRX_PAGE_META_VERSION', 3);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -50,14 +50,67 @@ function foodrx_is_primary_menu_configured() {
 }
 
 /**
- * @param int $page_id Page ID.
+ * Apply theme headline banner background image for inner pages.
+ *
+ * @param int    $page_id  Page ID.
+ * @param string $page_key Background key from foodrx_get_page_bg_definitions().
  */
-function foodrx_apply_foodrx_page_meta($page_id) {
-	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
+function foodrx_apply_heading_banner_meta($page_id, $page_key) {
+	$bg_url = foodrx_get_page_bg_url($page_key);
+
 	update_post_meta($page_id, 'cmsmasters_heading', 'default');
 	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
-	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'false');
+	update_post_meta($page_id, 'cmsmasters_heading_alignment', 'center');
+	update_post_meta($page_id, 'cmsmasters_heading_scheme', 'default');
+	update_post_meta($page_id, 'cmsmasters_heading_bg_img_enable', 'true');
+	update_post_meta($page_id, 'cmsmasters_heading_bg_img', foodrx_format_heading_bg_meta($bg_url));
+	update_post_meta($page_id, 'cmsmasters_heading_bg_rep', 'no-repeat');
+	update_post_meta($page_id, 'cmsmasters_heading_bg_att', 'scroll');
+	update_post_meta($page_id, 'cmsmasters_heading_bg_size', 'cover');
+	update_post_meta($page_id, 'cmsmasters_heading_height', '360');
+	update_post_meta($page_id, 'cmsmasters_heading_bg_color', 'rgba(37,37,37,0.55)');
+	update_post_meta($page_id, 'cmsmasters_breadcrumbs', 'true');
+}
+
+/**
+ * @param int    $page_id Page ID.
+ * @param string $slug    Page slug.
+ */
+function foodrx_apply_foodrx_page_meta($page_id, $slug = '') {
+	if ($slug === '') {
+		$page = get_post($page_id);
+		$slug = ($page instanceof WP_Post) ? $page->post_name : '';
+	}
+
 	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
+	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
+	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'false');
+
+	switch ($slug) {
+		case 'contact':
+			update_post_meta($page_id, 'cmsmasters_heading', 'disabled');
+			update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
+			update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
+			break;
+
+		case 'nutrition-hub':
+			update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
+			foodrx_apply_heading_banner_meta($page_id, 'nutrition-hub');
+			break;
+
+		case 'faq':
+			foodrx_apply_heading_banner_meta($page_id, 'faq');
+			break;
+
+		case 'services':
+			foodrx_apply_heading_banner_meta($page_id, 'services');
+			break;
+
+		default:
+			update_post_meta($page_id, 'cmsmasters_heading', 'default');
+			update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
+			break;
+	}
 }
 
 /**
@@ -85,7 +138,7 @@ function foodrx_ensure_page($definition) {
 		$page_id = (int) $existing->ID;
 
 		if (get_page_template_slug($page_id) === $definition['template']) {
-			foodrx_apply_foodrx_page_meta($page_id);
+			foodrx_apply_foodrx_page_meta($page_id, $definition['slug']);
 		}
 
 		return $page_id;
@@ -104,7 +157,7 @@ function foodrx_ensure_page($definition) {
 	}
 
 	update_post_meta($page_id, '_wp_page_template', $definition['template']);
-	foodrx_apply_foodrx_page_meta($page_id);
+	foodrx_apply_foodrx_page_meta($page_id, $definition['slug']);
 
 	return $page_id;
 }
@@ -317,7 +370,7 @@ function foodrx_apply_site_page_meta() {
 		$page = get_page_by_path($definition['slug'], OBJECT, 'page');
 
 		if ($page instanceof WP_Post && get_page_template_slug($page->ID) === $definition['template']) {
-			foodrx_apply_foodrx_page_meta((int) $page->ID);
+			foodrx_apply_foodrx_page_meta((int) $page->ID, $definition['slug']);
 		}
 	}
 }

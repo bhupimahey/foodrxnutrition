@@ -50,7 +50,7 @@ function foodrx_enqueue_assets() {
 			'foodrx-pages',
 			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
 			array(),
-			'2.1.0'
+			'2.2.0'
 		);
 	}
 }

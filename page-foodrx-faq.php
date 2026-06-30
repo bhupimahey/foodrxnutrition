@@ -15,7 +15,14 @@ foodrx_section_open('Frequently Asked Questions', 'Clear answers to help you fee
 foodrx_render_faq(foodrx_get_faq_items());
 foodrx_section_close();
 
-echo '<p class="foodrx-prose foodrx-prose--center">Still have questions? <a class="foodrx-button cmsmasters_button" href="' . esc_url(home_url('/contact/')) . '">Contact Us</a></p>';
+foodrx_breakout_open('foodrx-breakout--info-band');
+foodrx_render_info_band(
+	'Still Have Questions?',
+	'We are happy to help you choose the right next step for your health journey.',
+	home_url('/contact/'),
+	'Contact Us'
+);
+foodrx_breakout_close();
 
 foodrx_close_content();
 

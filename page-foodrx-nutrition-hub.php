@@ -11,6 +11,11 @@ list($cmsmasters_layout) = healthy_living_theme_page_layout_scheme();
 
 foodrx_open_content($cmsmasters_layout);
 
+foodrx_breakout_open('foodrx-breakout--hub-hero');
+foodrx_render_nutrition_hub_hero();
+foodrx_breakout_close();
+
+echo '<div id="foodrx-blog-posts">' . "\n";
 foodrx_section_open('Latest Articles', 'Browse nutrition blog posts, tips, and practical guidance.', 'Be First to Read');
 foodrx_render_blog_posts('');
 foodrx_section_close();
@@ -18,6 +23,7 @@ foodrx_section_close();
 foodrx_section_open('Recipes', 'Simple, nourishing ideas you can use at home.', 'Healthy Kitchen');
 foodrx_render_blog_posts('recipes');
 foodrx_section_close();
+echo '</div>' . "\n";
 
 foodrx_close_content();
 

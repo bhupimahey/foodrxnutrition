@@ -332,27 +332,116 @@ We do not promote crash dieting or extreme restriction.',
 }
 
 /**
+ * Demo image keys mapped to upload paths and bundled fallbacks.
+ *
+ * @return array<string, array{upload: string, bundled: string}>
+ */
+function foodrx_get_page_bg_definitions() {
+	return array(
+		'services' => array(
+			'upload' => '2016/08/05.jpg',
+			'bundled' => '2016-08-05.jpg',
+		),
+		'nutrition-hub' => array(
+			'upload' => '2016/08/06.jpg',
+			'bundled' => '2016-08-06.jpg',
+		),
+		'nutrition-hub-hero' => array(
+			'upload' => '2016/08/03.jpg',
+			'bundled' => '2016-08-03.jpg',
+		),
+		'faq' => array(
+			'upload' => '2016/08/02.jpg',
+			'bundled' => '2016-08-02.jpg',
+		),
+		'contact-form' => array(
+			'upload' => '2016/08/01.jpg',
+			'bundled' => '2016-08-01.jpg',
+		),
+	);
+}
+
+/**
+ * Resolve a demo image URL from uploads, bundled assets, or theme fallback.
+ *
+ * @param string $upload_relative Path under wp-content/uploads.
+ * @param string $bundled_filename Filename in assets/img/demo-bg/.
+ * @return string
+ */
+function foodrx_resolve_image_url($upload_relative, $bundled_filename) {
+	$upload_dir = wp_upload_dir();
+	$absolute_path = trailingslashit($upload_dir['basedir']) . $upload_relative;
+
+	if (file_exists($absolute_path)) {
+		return trailingslashit($upload_dir['baseurl']) . $upload_relative;
+	}
+
+	$bundled_path = get_template_directory() . '/assets/img/demo-bg/' . $bundled_filename;
+
+	if (is_readable($bundled_path)) {
+		return get_template_directory_uri() . '/assets/img/demo-bg/' . $bundled_filename;
+	}
+
+	return get_template_directory_uri() . '/img/heading_bg.jpg';
+}
+
+/**
+ * @param string $page_key Page background key from foodrx_get_page_bg_definitions().
+ * @return string
+ */
+function foodrx_get_page_bg_url($page_key) {
+	$definitions = foodrx_get_page_bg_definitions();
+
+	if (!isset($definitions[$page_key])) {
+		return '';
+	}
+
+	$definition = $definitions[$page_key];
+
+	return foodrx_resolve_image_url($definition['upload'], $definition['bundled']);
+}
+
+/**
+ * CMSMasters heading background meta value for a direct image URL.
+ *
+ * @param string $url Image URL.
+ * @return string
+ */
+function foodrx_format_heading_bg_meta($url) {
+	return '0|' . $url . '|full';
+}
+
+/**
+ * Decorative divider image used in demo section headings.
+ *
+ * @return string
+ */
+function foodrx_get_divider_image_url() {
+	return foodrx_resolve_image_url('2015/11/img1.png', '2015-11-img1.png');
+}
+
+/**
  * Hero background image URL when demo media is available.
  *
  * @return string
  */
 function foodrx_get_hero_bg_url() {
-	$upload_dir = wp_upload_dir();
-	$candidates = array(
-		'2016/08/06.jpg',
-		'2015/12/4.jpg',
-		'2016/08/01.jpg',
+	return foodrx_get_page_bg_url('nutrition-hub');
+}
+
+/**
+ * Featured promo block for the Nutrition Hub split hero.
+ *
+ * @return array{label: string, title: string, body: string, cta_label: string, cta_url: string}
+ */
+function foodrx_get_nutrition_hub_featured() {
+	return array(
+		'label' => 'Nutrition Hub',
+		'title' => 'Evidence-Based Tips & Recipes',
+		'body' => 'Practical nutrition articles and simple recipes from Food Rx Nutrition Consulting Services to support your everyday health goals.',
+		'cta_label' => 'Browse Articles',
+		'cta_url' => '#foodrx-blog-posts',
 	);
-
-	foreach ($candidates as $relative_path) {
-		$absolute_path = trailingslashit($upload_dir['basedir']) . $relative_path;
-
-		if (file_exists($absolute_path)) {
-			return trailingslashit($upload_dir['baseurl']) . $relative_path;
-		}
-	}
-
-	return '';
 }
 
 /**

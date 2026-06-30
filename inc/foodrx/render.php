@@ -248,16 +248,72 @@ function foodrx_render_contact_details($items) {
  * @param string $title Form section title.
  * @param string $intro Form intro text.
  */
-function foodrx_render_form_panel($label, $title, $intro) {
-	echo '<section class="foodrx-form-panel">' . "\n";
+function foodrx_render_form_panel($label, $title, $intro, $bg_url = '') {
+	$classes = 'foodrx-form-panel';
+
+	if ($bg_url !== '') {
+		$classes .= ' foodrx-form-panel--has-bg';
+	}
+
+	$style = $bg_url !== '' ? ' style="background-image:url(' . esc_url($bg_url) . ');"' : '';
+
+	echo '<section class="' . esc_attr($classes) . '"' . $style . '>' . "\n";
 	echo '<div class="foodrx-form-panel__inner">' . "\n";
+	foodrx_render_section_heading($label, $title, $intro);
+	echo '<img class="foodrx-section-divider-img" src="' . esc_url(foodrx_get_divider_image_url()) . '" alt="" width="120" height="auto" />' . "\n";
 	echo '<div class="cmsmasters_featured_block foodrx-form-panel__card">' . "\n";
 	echo '<div class="featured_block_inner">' . "\n";
-	foodrx_render_section_heading($label, $title, $intro);
 	echo '<div id="foodrx-contact-form" class="foodrx-contact-form foodrx-contact-form--full">' . "\n";
 	foodrx_render_contact_form();
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '</section>' . "\n";
+}
+
+/**
+ * Split hero used on the Nutrition Hub page (demo Nutrilon blog style).
+ */
+function foodrx_render_nutrition_hub_hero() {
+	$featured = foodrx_get_nutrition_hub_featured();
+	$bg_url = foodrx_get_page_bg_url('nutrition-hub-hero');
+
+	echo '<div class="foodrx-hub-hero">' . "\n";
+	echo '<div class="foodrx-hub-hero__left cmsmasters_featured_block">' . "\n";
+	echo '<div class="featured_block_inner">' . "\n";
+	echo '<p class="foodrx-hub-hero__label">' . esc_html($featured['label']) . '</p>' . "\n";
+	echo '<h2 class="foodrx-hub-hero__title">' . esc_html($featured['title']) . '</h2>' . "\n";
+	echo '<div class="foodrx-hub-hero__divider" aria-hidden="true"></div>' . "\n";
+	echo '<p class="foodrx-hub-hero__body">' . esc_html($featured['body']) . '</p>' . "\n";
+	echo '<a class="foodrx-button foodrx-button--outline cmsmasters_button" href="' . esc_url($featured['cta_url']) . '">' . esc_html($featured['cta_label']) . '</a>' . "\n";
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '<div class="foodrx-hub-hero__right cmsmasters_featured_block" style="background-image:url(' . esc_url($bg_url) . ');"></div>' . "\n";
+	echo '</div>' . "\n";
+}
+
+/**
+ * Teal info band used on the demo Contacts page (newsletter substitute).
+ *
+ * @param string $title Band title.
+ * @param string $subtitle Band subtitle.
+ * @param string $url CTA URL.
+ * @param string $label CTA label.
+ */
+function foodrx_render_info_band($title, $subtitle, $url, $label) {
+	echo '<section class="foodrx-info-band">' . "\n";
+	echo '<div class="foodrx-info-band__inner">' . "\n";
+	echo '<div class="foodrx-info-band__copy">' . "\n";
+	echo '<h2 class="foodrx-info-band__title">' . esc_html($title) . '</h2>' . "\n";
+
+	if ($subtitle !== '') {
+		echo '<p class="foodrx-info-band__subtitle">' . esc_html($subtitle) . '</p>' . "\n";
+	}
+
+	echo '</div>' . "\n";
+	echo '<div class="foodrx-info-band__action">' . "\n";
+	echo '<a class="foodrx-button foodrx-button--light cmsmasters_button" href="' . esc_url($url) . '">' . esc_html($label) . '</a>' . "\n";
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";
 	echo '</section>' . "\n";
