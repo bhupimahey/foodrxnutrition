@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
+define('FOODRX_PAGE_META_VERSION', 2);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -53,7 +54,8 @@ function foodrx_is_primary_menu_configured() {
  */
 function foodrx_apply_foodrx_page_meta($page_id) {
 	update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
-	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
+	update_post_meta($page_id, 'cmsmasters_heading', 'default');
+	update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
 	update_post_meta($page_id, 'cmsmasters_header_overlaps', 'false');
 	update_post_meta($page_id, 'cmsmasters_bottom_sidebar', 'false');
 }
@@ -368,6 +370,20 @@ function foodrx_maybe_run_setup() {
 add_action('init', 'foodrx_maybe_run_setup', 20);
 
 /**
+ * Re-apply inner page header settings when Food Rx page meta changes.
+ */
+function foodrx_maybe_apply_page_meta() {
+	if ((int) get_option('foodrx_page_meta_version', 0) >= FOODRX_PAGE_META_VERSION) {
+		return;
+	}
+
+	foodrx_apply_site_page_meta();
+	update_option('foodrx_page_meta_version', FOODRX_PAGE_META_VERSION);
+}
+
+add_action('init', 'foodrx_maybe_apply_page_meta', 21);
+
+/**
  * Tools → Food Rx Setup.
  */
 function foodrx_register_setup_admin_page() {
@@ -393,7 +409,7 @@ function foodrx_render_setup_admin_page() {
 	if (isset($_POST['foodrx_run_menu_setup']) && check_admin_referer('foodrx_run_menu_setup')) {
 		foodrx_setup_primary_menu();
 		foodrx_apply_site_page_meta();
-		echo '<div class="notice notice-success"><p>Primary menu links and page header settings were updated.</p></div>';
+		echo '<div class="notice notice-success"><p>Primary menu links and page banner settings were updated.</p></div>';
 	}
 
 	if (isset($_POST['foodrx_restore_homepage']) && check_admin_referer('foodrx_restore_homepage')) {

@@ -249,10 +249,7 @@ function foodrx_render_contact_details($items) {
  * @param string $intro Form intro text.
  */
 function foodrx_render_form_panel($label, $title, $intro) {
-	$bg_url = foodrx_get_hero_bg_url();
-	$style = $bg_url !== '' ? ' style="background-image:url(' . esc_url($bg_url) . ');"' : '';
-
-	echo '<section class="foodrx-form-panel"' . $style . '>' . "\n";
+	echo '<section class="foodrx-form-panel">' . "\n";
 	echo '<div class="foodrx-form-panel__inner">' . "\n";
 	echo '<div class="cmsmasters_featured_block foodrx-form-panel__card">' . "\n";
 	echo '<div class="featured_block_inner">' . "\n";
