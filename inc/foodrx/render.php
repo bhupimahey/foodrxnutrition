@@ -561,20 +561,29 @@ function foodrx_render_quotes($quotes) {
  * @param array<int, array{question: string, answer: string}> $items FAQ items.
  */
 function foodrx_render_faq($items) {
-	echo '<div class="cmsmasters_toggles toggles_mode_accordion foodrx-faq">' . "\n";
+	// cmsmasters_color_scheme_default lets the theme's color variables (teal
+	// border, accent title) apply — same classes the [cmsmasters_toggles]
+	// shortcode generates on the reference demo page.
+	echo '<div class="cmsmasters_toggles toggles_mode_accordion cmsmasters_color_scheme_default foodrx-faq">' . "\n";
 
 	foreach ($items as $index => $item) {
-		$is_first = ($index === 0);
-		$wrap_class = 'cmsmasters_toggle_wrap' . ($is_first ? ' current_toggle' : '');
-		$toggle_style = $is_first ? '' : ' style="display:none;"';
+		$wrap_class = 'cmsmasters_toggle_wrap' . ($index === 0 ? ' current_toggle' : '');
 
 		echo '<div class="' . esc_attr($wrap_class) . '">' . "\n";
 		echo '<div class="cmsmasters_toggle_title">' . "\n";
-		echo '<a href="#"><span class="cmsmasters_toggle_plus"><span></span><span></span></span>' . esc_html($item['question']) . '</a>' . "\n";
+		// Span class names are required by theme CSS (rotation transforms) and JS.
+		echo '<a href="#">';
+		echo '<span class="cmsmasters_toggle_plus">';
+		echo '<span class="cmsmasters_toggle_plus_hor"></span>';
+		echo '<span class="cmsmasters_toggle_plus_vert"></span>';
+		echo '</span>';
+		echo esc_html($item['question']);
+		echo '</a>' . "\n";
 		echo '</div>' . "\n";
-		echo '<div class="cmsmasters_toggle"' . $toggle_style . '>' . "\n";
+		echo '<div class="cmsmasters_toggle">' . "\n";
 		echo '<div class="cmsmasters_toggle_inner">' . wpautop(esc_html($item['answer'])) . '</div>' . "\n";
-		echo '</div></div>' . "\n";
+		echo '</div>' . "\n";
+		echo '</div>' . "\n";
 	}
 
 	echo '</div>' . "\n";

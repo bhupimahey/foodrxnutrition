@@ -899,28 +899,20 @@
 	margin-top: 8px;
 }
 
-.foodrx-faq .cmsmasters_toggle_wrap {
-	margin-bottom: 12px;
-	border: 1px solid #eee;
-	border-radius: 8px;
-	overflow: hidden;
-	background: #fff;
+/* Let the theme's cmsmasters_color_scheme_default variables supply border
+   color, title background and accent — only add spacing adjustments here. */
+.foodrx-faq.cmsmasters_toggles .cmsmasters_toggle_wrap {
+	margin-bottom: 6px;
 }
 
-.foodrx-faq .cmsmasters_toggle_title {
-	background: #fafafa;
-}
-
-.foodrx-faq .cmsmasters_toggle_title a {
-	padding: 18px 22px;
+.foodrx-faq.cmsmasters_toggles .cmsmasters_toggle_title a {
+	padding: 17px 60px 17px 25px;
 	font-weight: 600;
-	color: #333539;
 }
 
-.foodrx-faq .cmsmasters_toggle_inner {
-	padding: 0 22px 18px;
-	color: #666;
-	line-height: 1.7;
+.foodrx-faq.cmsmasters_toggles .cmsmasters_toggle_inner {
+	padding: 20px 25px 28px;
+	line-height: 1.75;
 }
 
 .foodrx-services {
