@@ -21,7 +21,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.0.7'
+		'1.0.8'
 	);
 
 	wp_enqueue_script(
@@ -98,6 +98,18 @@ function foodrx_sync_current_page_meta() {
 			return;
 		}
 	}
+
+	// Fallback when the page slug matches but the template meta is missing.
+	$page = get_post($page_id);
+
+	if ($page instanceof WP_Post) {
+		foreach (foodrx_get_menu_page_definitions() as $definition) {
+			if ($page->post_name === $definition['slug']) {
+				foodrx_sync_foodrx_page_layout_meta($page_id, $definition['slug']);
+				return;
+			}
+		}
+	}
 }
 
 add_action('template_redirect', 'foodrx_sync_current_page_meta', 5);
@@ -143,7 +155,23 @@ function foodrx_get_current_banner_bg_key() {
 	$template = get_page_template_slug($page_id);
 	$map = foodrx_get_banner_bg_keys_by_template();
 
-	return $map[$template] ?? '';
+	if (isset($map[$template])) {
+		return $map[$template];
+	}
+
+	$page = get_post($page_id);
+
+	if (!$page instanceof WP_Post) {
+		return '';
+	}
+
+	$slug_map = array(
+		'faq' => 'faq',
+		'services' => 'services',
+		'nutrition-hub' => 'nutrition-hub',
+	);
+
+	return $slug_map[$page->post_name] ?? '';
 }
 
 /**
