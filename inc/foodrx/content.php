@@ -355,8 +355,8 @@ function foodrx_get_page_bg_definitions() {
 			'bundled' => '2016-08-02.jpg',
 		),
 		'contact-form' => array(
-			'upload' => '2016/08/06.jpg',
-			'bundled' => '2016-08-06.jpg',
+			'upload' => '2015/11/bootom.jpg',
+			'bundled' => 'bootom.jpg',
 		),
 		'contact-map' => array(
 			'upload' => '2025/10/google-map-placeholder-wide.webp',

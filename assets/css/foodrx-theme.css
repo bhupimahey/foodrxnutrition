@@ -79,3 +79,42 @@
 [data-cky-tag="revisit-consent"] {
 	display: none !important;
 }
+
+/* Contact page — transparent header over map with full primary menu visible. */
+body.foodrx-contact-page #header .header_mid:not(.header_mid_scroll) {
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+body.foodrx-contact-page #header .header_mid .navigation > li > a,
+body.foodrx-contact-page #header .header_mid .navigation > li > a .nav_title,
+body.foodrx-contact-page #header .header_mid .navigation > li > a .nav_subtitle,
+body.foodrx-contact-page #header .header_mid a,
+body.foodrx-contact-page #header .navigation .cmsmasters_resp_nav_toggle {
+	color: #ffffff !important;
+}
+
+body.foodrx-contact-page #header .header_mid .navigation > li > a:hover .nav_title,
+body.foodrx-contact-page #header .header_mid .navigation > li.current-menu-item > a .nav_title,
+body.foodrx-contact-page #header .header_mid .navigation > li.current-menu-ancestor > a .nav_title {
+	color: #a7d433 !important;
+}
+
+body.foodrx-contact-page #header .header_mid.header_mid_scroll {
+	background-color: rgba(52, 56, 65, 0.92) !important;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.foodrx-contact-page #page.cmsmasters_heading_after_header #header .header_mid:not(.header_mid_scroll) .navigation > li > a,
+body.foodrx-contact-page #page.cmsmasters_heading_after_header #header .header_mid:not(.header_mid_scroll) .navigation > li > a .nav_title {
+	color: #ffffff !important;
+}
+
+body.foodrx-contact-page #middle .headline {
+	display: none !important;
+}
+
+body.foodrx-contact-page #middle .middle_inner > .content_wrap.fullwidth > .middle_content.entry {
+	padding: 0;
+	margin: 0;
+}

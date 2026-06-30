@@ -21,7 +21,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.0.3'
+		'1.0.4'
 	);
 
 	wp_enqueue_script(
@@ -50,7 +50,7 @@ function foodrx_enqueue_assets() {
 			'foodrx-pages',
 			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
 			array(),
-			'2.3.0'
+			'2.4.0'
 		);
 	}
 }
@@ -74,3 +74,39 @@ function foodrx_register_categories() {
 }
 
 add_action('after_switch_theme', 'foodrx_register_categories');
+
+/**
+ * Keep Food Rx page header settings in sync on every request.
+ */
+function foodrx_sync_current_page_meta() {
+	if (!is_page()) {
+		return;
+	}
+
+	$template = get_page_template_slug();
+
+	foreach (foodrx_get_menu_page_definitions() as $definition) {
+		if ($template === $definition['template']) {
+			foodrx_apply_foodrx_page_meta(get_queried_object_id(), $definition['slug']);
+			return;
+		}
+	}
+}
+
+add_action('template_redirect', 'foodrx_sync_current_page_meta', 5);
+
+/**
+ * Mark the contact page for theme overlap/header styling.
+ *
+ * @param array<int, string> $classes Body classes.
+ * @return array<int, string>
+ */
+function foodrx_contact_body_class($classes) {
+	if (is_page_template('page-foodrx-contact.php')) {
+		$classes[] = 'foodrx-contact-page';
+	}
+
+	return $classes;
+}
+
+add_filter('body_class', 'foodrx_contact_body_class');

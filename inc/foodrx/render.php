@@ -209,7 +209,7 @@ function foodrx_render_process_steps($steps) {
 		echo '<article class="cmsmasters_featured_block foodrx-process-step" style="background-color:' . esc_attr($step['color']) . ';">' . "\n";
 		echo '<div class="featured_block_inner">' . "\n";
 		echo '<p class="foodrx-process-step__number">' . esc_html($step['number']) . '</p>' . "\n";
-		echo '<h3 class="foodrx-process-step__title">' . esc_html($step['title']) . '</h3>' . "\n";
+		echo '<h2 class="foodrx-process-step__title">' . esc_html($step['title']) . '</h2>' . "\n";
 
 		if (!empty($step['lines']) && is_array($step['lines'])) {
 			foreach ($step['lines'] as $line) {
@@ -261,6 +261,14 @@ function foodrx_render_contact_map() {
 	echo '</div>' . "\n";
 }
 
+function foodrx_open_contact_content() {
+	echo '<div class="foodrx-contact-layout">' . "\n";
+}
+
+function foodrx_close_contact_content() {
+	echo '</div><!-- .foodrx-contact-layout -->' . "\n";
+}
+
 /**
  * Demo Contacts page form section (background image, heading, gray form card).
  *
@@ -271,16 +279,24 @@ function foodrx_render_demo_contact_form_panel($bg_url) {
 	$style = ' style="background-image:url(' . esc_url($bg_url) . ');"';
 
 	echo '<section class="' . esc_attr($classes) . '"' . $style . '>' . "\n";
-	echo '<div class="foodrx-form-panel__inner">' . "\n";
+	echo '<div class="foodrx-form-panel__row">' . "\n";
+	echo '<div class="foodrx-form-panel__col foodrx-form-panel__col--copy">' . "\n";
 	echo '<p class="foodrx-demo-form__label">Contact With Us</p>' . "\n";
 	echo '<h2 class="foodrx-demo-form__title">Change Your Life In One Click</h2>' . "\n";
 	echo '<hr class="foodrx-demo-divider" />' . "\n";
 	echo '<img class="foodrx-section-divider-img" src="' . esc_url(foodrx_get_divider_image_url()) . '" alt="" width="120" height="auto" />' . "\n";
-	echo '<hr class="foodrx-demo-divider foodrx-demo-divider--after" />' . "\n";
+	echo '<h3 class="foodrx-demo-form__intro">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim posuere cubilia Curae Suspendisse</h3>' . "\n";
+	echo '<div class="foodrx-demo-form__buttons">' . "\n";
+	echo '<a class="cmsmasters_button foodrx-button" href="' . esc_url(home_url('/services/')) . '"><span>Purchase</span></a>' . "\n";
+	echo '<a class="cmsmasters_button foodrx-button foodrx-button--outline-green" href="' . esc_url(home_url('/contact/#foodrx-contact-form')) . '"><span>Learn More</span></a>' . "\n";
+	echo '</div>' . "\n";
+	echo '</div>' . "\n";
+	echo '<div class="foodrx-form-panel__col foodrx-form-panel__col--form">' . "\n";
 	echo '<div class="cmsmasters_featured_block foodrx-form-panel__card">' . "\n";
 	echo '<div class="featured_block_inner">' . "\n";
-	echo '<div id="foodrx-contact-form" class="foodrx-contact-form foodrx-contact-form--full">' . "\n";
+	echo '<div id="foodrx-contact-form" class="foodrx-contact-form foodrx-contact-form--full cmsmasters_contact_form">' . "\n";
 	foodrx_render_contact_form();
+	echo '</div>' . "\n";
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";

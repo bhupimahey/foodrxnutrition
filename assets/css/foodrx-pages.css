@@ -403,6 +403,17 @@
 	color: rgba(255, 255, 255, 0.92);
 }
 
+.foodrx-contact-layout {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body.foodrx-contact-page .foodrx-contact-map-wide {
+	margin-top: -90px;
+	padding-top: 90px;
+}
+
 .foodrx-contact-details {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -474,14 +485,89 @@
 }
 
 .foodrx-form-panel--demo.foodrx-form-panel--has-bg {
-	padding: 105px 20px 150px;
+	padding: 130px 20px;
+	background-attachment: fixed;
+	background-position: top center;
+	background-size: cover;
 }
 
-.foodrx-form-panel--demo .foodrx-form-panel__inner {
-	max-width: 760px;
+.foodrx-form-panel--demo.foodrx-form-panel--has-bg::before {
+	background: rgba(255, 255, 255, 0.78);
+}
+
+.foodrx-form-panel__row {
+	max-width: 1140px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 40px;
+	align-items: start;
+	position: relative;
+	z-index: 1;
+}
+
+.foodrx-form-panel__col--copy {
+	text-align: center;
 }
 
 .foodrx-demo-form__label {
+	margin: 65px 0 10px;
+	text-align: center;
+	font-size: 16px;
+	line-height: 20px;
+	color: #333333;
+}
+
+.foodrx-demo-form__title {
+	margin: 0 0 10px;
+	text-align: center;
+	font-size: 48px;
+	line-height: 1.2;
+	font-weight: 400;
+	color: #333539;
+}
+
+.foodrx-form-panel--demo .foodrx-demo-form__title {
+	font-size: 48px;
+	line-height: 1.2;
+}
+
+.foodrx-demo-form__intro {
+	margin: 0 0 28px;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: 400;
+	color: #7b7b7b;
+}
+
+.foodrx-demo-form__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+}
+
+.foodrx-button--outline-green {
+	background: #a7d433 !important;
+	color: #ffffff !important;
+	border: 2px solid #a7d433 !important;
+}
+
+.foodrx-button--outline-green:hover {
+	background: transparent !important;
+	color: #a7d433 !important;
+}
+
+.foodrx-form-panel--demo .foodrx-form-panel__card .featured_block_inner {
+	padding: 8%;
+	background: #f8f8f8;
+	border-radius: 10px;
+}
+
+.foodrx-form-panel--demo .foodrx-contact-form {
+	background: transparent;
+	padding: 0;
+}
 	margin: 0 0 10px;
 	text-align: center;
 	font-size: 16px;
@@ -709,11 +795,11 @@
 }
 
 .foodrx-process-step__number {
-	margin: 0 0 12px;
-	font-size: 52px;
+	margin: 0 0 20px;
+	font-size: 60px;
 	line-height: 1;
 	font-weight: 700;
-	color: rgba(255, 255, 255, 0.72);
+	color: rgba(255, 255, 255, 0.7);
 }
 
 .foodrx-process-step__title {
@@ -1431,8 +1517,21 @@
 		font-size: 32px;
 	}
 
-	.foodrx-form-panel--has-bg {
-		padding: 70px 20px 90px;
+	.foodrx-form-panel__row {
+		grid-template-columns: 1fr;
+	}
+
+	.foodrx-form-panel--demo .foodrx-demo-form__title {
+		font-size: 36px;
+	}
+
+	.foodrx-form-panel--demo.foodrx-form-panel--has-bg {
+		padding: 80px 20px;
+	}
+
+	body.foodrx-contact-page .foodrx-contact-map-wide {
+		margin-top: 0;
+		padding-top: 0;
 	}
 
 	.foodrx-cta-band__inner {

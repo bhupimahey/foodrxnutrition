@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
-define('FOODRX_PAGE_META_VERSION', 3);
+define('FOODRX_PAGE_META_VERSION', 4);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -89,8 +89,9 @@ function foodrx_apply_foodrx_page_meta($page_id, $slug = '') {
 	switch ($slug) {
 		case 'contact':
 			update_post_meta($page_id, 'cmsmasters_heading', 'disabled');
-			update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'false');
+			update_post_meta($page_id, 'cmsmasters_heading_block_disabled', 'true');
 			update_post_meta($page_id, 'cmsmasters_header_overlaps', 'true');
+			update_post_meta($page_id, 'cmsmasters_content_under_header', 'false');
 			break;
 
 		case 'nutrition-hub':
