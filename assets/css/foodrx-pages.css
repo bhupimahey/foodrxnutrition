@@ -705,6 +705,68 @@
 	background-position: center;
 }
 
+.foodrx-breakout--info-band {
+	margin-top: 24px;
+	margin-bottom: 0;
+}
+
+.foodrx-info-band {
+	background: #01b4bd;
+	color: #fff;
+	padding: 55px 20px;
+}
+
+.foodrx-info-band__inner {
+	max-width: 1140px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.foodrx-info-band__copy {
+	flex: 1 1 420px;
+}
+
+.foodrx-info-band__title {
+	margin: 0 0 10px;
+	font-size: 42px;
+	line-height: 1.15;
+	font-weight: 400;
+	color: #fff;
+	background: none;
+}
+
+.foodrx-info-band__subtitle {
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.92);
+	max-width: 640px;
+	background: none;
+}
+
+.foodrx-info-band__action {
+	flex: 0 0 auto;
+}
+
+.foodrx-info-band .foodrx-button--light {
+	background: #fff;
+	color: #01b4bd !important;
+	border: 0;
+	padding: 14px 32px;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+}
+
+.foodrx-info-band .foodrx-button--light:hover {
+	background: #343841;
+	color: #fff !important;
+}
+
 .foodrx-subscribe-band {
 	background: #01b4bd;
 	color: #fff;

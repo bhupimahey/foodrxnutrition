@@ -404,7 +404,7 @@ function foodrx_render_info_band($title, $subtitle, $url, $label) {
 
 	echo '</div>' . "\n";
 	echo '<div class="foodrx-info-band__action">' . "\n";
-	echo '<a class="foodrx-button foodrx-button--light cmsmasters_button" href="' . esc_url($url) . '">' . esc_html($label) . '</a>' . "\n";
+	echo '<a class="foodrx-button foodrx-button--light cmsmasters_button" href="' . esc_url($url) . '"><span>' . esc_html($label) . '</span></a>' . "\n";
 	echo '</div>' . "\n";
 	echo '</div>' . "\n";
 	echo '</section>' . "\n";
