@@ -332,6 +332,164 @@ We do not promote crash dieting or extreme restriction.',
 }
 
 /**
+ * Hero background image URL when demo media is available.
+ *
+ * @return string
+ */
+function foodrx_get_hero_bg_url() {
+	$upload_dir = wp_upload_dir();
+	$candidates = array(
+		'2016/08/06.jpg',
+		'2015/12/4.jpg',
+		'2016/08/01.jpg',
+	);
+
+	foreach ($candidates as $relative_path) {
+		$absolute_path = trailingslashit($upload_dir['basedir']) . $relative_path;
+
+		if (file_exists($absolute_path)) {
+			return trailingslashit($upload_dir['baseurl']) . $relative_path;
+		}
+	}
+
+	return '';
+}
+
+/**
+ * @return array<int, array{icon: string, title: string, color: string, url: string}>
+ */
+function foodrx_get_service_tiles() {
+	return array(
+		array(
+			'icon' => 'cmsmasters-icon-custom-burgervsapple',
+			'title' => 'Signature Program',
+			'color' => '#ffa544',
+			'url' => '#foodrx-programs',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-custom-woman',
+			'title' => 'Corporate Wellness',
+			'color' => '#fe8543',
+			'url' => '#foodrx-programs',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-custom-libra',
+			'title' => 'Cooking Classes',
+			'color' => '#a7d433',
+			'url' => '#foodrx-programs',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-custom-vitamins',
+			'title' => 'Grocery Tours',
+			'color' => '#01b4bd',
+			'url' => '#foodrx-programs',
+		),
+	);
+}
+
+/**
+ * @return array<int, array{icon: string, title: string, body: string}>
+ */
+function foodrx_get_corporate_benefit_boxes() {
+	return array(
+		array(
+			'icon' => 'cmsmasters-icon-heart-3',
+			'title' => 'Greater Staff Retention',
+			'body' => 'Wellness programs help employees feel supported and valued, improving long-term engagement.',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-calendar-3',
+			'title' => 'Decreased Absent Days',
+			'body' => 'Healthier habits can reduce fatigue and absenteeism across your team.',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-chart-bar-1',
+			'title' => 'Increased Productivity',
+			'body' => 'Better nutrition supports focus, energy, and sustained performance at work.',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-users-1',
+			'title' => 'Improved Workplace Morale',
+			'body' => 'Interactive sessions create a positive culture around health and wellbeing.',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-star-3',
+			'title' => 'Higher Quality of Work',
+			'body' => 'Empowered employees bring stronger attention and consistency to daily tasks.',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-globe-3',
+			'title' => 'Virtual Across Canada',
+			'body' => 'Flexible delivery makes workplace wellness accessible for distributed teams.',
+		),
+	);
+}
+
+/**
+ * @return array<int, array{icon: string, color: string, value: string, label: string, href: string}>
+ */
+function foodrx_get_contact_details() {
+	$site = foodrx_get_site_content();
+	$email = !empty($site['contact_email']) ? $site['contact_email'] : 'hello@foodrxnutrition.com';
+
+	return array(
+		array(
+			'icon' => 'cmsmasters-icon-phone-4',
+			'color' => '#fe8543',
+			'value' => 'Book Online',
+			'label' => 'Discovery Call',
+			'href' => home_url('/contact/'),
+		),
+		array(
+			'icon' => 'cmsmasters-icon-location-3',
+			'color' => '#a7d433',
+			'value' => $site['location'],
+			'label' => 'Address',
+			'href' => '',
+		),
+		array(
+			'icon' => 'cmsmasters-icon-mail-3',
+			'color' => '#01b4bd',
+			'value' => $email,
+			'label' => 'Email',
+			'href' => 'mailto:' . $email,
+		),
+	);
+}
+
+/**
+ * @return array<int, array{number: string, title: string, body: string, color: string}>
+ */
+function foodrx_get_contact_steps() {
+	return array(
+		array(
+			'number' => '01.',
+			'title' => 'Reach Out',
+			'body' => 'Send a message or book your free discovery call.',
+			'color' => '#ffa544',
+		),
+		array(
+			'number' => '02.',
+			'title' => 'Choose Your Program',
+			'body' => 'Select the service that fits your goals and lifestyle.',
+			'color' => '#fe8543',
+		),
+		array(
+			'number' => '03.',
+			'title' => 'Personalized Care',
+			'body' => 'Receive evidence-based guidance tailored to you.',
+			'color' => '#a7d433',
+		),
+		array(
+			'number' => '04.',
+			'title' => 'Sustainable Results',
+			'body' => 'Build habits that support long-term health and confidence.',
+			'color' => '#01b4bd',
+		),
+	);
+}
+
+/**
  * @return array{terms: string, privacy: string}
  */
 function foodrx_get_legal_content() {

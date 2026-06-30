@@ -15,33 +15,31 @@ foodrx_open_content($cmsmasters_layout);
 foodrx_render_hero(
 	'Contact Us',
 	'Start Your Nutrition Journey',
-	'Reach out to book a free discovery call or ask a question. We look forward to supporting your health journey.'
+	'Reach out to book a free discovery call or ask a question. We look forward to supporting your health journey.',
+	'',
+	'',
+	'cover'
 );
 
+foodrx_breakout_open('foodrx-breakout--contact-map');
 echo '<div class="foodrx-contact-map-wide">' . "\n";
-echo '<iframe title="Map to Brooklyn, NY 10036, United States" src="https://www.google.com/maps?q=' . rawurlencode('Brooklyn, NY 10036, United States') . '&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' . "\n";
+echo '<iframe title="Map to ' . esc_attr($site['location']) . '" src="https://www.google.com/maps?q=' . rawurlencode($site['location']) . '&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' . "\n";
 echo '</div>' . "\n";
+foodrx_breakout_close();
 
-echo '<div class="foodrx-contact-quickinfo">' . "\n";
-echo '<div class="foodrx-contact-quickinfo__item">' . "\n";
-echo '<p class="foodrx-contact-quickinfo__value">1-800-123-1234</p>' . "\n";
-echo '<p class="foodrx-contact-quickinfo__label">Phone</p>' . "\n";
-echo '</div>' . "\n";
-echo '<div class="foodrx-contact-quickinfo__item">' . "\n";
-echo '<p class="foodrx-contact-quickinfo__value">Brooklyn, NY 10036, United States</p>' . "\n";
-echo '<p class="foodrx-contact-quickinfo__label">Address</p>' . "\n";
-echo '</div>' . "\n";
-echo '<div class="foodrx-contact-quickinfo__item">' . "\n";
-echo '<p class="foodrx-contact-quickinfo__value">healthy-life@example.com</p>' . "\n";
-echo '<p class="foodrx-contact-quickinfo__label">Email</p>' . "\n";
-echo '</div>' . "\n";
-echo '</div>' . "\n";
+foodrx_breakout_open('foodrx-breakout--contact-details');
+foodrx_render_contact_details(foodrx_get_contact_details());
+foodrx_breakout_close();
 
-echo '<div id="foodrx-contact-form" class="foodrx-contact-form foodrx-contact-form--full">' . "\n";
-echo '<h3>Send a Message</h3>' . "\n";
-echo '<p class="foodrx-contact-form__intro">Tell us what support you are looking for, and we will get back to you soon.</p>' . "\n";
-foodrx_render_contact_form();
-echo '</div>' . "\n";
+foodrx_render_form_panel(
+	'Contact With Us',
+	'Change Your Life In One Click',
+	'Tell us what support you are looking for, and we will get back to you soon.'
+);
+
+foodrx_breakout_open('foodrx-breakout--process-steps');
+foodrx_render_process_steps(foodrx_get_contact_steps());
+foodrx_breakout_close();
 
 foodrx_close_content();
 

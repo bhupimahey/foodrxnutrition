@@ -14,16 +14,26 @@ foodrx_open_content($cmsmasters_layout);
 foodrx_render_hero(
 	'Nutrition Hub',
 	'Blog & Recipes',
-	'Evidence-based nutrition articles and healthy recipes from Food Rx Nutrition Consulting Services.'
+	'Evidence-based nutrition articles and healthy recipes from Food Rx Nutrition Consulting Services.',
+	home_url('/contact/'),
+	'Work With Us',
+	'cover'
 );
 
-foodrx_section_open('Latest Articles', 'Browse nutrition blog posts and recipes.');
+foodrx_section_open('Latest Articles', 'Browse nutrition blog posts, tips, and practical guidance.', 'Be First to Read');
 foodrx_render_blog_posts('');
 foodrx_section_close();
 
-foodrx_section_open('Recipes');
+foodrx_section_open('Recipes', 'Simple, nourishing ideas you can use at home.', 'Healthy Kitchen');
 foodrx_render_blog_posts('recipes');
 foodrx_section_close();
+
+foodrx_render_cta_band(
+	'Want personalized nutrition support?',
+	'Move from reading to action with a program tailored to your goals.',
+	home_url('/contact/'),
+	'Book a Discovery Call'
+);
 
 foodrx_close_content();
 

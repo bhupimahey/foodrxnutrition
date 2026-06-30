@@ -5,30 +5,90 @@
 .foodrx-page {
 	max-width: 1140px;
 	margin: 0 auto;
-	padding: 20px 20px 60px;
+	padding: 0 20px 60px;
+}
+
+.foodrx-breakout {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+.foodrx-breakout--tiles {
+	margin-bottom: 48px;
+}
+
+.foodrx-breakout--contact-map {
+	margin-bottom: 0;
+}
+
+.foodrx-breakout--contact-details {
+	margin-bottom: 0;
+}
+
+.foodrx-breakout--process-steps {
+	margin-top: 0;
 }
 
 .foodrx-hero {
 	text-align: center;
 	padding: 40px 20px 50px;
-	margin-bottom: 30px;
+	margin: 0 -20px 40px;
 	background: #f8f8f8;
-	border-radius: 8px;
+	border-radius: 0;
+	position: relative;
+	overflow: hidden;
+}
+
+.foodrx-hero--cover {
+	padding: 110px 20px 100px;
+	margin-bottom: 0;
+	background: linear-gradient(135deg, #0f6d73 0%, #01b4bd 55%, #343841 100%);
+	color: #fff;
+}
+
+.foodrx-hero--cover.foodrx-hero--has-image {
+	background-size: cover;
+	background-position: center;
+}
+
+.foodrx-hero--cover.foodrx-hero--has-image::before,
+.foodrx-hero--cover:not(.foodrx-hero--has-image)::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(52, 56, 65, 0.62);
+}
+
+.foodrx-hero__inner {
+	position: relative;
+	z-index: 1;
+	max-width: 820px;
+	margin: 0 auto;
 }
 
 .foodrx-hero__label {
 	font-size: 14px;
 	text-transform: uppercase;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.12em;
 	margin-bottom: 12px;
 	color: #01b4bd;
 }
 
+.foodrx-hero--cover .foodrx-hero__label {
+	color: #a7d433;
+}
+
 .foodrx-hero__title {
-	font-size: 42px;
-	line-height: 1.2;
+	font-size: 48px;
+	line-height: 1.15;
 	margin: 0 0 16px;
 	color: #333539;
+}
+
+.foodrx-hero--cover .foodrx-hero__title {
+	color: #fff;
 }
 
 .foodrx-hero__subtitle {
@@ -39,19 +99,23 @@
 	color: #7b7b7b;
 }
 
+.foodrx-hero--cover .foodrx-hero__subtitle {
+	color: rgba(255, 255, 255, 0.92);
+}
+
 .foodrx-hero__cta {
 	margin-top: 24px;
 }
 
 .foodrx-button {
 	display: inline-block;
-	padding: 14px 28px;
+	padding: 14px 32px;
 	background: #a7d433;
 	color: #fff !important;
 	border-radius: 4px;
 	font-weight: 700;
 	text-decoration: none;
-	transition: background 0.2s ease;
+	transition: background 0.2s ease, color 0.2s ease;
 }
 
 .foodrx-button:hover {
@@ -59,8 +123,55 @@
 	color: #fff !important;
 }
 
+.foodrx-button--light {
+	background: #fff;
+	color: #01b4bd !important;
+}
+
+.foodrx-button--light:hover {
+	background: #343841;
+	color: #fff !important;
+}
+
 .foodrx-section {
-	margin-bottom: 48px;
+	margin-bottom: 70px;
+}
+
+.foodrx-section-head {
+	text-align: center;
+	margin-bottom: 36px;
+}
+
+.foodrx-section-head__label {
+	margin: 0 0 10px;
+	font-size: 14px;
+	line-height: 1.4;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: #01b4bd;
+}
+
+.foodrx-section-head__title {
+	margin: 0;
+	font-size: 38px;
+	line-height: 1.2;
+	color: #333539;
+}
+
+.foodrx-section-head__divider {
+	width: 72px;
+	height: 3px;
+	margin: 18px auto 0;
+	background: linear-gradient(90deg, #01b4bd, #a7d433);
+	border-radius: 999px;
+}
+
+.foodrx-section-head__intro {
+	max-width: 760px;
+	margin: 18px auto 0;
+	font-size: 17px;
+	line-height: 1.7;
+	color: #7b7b7b;
 }
 
 .foodrx-section__title {
@@ -74,6 +185,315 @@
 	line-height: 1.6;
 	color: #7b7b7b;
 	margin-bottom: 24px;
+}
+
+.foodrx-featured-tiles {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.foodrx-featured-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 220px;
+	padding: 36px 24px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff !important;
+	transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.foodrx-featured-tile:hover {
+	transform: translateY(-4px);
+	filter: brightness(1.05);
+}
+
+.foodrx-featured-tile .cmsmasters_simple_icon {
+	display: block;
+	font-size: 56px;
+	line-height: 1;
+	margin-bottom: 18px;
+	color: #fff;
+}
+
+.foodrx-featured-tile__title {
+	margin: 0 0 14px;
+	font-size: 24px;
+	line-height: 1.3;
+	color: #fff;
+}
+
+.foodrx-featured-tile__link {
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.foodrx-pricing-table {
+	margin: 0;
+}
+
+.foodrx-pricing-table .cmsmasters_pricing_item {
+	float: none;
+	width: 100%;
+	padding: 0 0 28px;
+}
+
+.foodrx-pricing-table .cmsmasters_pricing_item_inner {
+	background: #fff;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.foodrx-pricing-table .pricing_best .cmsmasters_pricing_item_inner {
+	box-shadow: 0 16px 36px rgba(1, 180, 189, 0.18);
+}
+
+.foodrx-pricing-item__summary,
+.foodrx-pricing-item__outro {
+	padding: 0 28px;
+	color: #666;
+	line-height: 1.7;
+}
+
+.foodrx-pricing-item__summary p,
+.foodrx-pricing-item__outro p {
+	margin: 0 0 12px;
+}
+
+.foodrx-pricing-table .feature_list {
+	margin: 0;
+	padding: 0 28px 24px;
+}
+
+.foodrx-pricing-table .cmsmasters_button {
+	margin: 0 28px 28px;
+}
+
+.foodrx-icon-boxes {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 28px 32px;
+}
+
+.foodrx-icon-box {
+	display: grid;
+	grid-template-columns: 72px 1fr;
+	gap: 18px;
+	align-items: start;
+	padding: 24px;
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 10px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.foodrx-icon-box::before,
+.foodrx-icon-box .icon_box_heading::before {
+	display: none !important;
+}
+
+.foodrx-icon-box .cmsmasters_simple_icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	background: rgba(1, 180, 189, 0.12);
+	color: #01b4bd;
+	font-size: 32px;
+	line-height: 1;
+}
+
+.foodrx-icon-box .icon_box_heading {
+	margin: 0 0 8px;
+	font-size: 20px;
+	color: #333539;
+}
+
+.foodrx-icon-box .icon_box_text p {
+	margin: 0;
+	line-height: 1.7;
+	color: #666;
+}
+
+.foodrx-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 20px;
+}
+
+.foodrx-chip {
+	display: inline-block;
+	padding: 10px 16px;
+	border-radius: 999px;
+	background: #f3fbfb;
+	border: 1px solid rgba(1, 180, 189, 0.18);
+	color: #0f6d73;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.foodrx-cta-band {
+	margin: 0 -20px 0;
+	padding: 42px 24px;
+	background: #01b4bd;
+	color: #fff;
+}
+
+.foodrx-cta-band__inner {
+	max-width: 1140px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.foodrx-cta-band__title {
+	margin: 0 0 8px;
+	font-size: 32px;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.foodrx-cta-band__subtitle {
+	margin: 0;
+	max-width: 620px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.92);
+}
+
+.foodrx-contact-details {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.foodrx-contact-detail {
+	padding: 0;
+}
+
+.foodrx-contact-detail .featured_block_inner {
+	padding: 70px 24px 60px;
+	text-align: center;
+	background: #fff;
+}
+
+.foodrx-contact-detail .cmsmasters_simple_icon {
+	display: block;
+	font-size: 40px;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+
+.foodrx-contact-detail__value {
+	margin: 0 0 12px;
+	font-size: 22px;
+	line-height: 1.4;
+	color: #333539;
+}
+
+.foodrx-contact-detail__value a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.foodrx-contact-detail__value a:hover {
+	color: #01b4bd;
+}
+
+.foodrx-contact-detail__label {
+	margin: 0;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #7b7b7b;
+}
+
+.foodrx-form-panel {
+	margin: 0 -20px;
+	padding: 90px 20px 100px;
+	background: linear-gradient(135deg, #eef9fa 0%, #f8f8f8 100%);
+	background-size: cover;
+	background-position: center;
+	position: relative;
+}
+
+.foodrx-form-panel::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 255, 0.88);
+}
+
+.foodrx-form-panel[style*="background-image"]::before {
+	background: rgba(255, 255, 255, 0.92);
+}
+
+.foodrx-form-panel__inner {
+	position: relative;
+	z-index: 1;
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.foodrx-form-panel .foodrx-contact-form {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	padding: 0;
+}
+
+.foodrx-form-panel__card {
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.foodrx-form-panel__card .featured_block_inner {
+	padding: 36px 36px 28px;
+	background: #f8f8f8;
+}
+
+.foodrx-process-steps {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.foodrx-process-step {
+	padding: 0;
+}
+
+.foodrx-process-step .featured_block_inner {
+	padding: 36px 24px 48px;
+	text-align: center;
+	color: #fff;
+}
+
+.foodrx-process-step__number {
+	margin: 0 0 12px;
+	font-size: 52px;
+	line-height: 1;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.72);
+}
+
+.foodrx-process-step__title {
+	margin: 0 0 12px;
+	font-size: 24px;
+	line-height: 1.3;
+	color: #fff;
+}
+
+.foodrx-process-step__body {
+	margin: 0;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.88);
 }
 
 .foodrx-cards {
@@ -113,39 +533,69 @@
 
 .foodrx-steps {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 24px;
 }
 
 .foodrx-step {
 	background: #fff;
-	border-left: 4px solid #a7d433;
-	padding: 20px 20px 20px 24px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border-top: 4px solid #a7d433;
+	padding: 28px 24px;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+	border-radius: 10px;
 }
 
 .foodrx-step__num {
-	display: inline-block;
-	width: 36px;
-	height: 36px;
-	line-height: 36px;
-	text-align: center;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
 	border-radius: 50%;
 	background: #01b4bd;
 	color: #fff;
 	font-weight: 700;
-	margin-bottom: 12px;
+	margin-bottom: 16px;
 }
 
 .foodrx-step__title {
-	font-size: 18px;
-	margin: 0 0 10px;
+	font-size: 20px;
+	margin: 0 0 12px;
+	color: #333539;
 }
 
 .foodrx-step__body {
 	margin: 0;
-	line-height: 1.6;
+	line-height: 1.7;
 	color: #666;
+}
+
+.foodrx-faq {
+	margin-top: 8px;
+}
+
+.foodrx-faq .cmsmasters_toggle_wrap {
+	margin-bottom: 12px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.foodrx-faq .cmsmasters_toggle_title {
+	background: #fafafa;
+}
+
+.foodrx-faq .cmsmasters_toggle_title a {
+	padding: 18px 22px;
+	font-weight: 600;
+	color: #333539;
+}
+
+.foodrx-faq .cmsmasters_toggle_inner {
+	padding: 0 22px 18px;
+	color: #666;
+	line-height: 1.7;
 }
 
 .foodrx-services {
@@ -483,18 +933,18 @@
 }
 
 .foodrx-contact-map-wide {
-	margin-bottom: 28px;
-	border-radius: 12px;
+	margin-bottom: 0;
+	border-radius: 0;
 	overflow: hidden;
-	border: 1px solid #e8ebef;
+	border: none;
 	background: #fff;
-	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+	box-shadow: none;
 }
 
 .foodrx-contact-map-wide iframe {
 	display: block;
 	width: 100%;
-	height: 340px;
+	height: 420px;
 	border: 0;
 }
 
@@ -559,33 +1009,93 @@
 
 .foodrx-post-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: 24px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 28px;
 }
 
 .foodrx-post-card {
-	border: 1px solid #eee;
-	border-radius: 8px;
+	border: none;
+	border-radius: 10px;
 	overflow: hidden;
 	background: #fff;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.foodrx-post-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
+}
+
+.foodrx-post-card__thumb {
+	display: block;
+	overflow: hidden;
+	background: #eef9fa;
+}
+
+.foodrx-post-card__thumb--placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 180px;
+	color: #01b4bd;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
 }
 
 .foodrx-post-card__thumb img {
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 220px;
+	object-fit: cover;
+}
+
+.foodrx-post-card__body {
+	padding: 20px 22px 24px;
+}
+
+.foodrx-post-card__meta {
+	margin: 0 0 8px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #01b4bd;
 }
 
 .foodrx-post-card__title {
-	font-size: 18px;
-	margin: 16px 16px 8px;
+	font-size: 20px;
+	margin: 0 0 10px;
+	line-height: 1.35;
+}
+
+.foodrx-post-card__title a {
+	color: #333539;
+	text-decoration: none;
+}
+
+.foodrx-post-card__title a:hover {
+	color: #01b4bd;
 }
 
 .foodrx-post-card__excerpt {
-	margin: 0 16px 16px;
+	margin: 0 0 14px;
 	color: #666;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.foodrx-post-card__more {
 	font-size: 14px;
-	line-height: 1.5;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #a7d433;
+	text-decoration: none;
+}
+
+.foodrx-post-card__more:hover {
+	color: #01b4bd;
 }
 
 .foodrx-notice {
@@ -596,9 +1106,45 @@
 	color: #665c00;
 }
 
+@media (max-width: 1024px) {
+	.foodrx-featured-tiles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.foodrx-icon-boxes,
+	.foodrx-post-grid,
+	.foodrx-steps {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.foodrx-contact-details,
+	.foodrx-process-steps {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
 @media (max-width: 768px) {
-	.foodrx-hero__title {
+	.foodrx-hero__title,
+	.foodrx-section-head__title {
 		font-size: 32px;
+	}
+
+	.foodrx-hero--cover {
+		padding: 80px 20px 70px;
+	}
+
+	.foodrx-featured-tiles,
+	.foodrx-icon-boxes,
+	.foodrx-post-grid,
+	.foodrx-steps,
+	.foodrx-contact-details,
+	.foodrx-process-steps {
+		grid-template-columns: 1fr;
+	}
+
+	.foodrx-cta-band__inner {
+		flex-direction: column;
+		align-items: flex-start;
 	}
 
 	.foodrx-contact-form .foodrx-cf7 {
@@ -620,14 +1166,12 @@
 	}
 
 	.foodrx-contact-info,
-	.foodrx-contact-form {
+	.foodrx-contact-form,
+	.foodrx-form-panel__card .featured_block_inner {
 		padding: 20px;
 	}
 
-	.foodrx-contact-map iframe {
-		height: 240px;
-	}
-
+	.foodrx-contact-map iframe,
 	.foodrx-contact-map-wide iframe {
 		height: 260px;
 	}

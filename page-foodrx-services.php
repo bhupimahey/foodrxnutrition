@@ -16,34 +16,44 @@ foodrx_render_hero(
 	'Nutrition Programs & Consulting',
 	'Evidence-based, personalized nutrition care — from individual coaching to corporate wellness.',
 	home_url('/contact/'),
-	'Contact Us'
+	'Book Discovery Call',
+	'cover'
 );
 
-foodrx_section_open('Programs & Pricing');
+foodrx_breakout_open('foodrx-breakout--tiles');
+foodrx_render_featured_tiles(foodrx_get_service_tiles());
+foodrx_breakout_close();
+
+foodrx_section_open('Programs & Pricing', 'Choose the program that fits your goals and lifestyle.', 'Our Programs');
 foodrx_render_services(foodrx_get_services());
 foodrx_section_close();
 
-foodrx_section_open('Corporate Wellness Benefits');
-foodrx_render_list(array(
-	'Greater staff retention',
-	'Decreased absentee days',
-	'Increased productivity',
-	'Improved workplace morale',
-	'Increased quality of work',
-));
-echo '<p class="foodrx-prose">Incorporating workplace wellness is a strategic move that benefits both your employees and your organization. <a href="' . esc_url(home_url('/contact/')) . '">Contact us</a> to discuss a custom session.</p>';
+foodrx_section_open('Corporate Wellness Benefits', 'Why organizations invest in workplace nutrition education.', 'Workplace Wellness');
+foodrx_render_icon_boxes(foodrx_get_corporate_benefit_boxes());
+echo '<p class="foodrx-prose foodrx-prose--center">Incorporating workplace wellness benefits both your employees and your organization. <a href="' . esc_url(home_url('/contact/')) . '">Contact us</a> to discuss a custom session.</p>';
 foodrx_section_close();
 
-foodrx_section_open('Cooking Classes & Grocery Tours — Specializations', 'At cooking classes and grocery tours, we specialize in supporting clients with:');
-foodrx_render_list(array(
+foodrx_section_open('Cooking Classes & Grocery Tours', 'We specialize in supporting clients with:', 'Specializations');
+foodrx_render_chips(array(
 	'General healthy eating',
 	'Pre-diabetes and diabetes',
 	'Fatty liver disease',
 	'Hypertension (high blood pressure)',
 	'Hyperlipidemia',
 ));
-echo '<p class="foodrx-prose">These classes and tours are suitable for all ages and levels of nutrition knowledge, making them accessible to everyone looking to improve their diet and health.</p>';
+echo '<p class="foodrx-prose">These classes and tours are suitable for all ages and levels of nutrition knowledge.</p>';
 foodrx_section_close();
+
+foodrx_section_open('Your Nutrition Journey', foodrx_get_journey_intro(), 'How It Works');
+foodrx_render_steps(foodrx_get_journey_steps());
+foodrx_section_close();
+
+foodrx_render_cta_band(
+	'Ready to start your nutrition journey?',
+	'Book a free 30-minute discovery call and find the right program for you.',
+	home_url('/contact/'),
+	'Contact Us'
+);
 
 foodrx_close_content();
 
