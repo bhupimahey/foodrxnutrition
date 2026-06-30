@@ -403,15 +403,12 @@
 	color: rgba(255, 255, 255, 0.92);
 }
 
-.foodrx-contact-layout {
+/* Contact page sections render as direct children of .middle_inner (full viewport
+   width) — no wrapper needed, no negative-margin breakout required. */
+.foodrx-contact-map-wide {
 	width: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-body.foodrx-contact-page .foodrx-contact-map-wide {
-	margin-top: -90px;
-	padding-top: 90px;
+	margin-top: 0;
+	padding-top: 0;
 }
 
 .foodrx-contact-details {

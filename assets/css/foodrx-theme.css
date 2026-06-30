@@ -114,7 +114,12 @@ body.foodrx-contact-page #middle .headline {
 	display: none !important;
 }
 
-body.foodrx-contact-page #middle .middle_inner > .content_wrap.fullwidth > .middle_content.entry {
-	padding: 0;
-	margin: 0;
+/* Contact template closes content_wrap early so sections sit in .middle_inner.
+   Ensure no stray top-padding prevents the map from reaching position 0. */
+body.foodrx-contact-page #middle {
+	padding-top: 0 !important;
+}
+
+body.foodrx-contact-page #middle .middle_inner {
+	padding-top: 0 !important;
 }

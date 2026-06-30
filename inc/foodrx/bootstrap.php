@@ -21,7 +21,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.0.4'
+		'1.0.5'
 	);
 
 	wp_enqueue_script(
@@ -50,7 +50,7 @@ function foodrx_enqueue_assets() {
 			'foodrx-pages',
 			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
 			array(),
-			'2.4.0'
+			'2.5.0'
 		);
 	}
 }
@@ -83,11 +83,20 @@ function foodrx_sync_current_page_meta() {
 		return;
 	}
 
-	$template = get_page_template_slug();
+	// get_queried_object_id() is reliable at template_redirect time; avoid
+	// get_page_template_slug() with no argument because $GLOBALS['post'] is
+	// not yet populated before the loop runs.
+	$page_id = (int) get_queried_object_id();
+
+	if ($page_id <= 0) {
+		return;
+	}
+
+	$template = get_page_template_slug($page_id);
 
 	foreach (foodrx_get_menu_page_definitions() as $definition) {
 		if ($template === $definition['template']) {
-			foodrx_apply_foodrx_page_meta(get_queried_object_id(), $definition['slug']);
+			foodrx_apply_foodrx_page_meta($page_id, $definition['slug']);
 			return;
 		}
 	}
