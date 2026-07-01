@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
-define('FOODRX_PAGE_META_VERSION', 8);
+define('FOODRX_PAGE_META_VERSION', 9);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -141,7 +141,10 @@ function foodrx_sync_foodrx_page_layout_meta($page_id, $slug = '') {
 			break;
 
 		case 'nutrition-hub':
-			update_post_meta($page_id, 'cmsmasters_layout', 'r_sidebar');
+			// fullwidth so healthy_living_page_heading() follows the same code path as
+			// FAQ / Services and renders the banner correctly. The template itself
+			// manually outputs the r_sidebar layout for the blog section.
+			update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
 			foodrx_ensure_heading_banner_defaults($page_id, 'nutrition-hub');
 			break;
 
@@ -180,7 +183,7 @@ function foodrx_apply_foodrx_page_meta($page_id, $slug = '') {
 			break;
 
 		case 'nutrition-hub':
-			update_post_meta($page_id, 'cmsmasters_layout', 'r_sidebar');
+			update_post_meta($page_id, 'cmsmasters_layout', 'fullwidth');
 			foodrx_ensure_heading_banner_defaults($page_id, 'nutrition-hub');
 			break;
 
