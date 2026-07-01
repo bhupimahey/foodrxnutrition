@@ -54,9 +54,15 @@ $cmsmasters_option = healthy_living_get_global_options();
 	
 <!--  Start Middle  -->
 <div id="middle"<?php echo (is_404()) ? ' class="error_page"' : ''; ?>>
-<?php 
-if (!is_404() && !is_home()) {
-	healthy_living_page_heading();
+<?php
+$foodrx_posts_hub_heading = function_exists('foodrx_is_nutrition_hub_posts_page_view') && foodrx_is_nutrition_hub_posts_page_view();
+
+if (!is_404() && (!is_home() || $foodrx_posts_hub_heading)) {
+	if ($foodrx_posts_hub_heading) {
+		foodrx_render_page_heading_for_id((int) get_option('page_for_posts'));
+	} else {
+		healthy_living_page_heading();
+	}
 } elseif (is_404()) {
 	echo "";
 } else {

@@ -14,6 +14,80 @@ require_once __DIR__ . '/render.php';
 require_once __DIR__ . '/setup.php';
 
 /**
+ * @return int Nutrition Hub page ID or 0.
+ */
+function foodrx_get_nutrition_hub_page_id() {
+	static $page_id = null;
+
+	if ($page_id !== null) {
+		return $page_id;
+	}
+
+	$page = get_page_by_path('nutrition-hub', OBJECT, 'page');
+	$page_id = ($page instanceof WP_Post) ? (int) $page->ID : 0;
+
+	return $page_id;
+}
+
+/**
+ * True when the blog index URL is the Nutrition Hub page (Settings → Reading → Posts page).
+ */
+function foodrx_is_nutrition_hub_posts_page_view() {
+	if (!is_home() || is_front_page()) {
+		return false;
+	}
+
+	$posts_page_id = (int) get_option('page_for_posts');
+	$hub_page_id = foodrx_get_nutrition_hub_page_id();
+
+	return $posts_page_id > 0 && $hub_page_id > 0 && $posts_page_id === $hub_page_id;
+}
+
+/**
+ * True on the Nutrition Hub page template or its posts-page blog index URL.
+ */
+function foodrx_is_nutrition_hub_view() {
+	if (foodrx_is_nutrition_hub_posts_page_view()) {
+		return true;
+	}
+
+	if (!is_page()) {
+		return false;
+	}
+
+	$page_id = (int) get_queried_object_id();
+
+	if ($page_id <= 0) {
+		return false;
+	}
+
+	if (get_page_template_slug($page_id) === 'page-foodrx-nutrition-hub.php') {
+		return true;
+	}
+
+	$page = get_post($page_id);
+
+	return ($page instanceof WP_Post) && $page->post_name === 'nutrition-hub';
+}
+
+/**
+ * Page ID whose CMSMasters banner meta should drive the current view.
+ *
+ * @return int
+ */
+function foodrx_get_current_banner_page_id() {
+	if (foodrx_is_nutrition_hub_posts_page_view()) {
+		return (int) get_option('page_for_posts');
+	}
+
+	if (is_page()) {
+		return (int) get_queried_object_id();
+	}
+
+	return 0;
+}
+
+/**
  * Site-wide Food Rx adjustments (navigation colors, etc.).
  */
 function foodrx_enqueue_theme_assets() {
@@ -21,7 +95,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.1.0'
+		'1.1.1'
 	);
 
 	wp_enqueue_script(
@@ -39,20 +113,25 @@ add_action('wp_enqueue_scripts', 'foodrx_enqueue_theme_assets', 20);
  * Enqueue Food Rx page styles on custom templates.
  */
 function foodrx_enqueue_assets() {
-	if (!is_page()) {
+	$load_pages_css = false;
+
+	if (is_page()) {
+		$template = get_page_template_slug();
+		$load_pages_css = strpos($template, 'page-foodrx-') === 0;
+	} elseif (foodrx_is_nutrition_hub_posts_page_view()) {
+		$load_pages_css = true;
+	}
+
+	if (!$load_pages_css) {
 		return;
 	}
 
-	$template = get_page_template_slug();
-
-	if (strpos($template, 'page-foodrx-') === 0) {
-		wp_enqueue_style(
-			'foodrx-pages',
-			get_template_directory_uri() . '/assets/css/foodrx-pages.css',
-			array(),
-			'3.0.0'
-		);
-	}
+	wp_enqueue_style(
+		'foodrx-pages',
+		get_template_directory_uri() . '/assets/css/foodrx-pages.css',
+		array(),
+		'3.1.0'
+	);
 }
 
 add_action('wp_enqueue_scripts', 'foodrx_enqueue_assets');
@@ -80,6 +159,11 @@ add_action('after_switch_theme', 'foodrx_register_categories');
  * images chosen in WP Admin (CMSMasters Page Options → Heading).
  */
 function foodrx_sync_current_page_meta() {
+	if (foodrx_is_nutrition_hub_posts_page_view()) {
+		foodrx_sync_foodrx_page_layout_meta((int) get_option('page_for_posts'), 'nutrition-hub');
+		return;
+	}
+
 	if (!is_page()) {
 		return;
 	}
@@ -147,6 +231,10 @@ function foodrx_get_banner_bg_keys_by_template() {
  * @return string Background key or empty string.
  */
 function foodrx_get_current_banner_bg_key() {
+	if (foodrx_is_nutrition_hub_view()) {
+		return 'nutrition-hub';
+	}
+
 	if (!is_page()) {
 		return '';
 	}
@@ -181,11 +269,7 @@ function foodrx_get_current_banner_bg_key() {
  * the loop runs, which can miss page meta and fall back to the gray default texture.
  */
 function foodrx_print_page_heading_styles() {
-	if (!is_page()) {
-		return;
-	}
-
-	$page_id = (int) get_queried_object_id();
+	$page_id = foodrx_get_current_banner_page_id();
 	$bg_key = foodrx_get_current_banner_bg_key();
 
 	if ($page_id <= 0 || $bg_key === '') {
@@ -218,6 +302,10 @@ function foodrx_banner_body_class($classes) {
 
 	$classes[] = 'foodrx-banner-page';
 	$classes[] = 'foodrx-banner-page--' . sanitize_html_class($bg_key);
+
+	if (foodrx_is_nutrition_hub_posts_page_view()) {
+		$classes[] = 'foodrx-nutrition-hub-posts-page';
+	}
 
 	return $classes;
 }

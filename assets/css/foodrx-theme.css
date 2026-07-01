@@ -125,26 +125,26 @@ body.foodrx-contact-page #middle .middle_inner {
 }
 
 /* Inner pages with full-width photo banner (FAQ, Services, Nutrition Hub). */
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid:not(.header_mid_scroll) {
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid:not(.header_mid_scroll) {
 	background-color: #2e3f59 !important;
 	box-shadow: none !important;
 }
 
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a .nav_title,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a .nav_subtitle,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid a,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .navigation .cmsmasters_resp_nav_toggle {
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a .nav_title,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a .nav_subtitle,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid a,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .navigation .cmsmasters_resp_nav_toggle {
 	color: #ffffff !important;
 }
 
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a:hover .nav_title,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li.current-menu-item > a .nav_title,
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid .navigation > li.current-menu-ancestor > a .nav_title {
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li > a:hover .nav_title,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li.current-menu-item > a .nav_title,
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid .navigation > li.current-menu-ancestor > a .nav_title {
 	color: #a7d433 !important;
 }
 
-body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid.header_mid_scroll {
+body.foodrx-banner-page #page.cmsmasters_heading_under_header #header .header_mid.header_mid_scroll {
 	background-color: #2e3f59 !important;
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }

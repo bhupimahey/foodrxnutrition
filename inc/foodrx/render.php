@@ -10,6 +10,58 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Render the theme page heading banner using a specific page's CMSMasters meta.
+ *
+ * Used when Nutrition Hub is assigned as the WordPress "Posts page" (is_home()),
+ * because healthy_living_page_heading() only reads meta on is_singular().
+ *
+ * @param int $page_id Page ID whose heading meta should be rendered.
+ */
+function foodrx_render_page_heading_for_id($page_id) {
+	$page_id = (int) $page_id;
+
+	if ($page_id <= 0 || !function_exists('healthy_living_page_heading')) {
+		return;
+	}
+
+	$page = get_post($page_id);
+
+	if (!$page instanceof WP_Post) {
+		return;
+	}
+
+	global $wp_query, $post;
+
+	$saved_post = $post;
+	$saved_state = array(
+		'is_home' => $wp_query->is_home,
+		'is_page' => $wp_query->is_page,
+		'is_singular' => $wp_query->is_singular,
+		'is_archive' => $wp_query->is_archive,
+		'queried_object' => $wp_query->queried_object,
+		'queried_object_id' => $wp_query->queried_object_id,
+	);
+
+	$wp_query->is_home = false;
+	$wp_query->is_page = true;
+	$wp_query->is_singular = true;
+	$wp_query->is_archive = false;
+	$wp_query->queried_object = $page;
+	$wp_query->queried_object_id = $page_id;
+	$post = $page;
+
+	healthy_living_page_heading();
+
+	$wp_query->is_home = $saved_state['is_home'];
+	$wp_query->is_page = $saved_state['is_page'];
+	$wp_query->is_singular = $saved_state['is_singular'];
+	$wp_query->is_archive = $saved_state['is_archive'];
+	$wp_query->queried_object = $saved_state['queried_object'];
+	$wp_query->queried_object_id = $saved_state['queried_object_id'];
+	$post = $saved_post;
+}
+
+/**
  * Open standard page content wrapper (matches theme layout).
  *
  * @param string $layout cmsmasters layout slug.
