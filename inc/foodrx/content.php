@@ -512,6 +512,9 @@ function foodrx_get_page_heading_banner_styles($page_id, $fallback_bg_key = '') 
 	$css .= "\tbackground-attachment:{$att} !important;\n";
 	$css .= "\tbackground-size:{$size} !important;\n";
 	$css .= "\tbackground-position:center center !important;\n";
+	// Direct min-height on headline_outer so the banner always has height even
+	// when cmsmasters_headline_disabled suppresses the inner aligner elements.
+	$css .= "\tmin-height:{$height}px !important;\n";
 	$css .= "}\n";
 	$css .= ".headline_color {\n";
 	$css .= "\tbackground-color:{$color} !important;\n";

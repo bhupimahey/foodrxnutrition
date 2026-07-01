@@ -151,4 +151,12 @@ body.foodrx-banner-page.cmsmasters_heading_under_header #header .header_mid.head
 
 body.foodrx-banner-page .headline_outer {
 	width: 100%;
+	min-height: 360px !important;
+}
+
+/* White text over the banner photo for all banner pages. */
+body.foodrx-banner-page .headline_outer .entry-title,
+body.foodrx-banner-page .headline_outer .cmsmasters_breadcrumbs a,
+body.foodrx-banner-page .headline_outer .cmsmasters_breadcrumbs span {
+	color: #fff !important;
 }

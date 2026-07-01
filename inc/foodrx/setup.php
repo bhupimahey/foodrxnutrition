@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
-define('FOODRX_PAGE_META_VERSION', 7);
+define('FOODRX_PAGE_META_VERSION', 8);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -68,11 +68,14 @@ function foodrx_apply_banner_page_structure_meta($page_id) {
 	update_post_meta($page_id, 'cmsmasters_heading_scheme', 'default');
 	update_post_meta($page_id, 'cmsmasters_breadcrumbs', 'true');
 
-	if (get_post_meta($page_id, 'cmsmasters_heading_height', true) === '') {
+	// Always enforce 360px — never allow a stale 0 to suppress the banner.
+	$h = (int) get_post_meta($page_id, 'cmsmasters_heading_height', true);
+	if ($h <= 0) {
 		update_post_meta($page_id, 'cmsmasters_heading_height', '360');
 	}
 
-	if (get_post_meta($page_id, 'cmsmasters_heading_bg_color', true) === '') {
+	$color = get_post_meta($page_id, 'cmsmasters_heading_bg_color', true);
+	if ($color === '' || $color === 'rgba(37,37,37,0)') {
 		update_post_meta($page_id, 'cmsmasters_heading_bg_color', 'rgba(37,37,37,0.55)');
 	}
 }
