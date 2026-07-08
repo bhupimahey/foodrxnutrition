@@ -164,8 +164,12 @@ body.foodrx-banner-page .headline_outer .cmsmasters_breadcrumbs span {
 /* Homepage — hide LayerSlider "Learn More" CTA buttons. */
 body.home .ls-button,
 body.home .ls-layer .ls-button,
-body.home .ls-html-layer .ls-button {
+body.home .ls-html-layer .ls-button,
+body.home .ls-wp-container a.ls-l .cmsms_layer_button,
+body.home .ls-wp-container a.ls-l:has(.cmsms_layer_button) {
 	display: none !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
 }
 
 /* Homepage — full-width photo bands (contact + seminar sections). */

@@ -95,7 +95,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.1.2'
+		'1.1.3'
 	);
 
 	wp_enqueue_script(
@@ -323,7 +323,31 @@ function foodrx_filter_homepage_content($content) {
 		return $content;
 	}
 
-	return foodrx_resolve_homepage_background_images($content);
+	$content = foodrx_resolve_homepage_background_images($content);
+
+	return foodrx_strip_homepage_slider_learn_more($content);
+}
+
+/**
+ * Remove demo LayerSlider "Learn More" CTA from homepage hero markup.
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function foodrx_strip_homepage_slider_learn_more($content) {
+	$content = preg_replace(
+		'#<a\b[^>]*\bclass="[^"]*\bls-l\b[^"]*"[^>]*>\s*<h3\b[^>]*\bcmsms_layer_button\b[^>]*>.*?</h3>\s*</a>#is',
+		'',
+		$content
+	);
+
+	$content = preg_replace(
+		'#<a\b[^>]*\bhref="[^"]*about-my-life[^"]*"[^>]*\bclass="[^"]*\bls-l\b[^"]*"[^>]*>.*?</a>#is',
+		'',
+		$content
+	);
+
+	return $content;
 }
 
 add_filter('the_content', 'foodrx_filter_homepage_content', 20);
@@ -342,8 +366,12 @@ function foodrx_print_homepage_styles() {
 	echo '<style id="foodrx-homepage">' . "\n";
 	echo "body.home .ls-button,\n";
 	echo "body.home .ls-layer .ls-button,\n";
-	echo "body.home .ls-html-layer .ls-button {\n";
+	echo "body.home .ls-html-layer .ls-button,\n";
+	echo "body.home .ls-wp-container a.ls-l .cmsms_layer_button,\n";
+	echo "body.home .ls-wp-container a.ls-l:has(.cmsms_layer_button) {\n";
 	echo "\tdisplay: none !important;\n";
+	echo "\tvisibility: hidden !important;\n";
+	echo "\tpointer-events: none !important;\n";
 	echo "}\n";
 	echo "body.home .foodrx-home-band--contact > .cmsmasters_row_outer {\n";
 	echo "\tbackground-image: url({$contact_bg}) !important;\n";

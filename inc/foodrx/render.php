@@ -194,7 +194,6 @@ function foodrx_render_featured_tiles($tiles) {
 		echo '<a class="foodrx-featured-tile" href="' . esc_url($url) . '" style="background-color:' . esc_attr($tile['color']) . ';">' . "\n";
 		echo '<span class="cmsmasters_simple_icon ' . esc_attr($tile['icon']) . '" aria-hidden="true"></span>' . "\n";
 		echo '<h3 class="foodrx-featured-tile__title">' . esc_html($tile['title']) . '</h3>' . "\n";
-		echo '<span class="foodrx-featured-tile__link">Learn More</span>' . "\n";
 		echo '</a>' . "\n";
 	}
 
