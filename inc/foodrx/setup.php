@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
 define('FOODRX_PAGE_META_VERSION', 9);
-define('FOODRX_HOMEPAGE_CONTENT_VERSION', 1);
+define('FOODRX_HOMEPAGE_CONTENT_VERSION', 2);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -376,7 +376,11 @@ function foodrx_get_homepage_content() {
 
 	$content = require $path;
 
-	return is_string($content) ? $content : '';
+	if (!is_string($content)) {
+		return '';
+	}
+
+	return foodrx_resolve_homepage_background_images($content);
 }
 
 /**

@@ -416,6 +416,62 @@ function foodrx_format_heading_bg_meta($url) {
 }
 
 /**
+ * CMSMasters Composer row background meta (attachment ID optional).
+ *
+ * @param string $url Image URL.
+ * @return string
+ */
+function foodrx_format_composer_bg_meta($url) {
+	return foodrx_format_heading_bg_meta($url);
+}
+
+/**
+ * Replace demo attachment background references with bundled/upload URLs.
+ *
+ * @param string $content Page builder shortcode content.
+ * @return string
+ */
+function foodrx_resolve_homepage_background_images($content) {
+	if ($content === '') {
+		return $content;
+	}
+
+	$replacements = array(
+		'13102|http://healthy-living.cmsmasters.studio/demo/wp-content/uploads/sites/2/2016/08/06.jpg|full' => foodrx_format_composer_bg_meta(foodrx_get_page_bg_url('nutrition-hub')),
+		'13098|http://healthy-living.cmsmasters.studio/demo/wp-content/uploads/sites/2/2016/08/02.jpg|full' => foodrx_format_composer_bg_meta(foodrx_get_page_bg_url('faq')),
+		'{{HOME_BG_CONTACT}}' => foodrx_format_composer_bg_meta(foodrx_get_page_bg_url('nutrition-hub')),
+		'{{HOME_BG_SEMINAR}}' => foodrx_format_composer_bg_meta(foodrx_get_page_bg_url('faq')),
+	);
+
+	foreach ($replacements as $search => $replace) {
+		$content = str_replace($search, $replace, $content);
+	}
+
+	// Fallback: swap any remaining demo upload URLs for local bundled assets.
+	$content = preg_replace_callback(
+		'#https?://healthy-living\.cmsmasters\.studio/demo/wp-content/uploads/sites/2/([^"|]+)#',
+		static function ($matches) {
+			$relative = $matches[1];
+			$filename = str_replace('/', '-', preg_replace('#-\d+x\d+\.(jpg|jpeg|png|webp)$#i', '.$1', $relative));
+
+			return foodrx_resolve_image_url($relative, $filename);
+		},
+		$content
+	);
+
+	return $content;
+}
+
+/**
+ * Whether the current request is the site front page.
+ *
+ * @return bool
+ */
+function foodrx_is_front_page_view() {
+	return is_front_page();
+}
+
+/**
  * Whether the page already has a CMSMasters heading background configured in admin.
  *
  * @param int $page_id Page ID.

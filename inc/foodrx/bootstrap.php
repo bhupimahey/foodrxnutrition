@@ -95,7 +95,7 @@ function foodrx_enqueue_theme_assets() {
 		'foodrx-theme',
 		get_template_directory_uri() . '/assets/css/foodrx-theme.css',
 		array('theme-schemes-secondary'),
-		'1.1.1'
+		'1.1.2'
 	);
 
 	wp_enqueue_script(
@@ -311,3 +311,55 @@ function foodrx_banner_body_class($classes) {
 }
 
 add_filter('body_class', 'foodrx_banner_body_class');
+
+/**
+ * Resolve homepage image band URLs when rendering stored page builder content.
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function foodrx_filter_homepage_content($content) {
+	if (!foodrx_is_front_page_view()) {
+		return $content;
+	}
+
+	return foodrx_resolve_homepage_background_images($content);
+}
+
+add_filter('the_content', 'foodrx_filter_homepage_content', 20);
+
+/**
+ * Fallback CSS for homepage photo bands and LayerSlider CTA cleanup.
+ */
+function foodrx_print_homepage_styles() {
+	if (!foodrx_is_front_page_view()) {
+		return;
+	}
+
+	$contact_bg = esc_url(foodrx_get_page_bg_url('nutrition-hub'));
+	$seminar_bg = esc_url(foodrx_get_page_bg_url('faq'));
+
+	echo '<style id="foodrx-homepage">' . "\n";
+	echo "body.home .ls-button,\n";
+	echo "body.home .ls-layer .ls-button,\n";
+	echo "body.home .ls-html-layer .ls-button {\n";
+	echo "\tdisplay: none !important;\n";
+	echo "}\n";
+	echo "body.home .foodrx-home-band--contact > .cmsmasters_row_outer {\n";
+	echo "\tbackground-image: url({$contact_bg}) !important;\n";
+	echo "\tbackground-repeat: no-repeat !important;\n";
+	echo "\tbackground-position: center center !important;\n";
+	echo "\tbackground-size: cover !important;\n";
+	echo "\tmin-height: 280px !important;\n";
+	echo "}\n";
+	echo "body.home .foodrx-home-band--seminar > .cmsmasters_row_outer {\n";
+	echo "\tbackground-image: url({$seminar_bg}) !important;\n";
+	echo "\tbackground-repeat: no-repeat !important;\n";
+	echo "\tbackground-position: center center !important;\n";
+	echo "\tbackground-size: cover !important;\n";
+	echo "\tmin-height: 280px !important;\n";
+	echo "}\n";
+	echo '</style>' . "\n";
+}
+
+add_action('wp_head', 'foodrx_print_homepage_styles', 100);

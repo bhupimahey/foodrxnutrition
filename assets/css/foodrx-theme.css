@@ -160,3 +160,19 @@ body.foodrx-banner-page .headline_outer .cmsmasters_breadcrumbs a,
 body.foodrx-banner-page .headline_outer .cmsmasters_breadcrumbs span {
 	color: #fff !important;
 }
+
+/* Homepage — hide LayerSlider "Learn More" CTA buttons. */
+body.home .ls-button,
+body.home .ls-layer .ls-button,
+body.home .ls-html-layer .ls-button {
+	display: none !important;
+}
+
+/* Homepage — full-width photo bands (contact + seminar sections). */
+body.home .foodrx-home-band--contact > .cmsmasters_row_outer,
+body.home .foodrx-home-band--seminar > .cmsmasters_row_outer {
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+	background-size: cover !important;
+	min-height: 280px !important;
+}

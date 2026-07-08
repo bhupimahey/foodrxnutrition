@@ -35,9 +35,9 @@ foreach ($rows as $index => $row) {
 	if ($index === 1) {
 		$row = strip_service_boxes($row);
 	} elseif ($index === 5) {
-		$row = image_only_row($row, 130, 130);
+		$row = image_only_row($row, 130, 130, 'foodrx-home-band foodrx-home-band--contact');
 	} elseif ($index === 7) {
-		$row = image_only_row($row, 110, 125);
+		$row = image_only_row($row, 110, 125, 'foodrx-home-band foodrx-home-band--seminar');
 	} elseif ($index === 16) {
 		$row = strip_contact_info_boxes($row);
 	}
@@ -65,14 +65,36 @@ function strip_service_boxes($row) {
 	return $row;
 }
 
-function image_only_row($row, $padding_top, $padding_bottom) {
+function image_only_row($row, $padding_top, $padding_bottom, $class = '') {
 	if (!preg_match('#(\[cmsmasters_row[^\]]*\])#', $row, $open)) {
 		return $row;
 	}
 
 	$attrs = $open[1];
+
+	if ($class !== '') {
+		if (strpos($attrs, 'classes=') !== false) {
+			$attrs = preg_replace('#classes="([^"]*)"#', 'classes="$1 ' . $class . '"', $attrs);
+		} else {
+			$attrs = rtrim($attrs, ']') . ' classes="' . $class . '"]';
+		}
+	}
+
 	$attrs = preg_replace('#data_padding_top="[^"]*"#', 'data_padding_top="' . $padding_top . '"', $attrs);
 	$attrs = preg_replace('#data_padding_bottom="[^"]*"#', 'data_padding_bottom="' . $padding_bottom . '"', $attrs);
+
+	// Use placeholders resolved at runtime via foodrx_resolve_homepage_background_images().
+	if (strpos($class, 'contact') !== false) {
+		$attrs = preg_replace('#data_bg_img="[^"]*"#', 'data_bg_img="{{HOME_BG_CONTACT}}"', $attrs);
+		if (strpos($attrs, 'data_bg_img=') === false) {
+			$attrs = rtrim($attrs, ']') . ' data_bg_img="{{HOME_BG_CONTACT}}"]';
+		}
+	} elseif (strpos($class, 'seminar') !== false) {
+		$attrs = preg_replace('#data_bg_img="[^"]*"#', 'data_bg_img="{{HOME_BG_SEMINAR}}"', $attrs);
+		if (strpos($attrs, 'data_bg_img=') === false) {
+			$attrs = rtrim($attrs, ']') . ' data_bg_img="{{HOME_BG_SEMINAR}}"]';
+		}
+	}
 
 	return $attrs . '[cmsmasters_column data_width="1/1"][/cmsmasters_column][/cmsmasters_row]';
 }
