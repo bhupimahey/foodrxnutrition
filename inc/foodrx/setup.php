@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 
 define('FOODRX_MENU_SETUP_VERSION', 4);
 define('FOODRX_PAGE_META_VERSION', 9);
+define('FOODRX_HOMEPAGE_CONTENT_VERSION', 1);
 
 /**
  * Pages linked from the primary menu (Home uses the existing front page).
@@ -362,7 +363,24 @@ function foodrx_setup_primary_menu() {
 }
 
 /**
- * Load the demo homepage builder content shipped with the theme.
+ * Trimmed Food Rx homepage builder content (demo sections removed).
+ *
+ * @return string
+ */
+function foodrx_get_homepage_content() {
+	$path = __DIR__ . '/homepage-content.php';
+
+	if (!is_readable($path)) {
+		return foodrx_load_demo_home_content_from_xml();
+	}
+
+	$content = require $path;
+
+	return is_string($content) ? $content : '';
+}
+
+/**
+ * Load the full demo homepage builder content shipped with the theme.
  *
  * @return string
  */
@@ -391,35 +409,80 @@ function foodrx_load_demo_home_content_from_xml() {
 }
 
 /**
- * Restore the original CMSMasters demo homepage layout/content.
+ * Apply the trimmed Food Rx homepage content to the front page.
+ *
+ * @return bool
+ */
+function foodrx_apply_homepage_content() {
+	$content = foodrx_get_homepage_content();
+
+	if ($content === '') {
+		return false;
+	}
+
+	$home_id = foodrx_get_homepage_id();
+
+	if ($home_id <= 0) {
+		$home = get_page_by_path('home', OBJECT, 'page');
+
+		if (!$home instanceof WP_Post) {
+			$home = get_page_by_title('Home', OBJECT, 'page');
+		}
+
+		if (!$home instanceof WP_Post) {
+			return false;
+		}
+
+		$home_id = (int) $home->ID;
+	}
+
+	wp_update_post(array(
+		'ID' => $home_id,
+		'post_content' => $content,
+		'post_status' => 'publish',
+	));
+
+	update_post_meta($home_id, '_wp_page_template', 'default');
+	foodrx_apply_demo_homepage_meta($home_id);
+
+	return true;
+}
+
+/**
+ * Restore the full CMSMasters demo homepage (all original sections).
  *
  * @return bool
  */
 function foodrx_restore_demo_homepage() {
+	return foodrx_apply_homepage_content();
+}
+
+/**
+ * Restore the untouched CMSMasters demo homepage from theme XML.
+ *
+ * @return bool
+ */
+function foodrx_restore_full_demo_homepage() {
 	$content = foodrx_load_demo_home_content_from_xml();
 
 	if ($content === '') {
 		return false;
 	}
 
-	$home = get_page_by_path('home', OBJECT, 'page');
+	$home_id = foodrx_get_homepage_id();
 
-	if (!$home instanceof WP_Post) {
-		$home = get_page_by_title('Home', OBJECT, 'page');
-	}
-
-	if (!$home instanceof WP_Post) {
+	if ($home_id <= 0) {
 		return false;
 	}
 
 	wp_update_post(array(
-		'ID' => $home->ID,
+		'ID' => $home_id,
 		'post_content' => $content,
 		'post_status' => 'publish',
 	));
 
-	update_post_meta($home->ID, '_wp_page_template', 'default');
-	foodrx_apply_demo_homepage_meta((int) $home->ID);
+	update_post_meta($home_id, '_wp_page_template', 'default');
+	foodrx_apply_demo_homepage_meta($home_id);
 
 	return true;
 }
@@ -505,11 +568,26 @@ function foodrx_maybe_run_setup() {
 	}
 
 	if (foodrx_homepage_needs_restore()) {
-		foodrx_restore_demo_homepage();
+		foodrx_apply_homepage_content();
 	}
 }
 
 add_action('init', 'foodrx_maybe_run_setup', 20);
+
+/**
+ * Push trimmed homepage content when the bundled version changes.
+ */
+function foodrx_maybe_apply_homepage_content() {
+	if ((int) get_option('foodrx_homepage_content_version', 0) >= FOODRX_HOMEPAGE_CONTENT_VERSION) {
+		return;
+	}
+
+	if (foodrx_apply_homepage_content()) {
+		update_option('foodrx_homepage_content_version', FOODRX_HOMEPAGE_CONTENT_VERSION);
+	}
+}
+
+add_action('init', 'foodrx_maybe_apply_homepage_content', 22);
 
 /**
  * Re-apply inner page header settings when Food Rx page meta changes.
@@ -555,11 +633,20 @@ function foodrx_render_setup_admin_page() {
 	}
 
 	if (isset($_POST['foodrx_restore_homepage']) && check_admin_referer('foodrx_restore_homepage')) {
-		if (foodrx_restore_demo_homepage()) {
+		if (foodrx_apply_homepage_content()) {
+			update_option('foodrx_homepage_content_version', FOODRX_HOMEPAGE_CONTENT_VERSION);
 			foodrx_apply_site_page_meta();
-			echo '<div class="notice notice-success"><p>Demo homepage layout was restored.</p></div>';
+			echo '<div class="notice notice-success"><p>Food Rx homepage content was applied.</p></div>';
 		} else {
-			echo '<div class="notice notice-error"><p>Could not restore the demo homepage. Check that a page titled Home exists.</p></div>';
+			echo '<div class="notice notice-error"><p>Could not update the homepage. Check that a front page is set in Settings → Reading.</p></div>';
+		}
+	}
+
+	if (isset($_POST['foodrx_restore_full_demo_homepage']) && check_admin_referer('foodrx_restore_full_demo_homepage')) {
+		if (foodrx_restore_full_demo_homepage()) {
+			echo '<div class="notice notice-success"><p>Full CMSMasters demo homepage was restored.</p></div>';
+		} else {
+			echo '<div class="notice notice-error"><p>Could not restore the full demo homepage.</p></div>';
 		}
 	}
 
@@ -568,8 +655,9 @@ function foodrx_render_setup_admin_page() {
 
 	echo '<div class="wrap">';
 	echo '<h1>Food Rx Setup</h1>';
-	echo '<p>This tool updates navigation links only. It does not replace the CMSMasters homepage layout.</p>';
+	echo '<p>This tool updates navigation links and can re-apply the trimmed Food Rx homepage content.</p>';
 	echo '<p>Menu status: ' . (foodrx_is_primary_menu_configured() ? '<strong>Configured</strong>' : '<strong>Not configured</strong>') . '</p>';
+	echo '<p>Homepage content version: <code>' . (int) get_option('foodrx_homepage_content_version', 0) . '</code> / <code>' . FOODRX_HOMEPAGE_CONTENT_VERSION . '</code></p>';
 
 	if ($front_id) {
 		echo '<p>Front page template: <code>' . esc_html($front_template ?: 'default') . '</code></p>';
@@ -580,9 +668,14 @@ function foodrx_render_setup_admin_page() {
 	echo '<p><input type="submit" name="foodrx_run_menu_setup" class="button button-primary" value="Update Primary Menu Links"></p>';
 	echo '</form>';
 
-	echo '<form method="post">';
+	echo '<form method="post" style="margin-bottom: 16px;">';
 	wp_nonce_field('foodrx_restore_homepage');
-	echo '<p><input type="submit" name="foodrx_restore_homepage" class="button" value="Restore Demo Homepage Layout"></p>';
+	echo '<p><input type="submit" name="foodrx_restore_homepage" class="button" value="Apply Food Rx Homepage Content"></p>';
+	echo '</form>';
+
+	echo '<form method="post">';
+	wp_nonce_field('foodrx_restore_full_demo_homepage');
+	echo '<p><input type="submit" name="foodrx_restore_full_demo_homepage" class="button" value="Restore Full Demo Homepage"></p>';
 	echo '</form>';
 	echo '</div>';
 }
